@@ -50,8 +50,8 @@ Unit tests are written with **JUnit 5**.
 The test sources live under `test/` with the same package structure as `src/`.
 
 ### Run tests
-- In IntelliJ: högerklicka på `test/` ➜ **Run 'All Tests'**
-- Eller via Maven/Gradle om du lägger till build-tool senare (t.ex. `mvn test`)
+- In IntelliJ: right-click on `test/` ➜ **Run 'All Tests'**
+- Or via Maven/Gradle if you add a build tool later (e.g., `mvn test`)
 
 ### Current coverage
 - **BoardTest** → covers placing marks, win conditions (row, column, diagonals), full board, and invalid moves.
