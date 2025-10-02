@@ -22,7 +22,7 @@ The project is divided into packages for clarity and scalability:
 ### Why this structure?
 - **Separation of concerns** → Each package has its own responsibility.
 - **Scalability** → Easier to add new features, like new AI strategies.
-- **Readability** → Other developers (or your teacher) can quickly understand the flow.
+- **Readability** → Other developers can quickly understand the flow.
 
 ###  Directory tree
 ```
