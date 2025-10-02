@@ -45,6 +45,12 @@ src/
     ├── HumanPlayer.java
     └── Player.java
 ```
+## Tests
+Unit tests are written with **JUnit 5**.  
+The test sources live under `test/` with the same package structure as `src/`.
+
+### Current coverage
+- **BoardTest** → covers placing marks, win conditions (row, column, diagonals), full board, and invalid moves.
 
 ## Build & Run
 Standard Java project (no external deps). Code lives under `src/`.
