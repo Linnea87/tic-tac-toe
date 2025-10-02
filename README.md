@@ -14,7 +14,7 @@ A two-player Tic-Tac-Toe game in the terminal, with optional computer opponent a
 ## Project Structure
 The project is divided into packages for clarity and scalability:
 
-- **ai** → AI strategies (Random, Heuristic, Minimax).
+- **ai** → AI strategies (Random, Heuristic, Minimax). Also contains Difficulty enum.
 - **app** → Entry point and game loop (Main, Game).
 - **model** → Core classes (Board, Scoreboard, Mark enum).
 - **player** → Player interface + implementations (HumanPlayer, ComputerPlayer).
