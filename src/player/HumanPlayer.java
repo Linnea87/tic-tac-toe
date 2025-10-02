@@ -18,6 +18,9 @@ public class HumanPlayer implements Player {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Player name must be non-empty");
         }
+        if (!name.codePoints().allMatch(Character::isLetter)) {
+            throw new IllegalArgumentException("Player name must contain letters only (A–Ö)");
+        }
         if (mark == null) {
             throw new IllegalArgumentException("Mark cannot be non-null");
         }
