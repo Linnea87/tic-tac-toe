@@ -49,6 +49,10 @@ src/
 Unit tests are written with **JUnit 5**.  
 The test sources live under `test/` with the same package structure as `src/`.
 
+### Run tests
+- In IntelliJ: högerklicka på `test/` ➜ **Run 'All Tests'**
+- Eller via Maven/Gradle om du lägger till build-tool senare (t.ex. `mvn test`)
+
 ### Current coverage
 - **BoardTest** → covers placing marks, win conditions (row, column, diagonals), full board, and invalid moves.
 - **ScoreboardTest** → covers recording wins, tracking multiple players, accumulating wins per player, and handling unknown players.
@@ -56,13 +60,23 @@ The test sources live under `test/` with the same package structure as `src/`.
 ## Build & Run
 Standard Java project (no external deps). Code lives under `src/`.
 
+### How to play (input)
+Cells are numbered 1–9 left-to-right, top-to-bottom:
+```
+1 | 2 | 3
+---+---+---
+4 | 5 | 6
+---+---+---
+7 | 8 | 9
+```
+
 ## Roadmap (MVP → VG)
 * ✅ Two human players (terminal)
 * ✅ Win/draw detection, input validation
 * ✅ Restart after game ends
 * ✅ OOP structure (Board, Game, Player, Scoreboard)
 * ✅ JUnit tests for Board and Scoreboard
-* ⭐ Names & turn prompts
+* ✅ Names & turn prompts
 * ⭐ Scoreboard (wins per player)
 * ⭐ Input error handling (robust)
 * ⭐ Computer player (Random / Heuristic / Minimax)
