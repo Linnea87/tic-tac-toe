@@ -5,22 +5,59 @@ A two-player Tic-Tac-Toe game in the terminal, with optional computer opponent a
 ## UML Diagram
 ![UML Diagram](docs/treirad-uml.png)
 
-## Legend
-+ public  
-- private  
+### Legend
+\+ public  
+\- private  
 → Association  
 -▷ Implementation (interface)
 
-## Roadmap (MVP → VG)
-- ✅ Two human players (terminal)
-- ✅ Win/draw detection, input validation
-- ✅ Restart after game ends
-- ✅ OOP structure (Board, Game, Player, Scoreboard)
-- ⭐ Names & turn prompts
-- ⭐ Scoreboard (wins per player)
-- ⭐ Input error handling (robust)
-- ⭐ Computer player (Random / Heuristic / Minimax)
-- ⭐ Difficulty selection (EASY / MEDIUM / HARD)
+## Project Structure
+The project is divided into packages for clarity and scalability:
+
+- **ai** → AI strategies (Random, Heuristic, Minimax).
+- **app** → Entry point and game loop (Main, Game).
+- **model** → Core classes (Board, Scoreboard, Mark enum).
+- **player** → Player interface + implementations (HumanPlayer, ComputerPlayer).
+
+### Why this structure?
+- **Separation of concerns** → Each package has its own responsibility.
+- **Scalability** → Easier to add new features, like new AI strategies.
+- **Readability** → Other developers (or your teacher) can quickly understand the flow.
+
+###  Directory tree
+```
+src/
+├── ai/
+│   ├── AiStrategy.java
+│   ├── Difficulty.java
+│   ├── HeuristicStrategy.java
+│   ├── MinimaxStrategy.java
+│   └── RandomStrategy.java
+├── app/
+│   ├── Game.java
+│   └── Main.java
+├── model/
+│   ├── Board.java
+│   ├── Mark.java
+│   └── Scoreboard.java
+└── player/
+    ├── ComputerPlayer.java
+    ├── HumanPlayer.java
+    └── Player.java
+```
 
 ## Build & Run
 Standard Java project (no external deps). Code lives under `src/`.
+
+## Roadmap (MVP → VG)
+* ✅ Two human players (terminal)
+* ✅ Win/draw detection, input validation
+* ✅ Restart after game ends
+* ✅ OOP structure (Board, Game, Player, Scoreboard)
+* ⭐ Names & turn prompts
+* ⭐ Scoreboard (wins per player)
+* ⭐ Input error handling (robust)
+* ⭐ Computer player (Random / Heuristic / Minimax)
+* ⭐ Difficulty selection (EASY / MEDIUM / HARD)
+
+
