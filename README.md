@@ -3,7 +3,7 @@
 A two-player Tic-Tac-Toe game in the terminal, with optional computer opponent and difficulty levels.
 
 ## UML Diagram
-![UML Diagram](uml/treirad-uml.png)
+![UML Diagram](docs/treirad-uml.png)
 
 ## Legend
 + public  
