@@ -2,7 +2,7 @@ package model;
 
 public class Board {
     private final int SIZE = 3; // Board size (3x3)
-    private Mark[][] grid; // 2D array representing the board
+    private final Mark[][] grid; // 2D array representing the board
 
     // Constructor: initialize all cells as EMPTY
     public Board() {
@@ -18,18 +18,16 @@ public class Board {
     public void printBoard() {
         System.out.println();
         for (int row = 0; row < SIZE; row++) {
+            StringBuilder line = new StringBuilder();
+
             for (int col = 0; col < SIZE; col++) {
-                if(grid[row][col] == Mark.EMPTY) {
-                    System.out.println("   "); // empty space
-                }
-                else {
-                    System.out.println(" " + grid[row][col] + " ");
-                }
+                String cell =(grid[row][col] == Mark.EMPTY) ? " " : grid[row][col].toString();
+                line.append(" ").append(cell).append(" ");
                 if (col < SIZE - 1) {
-                    System.out.println("|"); // separator between cells
+                  line.append("|");
                 }
             }
-            System.out.println();
+            System.out.println(line);
             if (row < SIZE - 1) {
                 System.out.println("---+---+---");
             }
@@ -49,6 +47,20 @@ public class Board {
         return true;
     }
 
+    /**
+     * Place a mark using a single cell number (1..SIZE*SIZE).
+     * Converts to (row,col) and delegates to placeMark(row, col, mark).
+     */
+    public boolean placeMarkByCell(int cell, Mark mark) {
+        int idx = cell - 1;
+        if (idx < 0 || idx >= SIZE * SIZE) {
+            return false;
+        }
+        int row = idx / SIZE;
+        int col = idx % SIZE;
+        return placeMark(row, col, mark);
+    }
+
     // Check if the board is full (for draw condition)
     public boolean isFull() {
         for (int row = 0; row < SIZE; row++) {
@@ -63,7 +75,6 @@ public class Board {
 
     // Check if player has won
     public boolean checkWin(Mark mark) {
-
         // Check rows
         for (int row = 0; row < SIZE; row++) {
             if (grid[row][0] == mark && grid[row][1] == mark && grid[row][2] == mark) {
@@ -89,11 +100,9 @@ public class Board {
     }
 
     // Getter for the board size
-    public int getSIZE() {
+    public int getSize() {
         return SIZE;
     }
 
 
 }
-
-
