@@ -1,5 +1,6 @@
 package app;
 
+import ai.Difficulty;
 import ai.RandomStrategy;
 import model.Board;
 import model.Mark;
@@ -62,13 +63,42 @@ public class Game {
 
         System.out.println("Play against computer? (y/n): ");
         String ans = scanner.nextLine().trim().toLowerCase();
+
         if (ans.startsWith("y")) {
-            this.p2 = new ComputerPlayer("CPU-RANDOM", Mark.O, new RandomStrategy());
-            System.out.println("Player O is the Computer (Random).");
+            Difficulty diff = askDifficulty();
+
+            player.ComputerPlayer cpu;
+            switch (diff) {
+                case EASY -> cpu = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy());
+                case MEDIUM -> {
+                    // placeholder: will switch to HeuristicStrategy later
+                    cpu = new ComputerPlayer("CPU-MEDIUM", Mark.O, new RandomStrategy());
+                }
+                case HARD -> {
+                    // placeholder: will switch to MinimaxStrategy later
+                    cpu = new ComputerPlayer("CPU-HARD", Mark.O, new RandomStrategy());
+                }
+                default -> cpu = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy());
+            }
+            this.p2 = cpu;
+            System.out.println("Player O is the Computer (" + diff + ").");
         }
         else {
             String nameO = askPlayerName("Enter name for player O: ");
             this.p2 = new HumanPlayer(nameO, Mark.O, scanner);
+        }
+    }
+
+    private Difficulty askDifficulty() {
+        while (true) {
+            System.out.println("Select difficulty (EASY / MEDIUM / HARD): ");
+            String raw = scanner.nextLine().trim().toUpperCase();
+            try {
+               return Difficulty.valueOf(raw);
+            }
+            catch (IllegalArgumentException ex) {
+                System.out.println("Invalid difficulty. Please type EASY, MEDIUM, HARD.");
+            }
         }
     }
 
