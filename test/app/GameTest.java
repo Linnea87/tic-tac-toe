@@ -32,7 +32,9 @@ public class GameTest {
     @Test
     void play_xWins_once_then_quit() {
         String input = String.join("\n",
-                "Alice", "Bob",
+                "Alice",
+                "n",
+                "Bob",
                 "1", "4", "2", "5", "3",
                 "n"
         ) + "\n";
@@ -50,7 +52,9 @@ public class GameTest {
     @Test
     void play_draw_then_quit() {
         String input = String.join("\n",
-                "A", "B",
+                "A",
+                "n",
+                "B",
                 "1", "2", "3", "5", "6", "4", "7", "9", "8",
                 "n"
         ) + "\n";
@@ -59,7 +63,21 @@ public class GameTest {
         String s = out.toString();
         assertTrue(s.contains("It's a draw!"));
         assertTrue(s.contains("Thanks for playing!"));
-
-
     }
+
+    @Test
+    void play_vs_computer_quit_immediately() {
+        String input = String.join("\n",
+                "Alice",
+                "y",
+                "1", "3", "5", "7", "9",
+                "n"
+        )+"\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        new Game().play();
+        String s = out.toString();
+        assertTrue(s.contains("Player O is the Computer (Random)."));
+        assertTrue(s.contains("Thanks for playing!"));
+    }
+
 }
