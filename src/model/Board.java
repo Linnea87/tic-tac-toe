@@ -14,6 +14,15 @@ public class Board {
         }
     }
 
+    // --- Helpers: convert cell number to row/col ---
+    private int toRow(int cell) {
+            return (cell -1) / SIZE;
+    }
+
+    private int toCol(int cell) {
+        return (cell - 1) % SIZE;
+    }
+
     // Print the board in a user-friendly way
     public void printBoard() {
         System.out.println();
@@ -52,13 +61,20 @@ public class Board {
      * Converts to (row,col) and delegates to placeMark(row, col, mark).
      */
     public boolean placeMarkByCell(int cell, Mark mark) {
-        int idx = cell - 1;
-        if (idx < 0 || idx >= SIZE * SIZE) {
+        if (cell < 1 || cell > SIZE * SIZE) {
             return false;
         }
-        int row = idx / SIZE;
-        int col = idx % SIZE;
-        return placeMark(row, col, mark);
+        return placeMark(toRow(cell), toCol(cell), mark);
+    }
+
+    /**
+     * Check if a cell is empty (contains Mark.EMPTY)
+     */
+    public boolean isCellEmpty(int cell) {
+        if (cell < 1 || cell > SIZE * SIZE) {
+            return false;
+        }
+        return grid[toRow(cell)][toCol(cell)] == Mark.EMPTY;
     }
 
     // Check if the board is full (for draw condition)
