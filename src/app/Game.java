@@ -2,8 +2,10 @@ package app;
 
 import model.Board;
 import model.Mark;
+import model.Scoreboard;
 import player.HumanPlayer;
 import player.Player;
+import util.NameValidator;
 
 import java.util.Scanner;
 
@@ -12,12 +14,13 @@ public class Game {
     private Board board;
     private Player p1;
     private Player p2;
+    private final Scoreboard scoreboard;
 
     // 1) Constructor: initialize scanner, players, and board
     public Game() {
         this.scanner = new Scanner(System.in);
         this.board = new Board();
-
+        this.scoreboard = new Scoreboard();
     }
 
     // 2) Outer game loop: allows multiple rounds until the user quits
@@ -25,10 +28,14 @@ public class Game {
         printWelcome();
         setupPlayers();
 
-
         boolean again = true;
         while (again) {
             playOneRound();
+
+            // print scores after the round
+            System.out.println("\nCurrent Scoreboard:");
+            scoreboard.printScores();
+
             System.out.println("Play again? (y/n): ");
             String ans = scanner.nextLine().trim().toLowerCase();
             again = ans.startsWith("y");
@@ -59,9 +66,9 @@ public class Game {
     private String askPlayerName(String prompt) {
         while (true) {
             System.out.println(prompt);
-            String input = scanner.nextLine().trim().toLowerCase();
+            String input = scanner.nextLine().trim();
             try {
-                new HumanPlayer(input, Mark.X, new Scanner(System.in));
+                NameValidator.validateLettersOnly(input);
                 return input;
             }  catch (IllegalArgumentException ex) {
                 System.out.println(ex.getMessage() + "Try again.");
@@ -78,11 +85,7 @@ public class Game {
             System.out.println();
 
             int cell = current.chooseCell(board);
-            int[] rc = toRowCol(cell, board.getSIZE());
-            int r = rc[0], c = rc[1];
-
-            // If the chosen cell is not available, ask the same player again
-            if (!board.placeMark(r, c, current.getMark())) {
+            if (!board.placeMarkByCell(cell, current.getMark())){
                 System.out.println("That cell is not available. Try again.");
                 continue;
             }
@@ -91,6 +94,7 @@ public class Game {
             if (board.checkWin(current.getMark())) {
                 board.printBoard();
                 System.out.println("\n" + current.getName() + " (" + current.getMark() + ") Wins!");
+                scoreboard.addWin(current.getName());
                 break;
             }
 
@@ -104,13 +108,5 @@ public class Game {
             // Switch player turn
             current =(current == p1) ? p2 : p1;
         }
-    }
-
-    // 4) Helper method: map cell number (1..N^2) to row/column coordinates
-    private int[] toRowCol(int cell, int size) {
-        int idx = cell -1;
-        int row = idx / size;
-        int col = idx % size;
-        return new int[]{row, col};
     }
 }
