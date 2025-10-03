@@ -1,6 +1,7 @@
 package app;
 
 import ai.Difficulty;
+import ai.HeuristicStrategy;
 import ai.RandomStrategy;
 import model.Board;
 import model.Mark;
@@ -67,21 +68,13 @@ public class Game {
         if (ans.startsWith("y")) {
             Difficulty diff = askDifficulty();
 
-            player.ComputerPlayer cpu;
             switch (diff) {
-                case EASY -> cpu = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy());
-                case MEDIUM -> {
-                    // placeholder: will switch to HeuristicStrategy later
-                    cpu = new ComputerPlayer("CPU-MEDIUM", Mark.O, new RandomStrategy());
-                }
-                case HARD -> {
-                    // placeholder: will switch to MinimaxStrategy later
-                    cpu = new ComputerPlayer("CPU-HARD", Mark.O, new RandomStrategy());
-                }
-                default -> cpu = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy());
+                case EASY -> this.p2 = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy());
+                case MEDIUM -> this.p2 = new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy());
+                case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new RandomStrategy());
+                                                        // <-- placeholder for MinimaxStrategy
+                default -> this.p2 = new ComputerPlayer("CPU-DEFAULT", Mark.O, new RandomStrategy());
             }
-            this.p2 = cpu;
-            System.out.println("Player O is the Computer (" + diff + ").");
         }
         else {
             String nameO = askPlayerName("Enter name for player O: ");

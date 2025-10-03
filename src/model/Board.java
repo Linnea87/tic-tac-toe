@@ -120,5 +120,15 @@ public class Board {
         return SIZE;
     }
 
+    /**
+     * GEt the mark at a specific cell (1..SIZE*SIZE).
+     */
+    public Mark getMarkAtCell(int cell) {
+        if (cell < 1 || cell > SIZE * SIZE) {
+            throw new IllegalArgumentException("Invalid cell: " + cell);
+        }
+        return grid[toRow(cell)][toCol(cell)];
+    }
+
 
 }
