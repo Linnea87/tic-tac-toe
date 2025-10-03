@@ -23,6 +23,18 @@ public class Scoreboard {
         scores.clear();
     }
 
+    // Print all scores
+    public void printScores() {
+        if (scores.isEmpty()) {
+            System.out.println("No wins yet!");
+            return;
+        }
+        System.out.println("=== Scoreboard ===");
+        for (Map.Entry<String, Integer> entry : scores.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue() + " wins");
+        }
+    }
+
     // Internal guard for input
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
