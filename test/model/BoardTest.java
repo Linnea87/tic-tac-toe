@@ -62,12 +62,12 @@ public class BoardTest {
     @Test
     void testBoardIsFull() {
         Board board = new Board();
-        for (int r = 0; r < board.getSIZE(); r++) {
-            for (int c = 0; c < board.getSIZE(); c++) {
+        for (int r = 0; r < board.getSize(); r++) {
+            for (int c = 0; c < board.getSize(); c++) {
                 board.placeMark(r, c, Mark.X);
             }
         }
-        assertTrue(board.isFull(), "Board should be full after " + (board.getSIZE() * board.getSIZE()) + " moves");
+        assertTrue(board.isFull(), "Board should be full after " + (board.getSize() * board.getSize()) + " moves");
     }
 
     @Test
@@ -75,8 +75,8 @@ public class BoardTest {
         Board board = new Board();
         assertFalse(board.placeMark(-1, 0, Mark.X), "Row -1 is invalid");
         assertFalse(board.placeMark(0, -1, Mark.X), "Col -1 is invalid");
-        assertFalse(board.placeMark( board.getSIZE(), 0, Mark.X), "Row SIZE is invalid");
-        assertFalse(board.placeMark(0, board.getSIZE(), Mark.X), "Col SIZE is invalid");
+        assertFalse(board.placeMark( board.getSize(), 0, Mark.X), "Row SIZE is invalid");
+        assertFalse(board.placeMark(0, board.getSize(), Mark.X), "Col SIZE is invalid");
     }
 
     @Test
