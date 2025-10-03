@@ -58,7 +58,13 @@ The test sources live under `test/` with the same package structure as `src/`.
 - **ScoreboardTest** → covers recording wins, tracking multiple players, accumulating wins per player, and handling unknown players.
 - **NameValidatorTest** → ensures valid names pass and invalid names throw exceptions.
 - **HumanPlayerTest** → validates constructor args and tests the input loop for choosing cells.
-- **GameTest** → runs a full round (win/draw) end-to-end and checks scoreboard + restart flow.
+- **ComputerPlayerTest** → ensures computer moves are chosen within valid bounds and only on empty cells.
+- **RandomStrategyTest** → checks that AI strategy always returns a valid, empty cell.
+- **GameTest** → runs full rounds end-to-end:
+    - Player X winning a game
+    - A draw scenario
+    - Playing against the computer (**ComputerPlayer + RandomStrategy**)
+    - Scoreboard and restart flow
 
 ## Build & Run
 Standard Java project (no external deps). Code lives under `src/`.
