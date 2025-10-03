@@ -56,6 +56,9 @@ The test sources live under `test/` with the same package structure as `src/`.
 ### Current coverage
 - **BoardTest** → covers placing marks, win conditions (row, column, diagonals), full board, and invalid moves.
 - **ScoreboardTest** → covers recording wins, tracking multiple players, accumulating wins per player, and handling unknown players.
+- **NameValidatorTest** → ensures valid names pass and invalid names throw exceptions.
+- **HumanPlayerTest** → validates constructor args and tests the input loop for choosing cells.
+- **GameTest** → runs a full round (win/draw) end-to-end and checks scoreboard + restart flow.
 
 ## Build & Run
 Standard Java project (no external deps). Code lives under `src/`.
