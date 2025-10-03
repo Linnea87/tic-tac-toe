@@ -1,4 +1,60 @@
 package player;
 
-public class ComputerPlayer {
+import ai.AiStrategy;
+import model.Board;
+import model.Mark;
+
+/**
+ * ComputerPlayer:
+ * A player controlled by an AI strategy. The strategy decides which cell to choose
+ */
+public class ComputerPlayer implements Player {
+    private final String name;
+    private final Mark mark;
+    private final AiStrategy strategy;
+
+    /**
+     * Create a computer-controlled player
+     *
+     * @param name     display name, e.g., "CPU-EASY"
+     * @param mark     the player's mark (X or O)
+     * @param strategy the AI strategy used to pick moves
+     * @throws IllegalArgumentException if any argument is invalid
+     */
+    public ComputerPlayer(String name, Mark mark, AiStrategy strategy) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name required");
+        }
+        if (mark == null){
+            throw new IllegalArgumentException("Mark required");
+        }
+        if (strategy == null){
+            throw new IllegalArgumentException("Strategy required");
+        }
+
+        this.name = name.trim();
+        this.mark = mark;
+        this.strategy = strategy;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+    @Override
+    public Mark getMark() {
+        return mark;
+    }
+
+    /**
+     * Delegate the move decision to the AI strategy
+     * @param board current game board
+     * @return a valid cell number (1..size^2)
+     */
+    @Override
+    public int chooseCell(Board board) {
+        // Delegates to the chosen AI strategy
+        return strategy.chooseCell(board, mark);
+    }
+
 }

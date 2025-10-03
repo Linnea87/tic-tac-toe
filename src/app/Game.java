@@ -1,8 +1,10 @@
 package app;
 
+import ai.RandomStrategy;
 import model.Board;
 import model.Mark;
 import model.Scoreboard;
+import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
 import util.NameValidator;
@@ -55,12 +57,19 @@ public class Game {
     }
 
     private void setupPlayers() {
-        String nameX = askPlayerName("Enter name for player X: ");
-        String nameO = askPlayerName("Enter name for player O: ");
-
-        // Reuse the same scanner for both players
+        String nameX = askPlayerName("Enter name for Player X: ");
         this.p1 = new HumanPlayer(nameX, Mark.X, scanner);
-        this.p2 = new HumanPlayer(nameO, Mark.O, scanner);
+
+        System.out.println("Play against computer? (y/n): ");
+        String ans = scanner.nextLine().trim().toLowerCase();
+        if (ans.startsWith("y")) {
+            this.p2 = new ComputerPlayer("CPU-RANDOM", Mark.O, new RandomStrategy());
+            System.out.println("Player O is the Computer (Random).");
+        }
+        else {
+            String nameO = askPlayerName("Enter name for player O: ");
+            this.p2 = new HumanPlayer(nameO, Mark.O, scanner);
+        }
     }
 
     private String askPlayerName(String prompt) {
