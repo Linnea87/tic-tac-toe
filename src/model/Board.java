@@ -121,7 +121,7 @@ public class Board {
     }
 
     /**
-     * GEt the mark at a specific cell (1..SIZE*SIZE).
+     * Get the mark at a specific cell (1..SIZE*SIZE).
      */
     public Mark getMarkAtCell(int cell) {
         if (cell < 1 || cell > SIZE * SIZE) {

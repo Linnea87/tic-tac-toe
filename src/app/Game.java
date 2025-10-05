@@ -2,6 +2,7 @@ package app;
 
 import ai.Difficulty;
 import ai.HeuristicStrategy;
+import ai.MinimaxStrategy;
 import ai.RandomStrategy;
 import model.Board;
 import model.Mark;
@@ -71,7 +72,7 @@ public class Game {
             switch (diff) {
                 case EASY -> this.p2 = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy());
                 case MEDIUM -> this.p2 = new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy());
-                case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new RandomStrategy());
+                case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy());
                                                         // <-- placeholder for MinimaxStrategy
                 default -> this.p2 = new ComputerPlayer("CPU-DEFAULT", Mark.O, new RandomStrategy());
             }
@@ -141,4 +142,5 @@ public class Game {
             current =(current == p1) ? p2 : p1;
         }
     }
+
 }
