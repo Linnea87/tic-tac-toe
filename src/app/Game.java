@@ -73,9 +73,9 @@ public class Game {
                 case EASY -> this.p2 = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy());
                 case MEDIUM -> this.p2 = new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy());
                 case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy());
-                                                        // <-- placeholder for MinimaxStrategy
                 default -> this.p2 = new ComputerPlayer("CPU-DEFAULT", Mark.O, new RandomStrategy());
             }
+            System.out.println("Player O is the Computer (" + diff + ").");
         }
         else {
             String nameO = askPlayerName("Enter name for player O: ");

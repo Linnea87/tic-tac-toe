@@ -66,18 +66,54 @@ public class GameTest {
     }
 
     @Test
-    void play_vs_computer_quit_immediately() {
+    void play_vs_computer__easy_completes_round() {
         String input = String.join("\n",
                 "Alice",
                 "y",
-                "1", "3", "5", "7", "9",
+                "EASY",
+                "1","2","3","4","5","6","7","8","9",
+                "1","2","3","4","5","6","7","8","9",
                 "n"
-        )+"\n";
+        ) + "\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game().play();
         String s = out.toString();
-        assertTrue(s.contains("Player O is the Computer (Random)."));
+        assertTrue(s.contains("Player O is the Computer (EASY)."));
+        assertTrue(s.contains("Thanks for playing!"));
+
+    }
+
+    @Test
+    void play_vs_computer_medium_quit_immediately() {
+        String input = String.join("\n",
+                "Alice",
+                "y",
+                "MEDIUM",
+                "1","2","3","4","5","6","7","8","9",
+                "1","2","3","4","5","6","7","8","9",
+                "n"
+        ) + "\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        new Game().play();
+        String s = out.toString();
+        assertTrue(s.contains("Player O is the Computer (MEDIUM)."));
         assertTrue(s.contains("Thanks for playing!"));
     }
 
+    @Test
+    void play_vs_computer_Hard_quit_immediately() {
+        String input = String.join("\n",
+                "Alice",
+                "y",
+                "Hard",
+                "1", "3", "5","7", "9",
+                "n"
+        ) + "\n";
+
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        new Game().play();
+        String s = out.toString();
+        assertTrue(s.contains("Player O is the Computer (HARD)."));
+        assertTrue(s.contains("Thanks for playing!"));
+    }
 }
