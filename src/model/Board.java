@@ -149,4 +149,15 @@ public class Board {
         }
         return grid[toRow(cell)][toCol(cell)];
     }
+
+    public String formatCell(int cell) {
+        if (cell < 1 || cell > SIZE * SIZE) {
+            throw new IllegalArgumentException("Invalid cell: " + cell);
+        }
+        int row = (cell - 1) / SIZE;
+        int col = (cell - 1) % SIZE;
+        char colChar = (char) ('A' + col);
+        char rowChar = (char) ('1' + row);
+        return "" + colChar + rowChar;
+    }
 }

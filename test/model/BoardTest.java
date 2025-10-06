@@ -89,6 +89,26 @@ public class BoardTest {
         assertFalse(board.checkWin(Mark.O), "O should not have a win yet");
     }
 
+    @Test
+    void formatCell_returnCorrectNotation() {
+        Board board = new Board();
+        assertEquals("A1", board.formatCell(1));
+        assertEquals("B1", board.formatCell(2));
+        assertEquals("C1", board.formatCell(3));
+        assertEquals("A2", board.formatCell(4));
+        assertEquals("B2", board.formatCell(5));
+        assertEquals("C2", board.formatCell(6));
+        assertEquals("A3", board.formatCell(7));
+        assertEquals("B3", board.formatCell(8));
+        assertEquals("C3", board.formatCell(9));
+    }
+
+    @Test
+    void formatCell_invalidCell_throwsException() {
+        Board board = new Board();
+        assertThrows(IllegalArgumentException.class, () -> board.formatCell(0));
+        assertThrows(IllegalArgumentException.class, () -> board.formatCell(10));
+    }
 
 
 }

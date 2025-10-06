@@ -125,6 +125,11 @@ public class Game {
                 continue;
             }
 
+            if (current instanceof ComputerPlayer) {
+                String move = board.formatCell(cell);
+                System.out.println(current.getName() + " (" + current.getMark() + ") played " + move);
+            }
+
             // Check if current player has won
             if (board.checkWin(current.getMark())) {
                 board.printBoard();
@@ -144,5 +149,4 @@ public class Game {
             current =(current == p1) ? p2 : p1;
         }
     }
-
 }
