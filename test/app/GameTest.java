@@ -35,12 +35,11 @@ public class GameTest {
                 "Alice",
                 "n",
                 "Bob",
-                "1", "4", "2", "5", "3",
+                "A1", "A2", "B1", "B2", "C1",
                 "n"
         ) + "\n";
 
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-
         new Game().play();
 
         String s = out.toString();
@@ -55,11 +54,12 @@ public class GameTest {
                 "A",
                 "n",
                 "B",
-                "1", "2", "3", "5", "6", "4", "7", "9", "8",
+                "A1", "B1", "C1", "B2","C2", "A2", "A3", "C3", "B3",
                 "n"
         ) + "\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game().play();
+
         String s = out.toString();
         assertTrue(s.contains("It's a draw!"));
         assertTrue(s.contains("Thanks for playing!"));
@@ -71,8 +71,8 @@ public class GameTest {
                 "Alice",
                 "y",
                 "EASY",
-                "1","2","3","4","5","6","7","8","9",
-                "1","2","3","4","5","6","7","8","9",
+                "A1","B1","C1","A2","B2","C2","A3","B3","C3",
+                "A1","B1","C1","A2","B2","C2","A3","B3","C3",
                 "n"
         ) + "\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -89,8 +89,8 @@ public class GameTest {
                 "Alice",
                 "y",
                 "MEDIUM",
-                "1","2","3","4","5","6","7","8","9",
-                "1","2","3","4","5","6","7","8","9",
+                "A1","B1","C1","A2","B2","C2","A3","B3","C3",
+                "A1","B1","C1","A2","B2","C2","A3","B3","C3",
                 "n"
         ) + "\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -106,7 +106,7 @@ public class GameTest {
                 "Alice",
                 "y",
                 "Hard",
-                "1", "3", "5","7", "9",
+                "A1", "C1", "B2","A3", "C3",
                 "n"
         ) + "\n";
 
