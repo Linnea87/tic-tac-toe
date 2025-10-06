@@ -21,6 +21,7 @@ public class Game {
     private Player p2;
     private final Scoreboard scoreboard;
     private final boolean thinkingDelay;
+    private final Menu menu;
 
     public Game() {
         this(true);
@@ -31,15 +32,18 @@ public class Game {
         this.board = new Board();
         this.scoreboard = new Scoreboard();
         this.thinkingDelay = thinkingDelay;
+        this.menu = new Menu(this.scanner);
+
     }
 
     // 2) Outer game loop: allows multiple rounds until the user quits
     public void play() {
         printWelcome();
-        setupPlayers();
 
         boolean again = true;
         while (again) {
+            setupPlayers();
+            board = new Board();
             playOneRound();
 
             // print scores after the round
@@ -49,9 +53,6 @@ public class Game {
             System.out.println("Play again? (y/n): ");
             String ans = scanner.nextLine().trim().toLowerCase();
             again = ans.startsWith("y");
-            if (again) {
-                board = new Board(); // reset board for a new round
-            }
         }
         System.out.println("Thanks for playing!");
     }
@@ -67,52 +68,23 @@ public class Game {
     }
 
     private void setupPlayers() {
-        String nameX = askPlayerName("Enter name for Player X: ");
+        Mode mode = menu.askMode();
+        String nameX = menu.askPlayerName("Enter name for Player X: ");
         this.p1 = new HumanPlayer(nameX, Mark.X, scanner);
 
-        System.out.println("Play against computer? (y/n): ");
-        String ans = scanner.nextLine().trim().toLowerCase();
-
-        if (ans.startsWith("y")) {
-            Difficulty diff = askDifficulty();
-
+        if (mode == Mode.HUMAN_VS_CPU) {
+            Difficulty diff = menu.askDifficulty();
             switch (diff) {
                 case EASY -> this.p2 = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy(), thinkingDelay);
                 case MEDIUM -> this.p2 = new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy(), thinkingDelay);
                 case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy(), thinkingDelay);
                 default -> this.p2 = new ComputerPlayer("CPU-DEFAULT", Mark.O, new RandomStrategy(), thinkingDelay);
             }
-            System.out.println("Player O is the Computer (" + diff + ").");
+           System.out.println("Player O is the Computer (" + diff + ").");
         }
         else {
-            String nameO = askPlayerName("Enter name for player O: ");
-            this.p2 = new HumanPlayer(nameO, Mark.O, scanner);
-        }
-    }
-
-    private Difficulty askDifficulty() {
-        while (true) {
-            System.out.println("Select difficulty (EASY / MEDIUM / HARD): ");
-            String raw = scanner.nextLine().trim().toUpperCase();
-            try {
-               return Difficulty.valueOf(raw);
-            }
-            catch (IllegalArgumentException ex) {
-                System.out.println("Invalid difficulty. Please type EASY, MEDIUM, HARD.");
-            }
-        }
-    }
-
-    private String askPlayerName(String prompt) {
-        while (true) {
-            System.out.println(prompt);
-            String input = scanner.nextLine().trim();
-            try {
-                NameValidator.validateLettersOnly(input);
-                return input;
-            }  catch (IllegalArgumentException ex) {
-                System.out.println(ex.getMessage() + "Try again.");
-            }
+           String nameO = menu.askPlayerName("Enter name for player O: ");
+           this.p2 = new HumanPlayer(nameO, Mark.O, scanner);
         }
     }
 
