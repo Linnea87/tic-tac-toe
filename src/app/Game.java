@@ -56,6 +56,8 @@ public class Game {
         System.out.println("   Welcome to Tic-Tac-Toe!");
         System.out.println(" Two players take turns to play.");
         System.out.println(" Get three in a row to win!");
+        System.out.println();
+        System.out.println(" Enter moves as column+row, e.g. A1, B2, C3.");
         System.out.println("===================================\n");
     }
 
