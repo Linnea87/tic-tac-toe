@@ -20,12 +20,17 @@ public class Game {
     private Player p1;
     private Player p2;
     private final Scoreboard scoreboard;
+    private final boolean thinkingDelay;
 
-    // 1) Constructor: initialize scanner, players, and board
     public Game() {
+        this(true);
+    }
+    // 1) Constructor: initialize scanner, players, and board
+    public Game(boolean thinkingDelay) {
         this.scanner = new Scanner(System.in);
         this.board = new Board();
         this.scoreboard = new Scoreboard();
+        this.thinkingDelay = thinkingDelay;
     }
 
     // 2) Outer game loop: allows multiple rounds until the user quits
@@ -72,10 +77,10 @@ public class Game {
             Difficulty diff = askDifficulty();
 
             switch (diff) {
-                case EASY -> this.p2 = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy());
-                case MEDIUM -> this.p2 = new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy());
-                case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy());
-                default -> this.p2 = new ComputerPlayer("CPU-DEFAULT", Mark.O, new RandomStrategy());
+                case EASY -> this.p2 = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy(), thinkingDelay);
+                case MEDIUM -> this.p2 = new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy(), thinkingDelay);
+                case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy(), thinkingDelay);
+                default -> this.p2 = new ComputerPlayer("CPU-DEFAULT", Mark.O, new RandomStrategy(), thinkingDelay);
             }
             System.out.println("Player O is the Computer (" + diff + ").");
         }
@@ -123,11 +128,6 @@ public class Game {
             if (!board.placeMarkByCell(cell, current.getMark())){
                 System.out.println("That cell is not available. Try again.");
                 continue;
-            }
-
-            if (current instanceof ComputerPlayer) {
-                String move = board.formatCell(cell);
-                System.out.println(current.getName() + " (" + current.getMark() + ") played " + move);
             }
 
             // Check if current player has won

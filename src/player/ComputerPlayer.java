@@ -12,7 +12,11 @@ public class ComputerPlayer implements Player {
     private final String name;
     private final Mark mark;
     private final AiStrategy strategy;
+    private final boolean thinkingDelay;
 
+    public ComputerPlayer(String name, Mark mark, AiStrategy strategy) {
+        this(name, mark, strategy, true);
+    }
     /**
      * Create a computer-controlled player
      *
@@ -21,7 +25,7 @@ public class ComputerPlayer implements Player {
      * @param strategy the AI strategy used to pick moves
      * @throws IllegalArgumentException if any argument is invalid
      */
-    public ComputerPlayer(String name, Mark mark, AiStrategy strategy) {
+    public ComputerPlayer(String name, Mark mark, AiStrategy strategy, boolean thinkingDelay) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name required");
         }
@@ -35,14 +39,17 @@ public class ComputerPlayer implements Player {
         this.name = name.trim();
         this.mark = mark;
         this.strategy = strategy;
+        this.thinkingDelay = thinkingDelay;
     }
 
     @Override
     public String getName() {
+
         return name;
     }
     @Override
     public Mark getMark() {
+
         return mark;
     }
 
@@ -53,8 +60,27 @@ public class ComputerPlayer implements Player {
      */
     @Override
     public int chooseCell(Board board) {
+        System.out.println(name + " (" + mark + ") is thinking....");
+        if (thinkingDelay) {
+            try {
+                Thread.sleep(350);
+            }
+            catch (InterruptedException ignored) {}
+        }
+
+        int cell = strategy.chooseCell(board, mark);
+
+        String move = board.formatCell(cell);
+        System.out.println(name + " (" + mark + ") played " + move);
+        if (thinkingDelay) {
+            try {
+                Thread.sleep(200);
+            }
+            catch (InterruptedException ignored) {}
+        }
+
         // Delegates to the chosen AI strategy
-        return strategy.chooseCell(board, mark);
+        return cell;
     }
 
 }

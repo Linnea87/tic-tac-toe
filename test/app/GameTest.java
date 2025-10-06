@@ -76,7 +76,8 @@ public class GameTest {
                 "n"
         ) + "\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        new Game().play();
+        new Game(false).play();
+
         String s = out.toString();
         assertTrue(s.contains("Player O is the Computer (EASY)."));
         assertTrue(s.contains("Thanks for playing!"));
@@ -94,7 +95,8 @@ public class GameTest {
                 "n"
         ) + "\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        new Game().play();
+        new Game(false).play();
+
         String s = out.toString();
         assertTrue(s.contains("Player O is the Computer (MEDIUM)."));
         assertTrue(s.contains("Thanks for playing!"));
@@ -111,7 +113,8 @@ public class GameTest {
         ) + "\n";
 
         System.setIn(new ByteArrayInputStream(input.getBytes()));
-        new Game().play();
+        new Game(false).play();
+
         String s = out.toString();
         assertTrue(s.contains("Player O is the Computer (HARD)."));
         assertTrue(s.contains("Thanks for playing!"));
