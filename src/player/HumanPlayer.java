@@ -2,6 +2,7 @@ package player;
 
 import model.Board;
 import model.Mark;
+import util.CellParser;
 import util.NameValidator;
 
 import java.util.Scanner;
@@ -41,29 +42,24 @@ public class HumanPlayer implements Player {
 
     /**
      * Ask the human player to choose a cell.
-     * Input is validated:
-     *  - must be an integer
-     *  - must be within the valid board of range (1..SIZE*SIZE)
+     * Input is validated as chess-style coordinates:
+     *  - must be exactly 2 chars
+     *  - column letter A..C, then row digit 1..3 (e.g., A1, B2, C3)
      * Keeps looping until valid input is given.
      *
-     * @param board the current game board (for knowing its size)
-     * @return a valid cell number (1..SIZE*SIZE
+     * @param board the current game board (for size/range)
+     * @return a valid cell number in 1..SIZE*SIZE
      */
     @Override
     public int chooseCell(Board board) {
-        int max = board.getSize() * board.getSize();
         while (true) {
-            System.out.println(name + " (" + mark + "), choose a cell (1-" + max + "): ");
+            System.out.println(name + " (" + mark + "), choose a cell (e.g., A1, B2, C3): ");
             String raw = scanner.nextLine().trim();
             try {
-                int cell = Integer.parseInt(raw);
-                if (cell >= 1 && cell <= max) {
-                   return cell;
-                }
-                System.out.println("Out of range. Please enter a number.");
+                return CellParser.parse(raw, board);
             }
-            catch (NumberFormatException ex) {
-                System.out.println("Invalid input. Please enter a number.");
+            catch (IllegalArgumentException ex) {
+                System.out.println(ex.getMessage() + " Try again.");
             }
         }
     }

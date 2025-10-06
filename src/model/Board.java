@@ -25,23 +25,43 @@ public class Board {
 
     // Print the board in a user-friendly way
     public void printBoard() {
-        System.out.println();
+        final String PURPLE = "\u001B[35m";
+        final String YELLOW = "\u001B[33m";
+        final String RESET = "\u001B[0m";
+        final String CYAN = "\u001B[36m";
+        final String GRAY = "\u001B[90m";
+
+        // Header
+        System.out.println("    " + CYAN + "A" + RESET + "   " + CYAN + "B" + RESET + "   " + CYAN + "C" + RESET);
+
         for (int row = 0; row < SIZE; row++) {
+            // Row content
             StringBuilder line = new StringBuilder();
+            line.append(row + 1).append("  ");
 
             for (int col = 0; col < SIZE; col++) {
-                String cell =(grid[row][col] == Mark.EMPTY) ? " " : grid[row][col].toString();
+                Mark m = grid[row][col];
+                String cell;
+                if (m == Mark.X) {
+                    cell = PURPLE + "X" + RESET;
+                } else if (m == Mark.O) {
+                    cell = YELLOW + "O" + RESET;
+                } else {
+                    cell = " ";
+                }
+
                 line.append(" ").append(cell).append(" ");
                 if (col < SIZE - 1) {
-                  line.append("|");
+                    line.append(GRAY).append("|").append(RESET);
                 }
             }
             System.out.println(line);
+
+            // Separator line
             if (row < SIZE - 1) {
-                System.out.println("---+---+---");
+                System.out.println("   " + GRAY + "---+---+---" + RESET);
             }
         }
-        System.out.println();
     }
 
     // Try to place a mark at a given position
@@ -129,6 +149,4 @@ public class Board {
         }
         return grid[toRow(cell)][toCol(cell)];
     }
-
-
 }
