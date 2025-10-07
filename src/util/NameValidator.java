@@ -9,11 +9,11 @@ public class NameValidator {
 
     public static void validateLettersOnly(String name) {
         if (name == null) {
-            throw new IllegalArgumentException("Player name must be non-empty");
+            throw new IllegalArgumentException(Messages.ERR_NAME_EMPTY);
         }
         String trimmed = name.trim();
         if (trimmed.isBlank()) {
-            throw new IllegalArgumentException("Player name must be non-empty");
+            throw new IllegalArgumentException(Messages.ERR_NAME_LETTERS);
         }
         boolean lettersOnly = trimmed.codePoints().allMatch(Character::isLetter);
         if (!lettersOnly) {
