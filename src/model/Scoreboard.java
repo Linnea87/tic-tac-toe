@@ -1,5 +1,4 @@
 package model;
-
 import util.ConsoleColors;
 import util.ConsoleUI;
 import util.Messages;
@@ -9,6 +8,7 @@ import java.util.Map;
 
 public class Scoreboard {
     private final Map<String, Integer> scores = new HashMap<>();
+    private final Map<String, Mark> marksByName = new HashMap<>();
 
     // Add one win for the given player (name must be non-empty)
     public void addWin(String playerName) {
@@ -16,9 +16,12 @@ public class Scoreboard {
         scores.put(playerName, scores.getOrDefault(playerName, 0) + 1);
     }
 
-    public void ensurePlayer(String playerName) {
+    public void ensurePlayer(String playerName, Mark mark) {
         validateName(playerName);
         scores.putIfAbsent(playerName, 0);
+        if (mark != null) {
+            marksByName.put(playerName, mark);
+        }
     }
 
     // Read current wins for a player (0 if unknown)
@@ -30,6 +33,7 @@ public class Scoreboard {
     // Clear all scores
     public void reset() {
         scores.clear();
+        marksByName.clear();
     }
 
     // Print all scores
@@ -39,26 +43,27 @@ public class Scoreboard {
             System.out.println("No results yet");
             return;
         }
-        int nameWidth = 6;
+        int tmpWidth = 6;
         for (String n : scores.keySet()) {
-            if (n != null) nameWidth = Math.max(nameWidth, n.length());
+            if (n != null) tmpWidth = Math.max(tmpWidth, n.length());
         }
+        final int nameWidth = tmpWidth;
 
-        final String header = String.format(
-                "%-" + nameWidth + "s  %s",
-                ConsoleColors.CYAN + "Player" + ConsoleColors.RESET,
-                ConsoleColors.CYAN + "Wins" + ConsoleColors.RESET
-        );
+        final String header =
+                ConsoleColors.CYAN + String.format("%-" + nameWidth + "s", "Player") + ConsoleColors.RESET
+               + "  "
+                + ConsoleColors.CYAN + "Wins" + ConsoleColors.RESET;
 
-        final String rowFormat = "%-" + nameWidth + "s  %d%n" ;
         System.out.println(header);
         System.out.println(ConsoleColors.GRAY + "-".repeat(header.length()) + ConsoleColors.RESET);
 
         scores.entrySet().stream()
                 .sorted((a, b) -> a.getKey().compareToIgnoreCase(b.getKey()))
                 .forEach(e -> {
-                    String coloredName = colorizeName(e.getKey());
-                    System.out.printf(rowFormat, coloredName, e.getKey());
+                    String rawName = e.getKey();
+                    String coloredName = colorizeNameByMark(rawName);
+                    String paddedColoredName = coloredName + " ".repeat(Math.max(0, nameWidth - rawName.length()));
+                    System.out.println(paddedColoredName + "   " + e.getValue());
                 });
     }
 
@@ -70,15 +75,14 @@ public class Scoreboard {
 
     }
 
-    private String colorizeName(String name) {
-        if (name.toUpperCase().contains("X")) {
-            return ConsoleColors.PURPLE + name + ConsoleColors.RESET;
-        }
-        else if (name.toUpperCase().contains("O")) {
-            return ConsoleColors.YELLOW + name + ConsoleColors.RESET;
-        }
-        else {
-            return name;
-        }
+    private String colorizeNameByMark(String name) {
+        Mark m = marksByName.get(name);
+       if (m == Mark.X) {
+           return ConsoleColors.PURPLE + name + ConsoleColors.RESET;
+       }
+       if (m == Mark.O) {
+           return ConsoleColors.YELLOW + name + ConsoleColors.RESET;
+       }
+       return name;
     }
 }
