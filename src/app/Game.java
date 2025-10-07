@@ -11,6 +11,7 @@ import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
 import util.ConsoleUI;
+import util.Messages;
 
 import java.util.Scanner;
 
@@ -84,7 +85,7 @@ public class Game {
     // ----- Player setup -----
 
     private void setupPlayers() {
-        String nameX = menu.askPlayerName("Enter name for Player X: ");
+        String nameX = menu.askPlayerName(Messages.PROMPT_PLAYER_NAME.formatted("Player X"));
         this.p1 = new HumanPlayer(nameX, Mark.X, scanner);
         this.p2 = createPlayerO();
 
@@ -109,7 +110,7 @@ public class Game {
            return cpu;
         }
         else {
-          String nameO = menu.askPlayerName("Enter name for player O: ");
+          String nameO = menu.askPlayerName(Messages.PROMPT_PLAYER_NAME.formatted("Player O"));
           return new HumanPlayer(nameO, Mark.O, scanner);
         }
     }
