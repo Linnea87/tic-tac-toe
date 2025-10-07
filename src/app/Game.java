@@ -89,13 +89,13 @@ public class Game {
         this.p1 = new HumanPlayer(nameX, Mark.X, scanner);
         this.p2 = createPlayerO();
 
-        scoreboard.ensurePlayer(p1.getName());
-        scoreboard.ensurePlayer(p2.getName());
+        scoreboard.ensurePlayer(p1.getName(), p1.getMark());
+        scoreboard.ensurePlayer(p2.getName(), p2.getMark());
     }
     private void setupOpponentOnly() {
         this.p2 = createPlayerO();
-        scoreboard.ensurePlayer(p2.getName());
-    }
+        scoreboard.ensurePlayer(p2.getName(), p2.getMark());    }
+
     private Player createPlayerO() {
         Mode mode = menu.askMode();
         if (mode == Mode.HUMAN_VS_CPU) {
