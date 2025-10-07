@@ -1,31 +1,33 @@
 package app;
 
 import ai.Difficulty;
+import util.ConsoleColors;
+import util.ConsoleUI;
+import util.Messages;
 import util.NameValidator;
 
+import java.io.Console;
 import java.util.Scanner;
 
 public class Menu {
     private final Scanner scanner;
 
-    public void clearScreen() {
-        for (int i = 0; i < 3; i++) {
-            System.out.println();
-        }
-    }
-
     public Menu(Scanner scanner) {
         this.scanner = scanner;
     }
 
+    public void clearScreen() {
+        ConsoleUI.clearScreen();
+    }
+
     public Mode askMode() {
         while (true) {
-            System.out.println("Select mode");
+            System.out.println(Messages.PROMPT_MODE_TITLE);
             Mode[] modes = Mode.values();
-            for (int i = 0; i < Mode.values().length; i++) {
-                System.out.println("  " + (i + 1) + ") " + Mode.values()[i].getLabel());
+            for (int i = 0; i < modes.length; i++) {
+                System.out.println("  " + (i + 1) + ") " + modes[i].getLabel());
             }
-            System.out.println("Enter 1-" + modes.length + ": ");
+            System.out.printf(Messages.PROMPT_RANGE, modes.length);
 
             String raw = scanner.nextLine().trim();
             try {
@@ -34,19 +36,20 @@ public class Menu {
                     return modes[choice - 1];
                 }
             } catch (NumberFormatException ignored) {}
-            System.out.println("Invalid choice. Please enter a number 1-" + modes.length + ".");
+            ConsoleUI.printInvalidChoice(modes.length);
         }
     }
 
     public Difficulty askDifficulty() {
         while (true) {
-            System.out.println("Select difficulty (EASY / MEDIUM / HARD): ");
+            System.out.println(Messages.PROMPT_DIFFICULTY);
             String raw = scanner.nextLine().trim().toUpperCase();
             try {
                 return Difficulty.valueOf(raw);
             }
             catch (IllegalArgumentException ex) {
-                System.out.println("Invalid difficulty. Please type EASY, MEDIUM, HARD.");
+                ConsoleUI.printDifficultyError();
+
             }
         }
     }
@@ -59,7 +62,7 @@ public class Menu {
                 NameValidator.validateLettersOnly(input);
                 return input;
             }  catch (IllegalArgumentException ex) {
-                System.out.println(ex.getMessage() + "Try again.");
+                ConsoleUI.printNameError(ex.getMessage());
             }
         }
     }
@@ -67,12 +70,12 @@ public class Menu {
     public PostGameChoice askPostGameChoice() {
         while (true) {
             System.out.println();
-            System.out.println("What would you like to do?");
+            System.out.println(Messages.PROMPT_POSTGAME_TITLE);
             PostGameChoice[] options = PostGameChoice.values();
             for (int i = 0; i < options.length; i++) {
                 System.out.println("  " + (i + 1) + ") " + options[i].getLabel());
             }
-            System.out.println("Enter 1-" + options.length + ": ");
+            System.out.printf(Messages.PROMPT_RANGE, options.length);
 
             String raw = scanner.nextLine().trim();
             try {
@@ -81,10 +84,8 @@ public class Menu {
                    return options[choice - 1];
                }
             }
-            catch (NumberFormatException ignored) {
-                System.out.println("Invalid choice. Please enter a number between 1 and " + options.length + ".");
-
-            }
+            catch (NumberFormatException ignored) {}
+           ConsoleUI.printInvalidChoice(options.length);
         }
     }
 }
