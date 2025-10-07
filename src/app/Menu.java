@@ -57,4 +57,28 @@ public class Menu {
             }
         }
     }
+
+    public PostGameChoice askPostGameChoice() {
+        while (true) {
+            System.out.println();
+            System.out.println("What would you like to do?");
+            PostGameChoice[] options = PostGameChoice.values();
+            for (int i = 0; i < options.length; i++) {
+                System.out.println("  " + (i + 1) + ") " + options[i].getLabel());
+            }
+            System.out.println("Enter 1-" + options.length + ": ");
+
+            String raw = scanner.nextLine().trim();
+            try {
+               int choice = Integer.parseInt(raw);
+               if (choice >= 1 && choice <= options.length) {
+                   return options[choice - 1];
+               }
+            }
+            catch (NumberFormatException ignored) {
+                System.out.println("Invalid choice. Please enter a number between 1 and " + options.length + ".");
+
+            }
+        }
+    }
 }

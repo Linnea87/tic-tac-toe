@@ -10,7 +10,6 @@ import model.Scoreboard;
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
-import util.NameValidator;
 
 import java.util.Scanner;
 
@@ -26,7 +25,7 @@ public class Game {
     public Game() {
         this(true);
     }
-    // 1) Constructor: initialize scanner, players, and board
+    // Constructor: initialize scanner, players, and board
     public Game(boolean thinkingDelay) {
         this.scanner = new Scanner(System.in);
         this.board = new Board();
@@ -36,13 +35,13 @@ public class Game {
 
     }
 
-    // 2) Outer game loop: allows multiple rounds until the user quits
+    // Outer game loop: allows multiple rounds until the user quits
     public void play() {
         printWelcome();
+        setupPlayers();
 
-        boolean again = true;
-        while (again) {
-            setupPlayers();
+        boolean running = true;
+        while (running) {
             board = new Board();
             playOneRound();
 
@@ -50,9 +49,22 @@ public class Game {
             System.out.println("\nCurrent Scoreboard:");
             scoreboard.printScores();
 
-            System.out.println("Play again? (y/n): ");
-            String ans = scanner.nextLine().trim().toLowerCase();
-            again = ans.startsWith("y");
+            PostGameChoice choice = menu.askPostGameChoice();
+            switch (choice) {
+                case REMATCH ->  {
+
+                }
+                case CHANGE_OPPONENT ->  {
+                    setupOpponentOnly();
+                }
+                case CHANGE_BOTH -> {
+                    setupPlayers();
+                }
+                case QUIT -> {
+                    running = false;
+                }
+
+            }
         }
         System.out.println("Thanks for playing!");
     }
@@ -67,28 +79,38 @@ public class Game {
         System.out.println("===================================\n");
     }
 
+    // ----- Player setup -----
+
     private void setupPlayers() {
-        Mode mode = menu.askMode();
         String nameX = menu.askPlayerName("Enter name for Player X: ");
         this.p1 = new HumanPlayer(nameX, Mark.X, scanner);
-
+        this.p2 = createPlayerO();
+    }
+    private void setupOpponentOnly() {
+        this.p2 = createPlayerO();
+    }
+    private Player createPlayerO() {
+        Mode mode = menu.askMode();
         if (mode == Mode.HUMAN_VS_CPU) {
             Difficulty diff = menu.askDifficulty();
-            switch (diff) {
+
+            Player cpu = switch (diff) {
                 case EASY -> this.p2 = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy(), thinkingDelay);
                 case MEDIUM -> this.p2 = new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy(), thinkingDelay);
                 case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy(), thinkingDelay);
-                default -> this.p2 = new ComputerPlayer("CPU-DEFAULT", Mark.O, new RandomStrategy(), thinkingDelay);
-            }
+            };
            System.out.println("Player O is the Computer (" + diff + ").");
+           return cpu;
         }
         else {
-           String nameO = menu.askPlayerName("Enter name for player O: ");
-           this.p2 = new HumanPlayer(nameO, Mark.O, scanner);
+          String nameO = menu.askPlayerName("Enter name for player O: ");
+          return new HumanPlayer(nameO, Mark.O, scanner);
         }
     }
 
-    // 3) Play a single round: handle turns, input validation, win/draw conditions
+    // ----- One round -----
+
+    // Play a single round: handle turns, input validation, win/draw conditions
     private void playOneRound() {
         Player current = p1;
         while (true) {
