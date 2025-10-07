@@ -3,6 +3,8 @@ package player;
 import ai.AiStrategy;
 import model.Board;
 import model.Mark;
+import util.ConsoleUI;
+import util.Messages;
 
 /**
  * ComputerPlayer:
@@ -27,7 +29,7 @@ public class ComputerPlayer implements Player {
      */
     public ComputerPlayer(String name, Mark mark, AiStrategy strategy, boolean thinkingDelay) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Name required");
+            throw new IllegalArgumentException(Messages.ERR_NAME_EMPTY);
         }
         if (mark == null){
             throw new IllegalArgumentException("Mark required");
@@ -60,7 +62,7 @@ public class ComputerPlayer implements Player {
      */
     @Override
     public int chooseCell(Board board) {
-        System.out.println(name + " (" + mark + ") is thinking....");
+        ConsoleUI.printInfo(name + " (" + mark + ") is thinking....");
         if (thinkingDelay) {
             try {
                 Thread.sleep(350);
@@ -71,7 +73,7 @@ public class ComputerPlayer implements Player {
         int cell = strategy.chooseCell(board, mark);
 
         String move = board.formatCell(cell);
-        System.out.println(name + " (" + mark + ") played " + move);
+        ConsoleUI.printInfo(name + " (" + mark + ") played " + move);
         System.out.println();
 
         if (thinkingDelay) {
