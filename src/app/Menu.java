@@ -27,7 +27,7 @@ public class Menu {
             for (int i = 0; i < modes.length; i++) {
                 System.out.println("  " + (i + 1) + ") " + modes[i].getLabel());
             }
-            System.out.printf(Messages.PROMPT_RANGE, modes.length);
+            System.out.printf(Messages.PROMPT_RANGE + "%n", modes.length);
 
             String raw = scanner.nextLine().trim();
             try {
