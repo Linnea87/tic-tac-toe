@@ -24,7 +24,7 @@ public class Menu {
             String raw = scanner.nextLine().trim();
             try {
                 int choice = Integer.parseInt(raw);
-                if (choice <= 1 && choice <= modes.length) {
+                if (choice >= 1 && choice <= modes.length) {
                     return modes[choice - 1];
                 }
             } catch (NumberFormatException ignored) {}
