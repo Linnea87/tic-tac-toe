@@ -1,5 +1,7 @@
 package model;
 
+import static util.ConsoleColors.*;
+
 public class Board {
     private final int SIZE = 3; // Board size (3x3)
     private final Mark[][] grid; // 2D array representing the board
@@ -25,11 +27,6 @@ public class Board {
 
     // Print the board in a user-friendly way
     public void printBoard() {
-        final String PURPLE = "\u001B[35m";
-        final String YELLOW = "\u001B[33m";
-        final String RESET = "\u001B[0m";
-        final String CYAN = "\u001B[36m";
-        final String GRAY = "\u001B[90m";
 
         // Header
         System.out.println("    " + CYAN + "A" + RESET + "   " + CYAN + "B" + RESET + "   " + CYAN + "C" + RESET);
