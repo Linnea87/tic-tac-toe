@@ -75,7 +75,7 @@ public class Menu {
             for (int i = 0; i < options.length; i++) {
                 System.out.println("  " + (i + 1) + ") " + options[i].getLabel());
             }
-            System.out.printf(Messages.PROMPT_RANGE, options.length);
+            System.out.printf(Messages.PROMPT_RANGE + "%n", options.length);
 
             String raw = scanner.nextLine().trim();
             try {
