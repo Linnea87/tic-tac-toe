@@ -62,7 +62,7 @@ public class ComputerPlayer implements Player {
      */
     @Override
     public int chooseCell(Board board) {
-        ConsoleUI.printInfo(name + " (" + mark + ") is thinking....");
+        System.out.println(name + " (" + mark + ") is thinking....");
         if (thinkingDelay) {
             try {
                 Thread.sleep(350);
@@ -73,7 +73,7 @@ public class ComputerPlayer implements Player {
         int cell = strategy.chooseCell(board, mark);
 
         String move = board.formatCell(cell);
-        ConsoleUI.printInfo(name + " (" + mark + ") played " + move);
+        System.out.println(name + " (" + mark + ") played " + move);
         System.out.println();
 
         if (thinkingDelay) {
