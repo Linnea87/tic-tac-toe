@@ -3,8 +3,11 @@ package player;
 import model.Board;
 import model.Mark;
 import util.CellParser;
+import util.ConsoleUI;
+import util.Messages;
 import util.NameValidator;
 
+import java.io.Console;
 import java.util.Scanner;
 
 public class HumanPlayer implements Player {
@@ -59,7 +62,7 @@ public class HumanPlayer implements Player {
                 return CellParser.parse(raw, board);
             }
             catch (IllegalArgumentException ex) {
-                System.out.println(ex.getMessage() + " Try again.");
+                ConsoleUI.printError(Messages.ERR_INVALID_INPUT, ex.getMessage(), Messages.ERR_TRY_AGAIN);
             }
         }
     }
