@@ -56,15 +56,16 @@ public class Game {
 
                 }
                 case CHANGE_OPPONENT ->  {
+                    scoreboard.reset();
                     setupOpponentOnly();
                 }
                 case CHANGE_BOTH -> {
+                    scoreboard.reset();
                     setupPlayers();
                 }
                 case QUIT -> {
                     running = false;
                 }
-
             }
         }
         System.out.println("Thanks for playing!");
@@ -86,9 +87,13 @@ public class Game {
         String nameX = menu.askPlayerName("Enter name for Player X: ");
         this.p1 = new HumanPlayer(nameX, Mark.X, scanner);
         this.p2 = createPlayerO();
+
+        scoreboard.ensurePlayer(p1.getName());
+        scoreboard.ensurePlayer(p2.getName());
     }
     private void setupOpponentOnly() {
         this.p2 = createPlayerO();
+        scoreboard.ensurePlayer(p2.getName());
     }
     private Player createPlayerO() {
         Mode mode = menu.askMode();

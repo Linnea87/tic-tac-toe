@@ -12,6 +12,11 @@ public class Scoreboard {
         scores.put(playerName, scores.getOrDefault(playerName, 0) + 1);
     }
 
+    public void ensurePlayer(String playerName) {
+        validateName(playerName);
+        scores.putIfAbsent(playerName, 0);
+    }
+
     // Read current wins for a player (0 if unknown)
     public int getWins(String playerName) {
         validateName(playerName);
