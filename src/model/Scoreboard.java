@@ -1,5 +1,9 @@
 package model;
 
+import util.ConsoleColors;
+import util.ConsoleUI;
+import util.Messages;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +34,7 @@ public class Scoreboard {
 
     // Print all scores
     public void printScores() {
-        System.out.println("=== ScoreBoard ===");
+        ConsoleUI.heading(ConsoleColors.CYAN + "ScoreBoard" + ConsoleColors.RESET);
         if (scores.isEmpty()) {
             System.out.println("No results yet");
             return;
@@ -40,21 +44,41 @@ public class Scoreboard {
             if (n != null) nameWidth = Math.max(nameWidth, n.length());
         }
 
-        final String header = String.format("%-" + nameWidth + "s  %s", "Player", "Wins");
+        final String header = String.format(
+                "%-" + nameWidth + "s  %s",
+                ConsoleColors.CYAN + "Player" + ConsoleColors.RESET,
+                ConsoleColors.CYAN + "Wins" + ConsoleColors.RESET
+        );
+
         final String rowFormat = "%-" + nameWidth + "s  %d%n" ;
         System.out.println(header);
-        System.out.println("-".repeat(header.length()));
+        System.out.println(ConsoleColors.GRAY + "-".repeat(header.length()) + ConsoleColors.RESET);
 
         scores.entrySet().stream()
                 .sorted((a, b) -> a.getKey().compareToIgnoreCase(b.getKey()))
-                .forEach(e -> System.out.printf(rowFormat, e.getKey(), e.getValue()));
+                .forEach(e -> {
+                    String coloredName = colorizeName(e.getKey());
+                    System.out.printf(rowFormat, coloredName, e.getKey());
+                });
     }
 
     // Internal guard for input
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Player name must be non-empty");
+            throw new IllegalArgumentException(Messages.ERR_NAME_EMPTY);
         }
 
+    }
+
+    private String colorizeName(String name) {
+        if (name.toUpperCase().contains("X")) {
+            return ConsoleColors.PURPLE + name + ConsoleColors.RESET;
+        }
+        else if (name.toUpperCase().contains("O")) {
+            return ConsoleColors.YELLOW + name + ConsoleColors.RESET;
+        }
+        else {
+            return name;
+        }
     }
 }
