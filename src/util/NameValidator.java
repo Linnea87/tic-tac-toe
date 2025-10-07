@@ -13,11 +13,11 @@ public class NameValidator {
         }
         String trimmed = name.trim();
         if (trimmed.isBlank()) {
-            throw new IllegalArgumentException(Messages.ERR_NAME_LETTERS);
+            throw new IllegalArgumentException(Messages.ERR_NAME_EMPTY);
         }
         boolean lettersOnly = trimmed.codePoints().allMatch(Character::isLetter);
         if (!lettersOnly) {
-            throw new IllegalArgumentException("Player name must contain letters only (A-Ö) ");
+            throw new IllegalArgumentException(Messages.ERR_NAME_LETTERS);
         }
     }
     public static String formatName(String rawName) {
