@@ -10,6 +10,7 @@ import model.Scoreboard;
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
+import util.ConsoleUI;
 
 import java.util.Scanner;
 
@@ -42,7 +43,7 @@ public class Game {
 
         boolean running = true;
         while (running) {
-            menu.clearScreen();
+            ConsoleUI.clearScreen();
             board = new Board();
             playOneRound();
 
@@ -72,13 +73,12 @@ public class Game {
     }
 
     private void printWelcome() {
-        System.out.println("===================================");
-        System.out.println("   Welcome to Tic-Tac-Toe!");
+        ConsoleUI.heading("Welcome to Tic-Tac-Toe!");
         System.out.println(" Two players take turns to play.");
         System.out.println(" Get three in a row to win!");
         System.out.println();
         System.out.println(" Enter moves as column+row, e.g. A1, B2, C3.");
-        System.out.println("===================================\n");
+        System.out.println();
     }
 
     // ----- Player setup -----
@@ -124,8 +124,8 @@ public class Game {
             System.out.println();
 
             int cell = current.chooseCell(board);
-            if (!board.placeMarkByCell(cell, current.getMark())){
-                System.out.println("That cell is not available. Try again.");
+            if (!board.placeMarkByCell(cell, current.getMark())) {
+                ConsoleUI.printCellTaken();
                 continue;
             }
 
