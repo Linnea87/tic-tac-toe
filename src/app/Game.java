@@ -42,6 +42,7 @@ public class Game {
 
         boolean running = true;
         while (running) {
+            menu.clearScreen();
             board = new Board();
             playOneRound();
 
@@ -95,9 +96,9 @@ public class Game {
             Difficulty diff = menu.askDifficulty();
 
             Player cpu = switch (diff) {
-                case EASY -> this.p2 = new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy(), thinkingDelay);
-                case MEDIUM -> this.p2 = new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy(), thinkingDelay);
-                case HARD ->  this.p2 = new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy(), thinkingDelay);
+                case EASY -> new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy(), thinkingDelay);
+                case MEDIUM -> new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy(), thinkingDelay);
+                case HARD -> new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy(), thinkingDelay);
             };
            System.out.println("Player O is the Computer (" + diff + ").");
            return cpu;
@@ -114,7 +115,6 @@ public class Game {
     private void playOneRound() {
         Player current = p1;
         while (true) {
-            System.out.println();
             board.printBoard(); // assumes Board has print() method
             System.out.println();
 

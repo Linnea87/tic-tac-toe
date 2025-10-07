@@ -8,6 +8,12 @@ import java.util.Scanner;
 public class Menu {
     private final Scanner scanner;
 
+    public void clearScreen() {
+        for (int i = 0; i < 3; i++) {
+            System.out.println();
+        }
+    }
+
     public Menu(Scanner scanner) {
         this.scanner = scanner;
     }

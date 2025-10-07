@@ -72,6 +72,8 @@ public class ComputerPlayer implements Player {
 
         String move = board.formatCell(cell);
         System.out.println(name + " (" + mark + ") played " + move);
+        System.out.println();
+
         if (thinkingDelay) {
             try {
                 Thread.sleep(200);
