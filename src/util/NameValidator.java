@@ -20,5 +20,13 @@ public class NameValidator {
             throw new IllegalArgumentException("Player name must contain letters only (A-Ö) ");
         }
     }
+    public static String formatName(String rawName) {
+        if (rawName == null || rawName.isBlank()) {
+            return rawName;
+        }
+        rawName = rawName.trim();
+        return rawName.substring(0, 1).toUpperCase() + rawName.substring(1).toLowerCase();
+    }
+
 
 }

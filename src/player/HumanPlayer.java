@@ -24,7 +24,7 @@ public class HumanPlayer implements Player {
         if (scanner == null) {
             throw new IllegalArgumentException("Scanner cannot be null");
         }
-        this.name = name.trim();
+        this.name = NameValidator.formatName(name);
         this.mark = mark;
         this.scanner = scanner;
     }

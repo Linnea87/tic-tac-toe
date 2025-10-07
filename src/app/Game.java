@@ -47,7 +47,7 @@ public class Game {
             playOneRound();
 
             // print scores after the round
-            System.out.println("\nCurrent Scoreboard:");
+            System.out.println("\nRound finished!\n");
             scoreboard.printScores();
 
             PostGameChoice choice = menu.askPostGameChoice();
@@ -101,9 +101,9 @@ public class Game {
             Difficulty diff = menu.askDifficulty();
 
             Player cpu = switch (diff) {
-                case EASY -> new ComputerPlayer("CPU-EASY", Mark.O, new RandomStrategy(), thinkingDelay);
-                case MEDIUM -> new ComputerPlayer("CPU-MEDIUM", Mark.O, new HeuristicStrategy(), thinkingDelay);
-                case HARD -> new ComputerPlayer("CPU-HARD", Mark.O, new MinimaxStrategy(), thinkingDelay);
+                case EASY -> new ComputerPlayer("Computer (Easy)", Mark.O, new RandomStrategy(), thinkingDelay);
+                case MEDIUM -> new ComputerPlayer("Computer (Medium)", Mark.O, new HeuristicStrategy(), thinkingDelay);
+                case HARD -> new ComputerPlayer("Computer (Hard)", Mark.O, new MinimaxStrategy(), thinkingDelay);
             };
            System.out.println("Player O is the Computer (" + diff + ").");
            return cpu;

@@ -30,14 +30,24 @@ public class Scoreboard {
 
     // Print all scores
     public void printScores() {
+        System.out.println("=== ScoreBoard ===");
         if (scores.isEmpty()) {
-            System.out.println("No wins yet!");
+            System.out.println("No results yet");
             return;
         }
-        System.out.println("=== Scoreboard ===");
-        for (Map.Entry<String, Integer> entry : scores.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue() + " wins");
+        int nameWidth = 6;
+        for (String n : scores.keySet()) {
+            if (n != null) nameWidth = Math.max(nameWidth, n.length());
         }
+
+        final String header = String.format("%-" + nameWidth + "s  %s", "Player", "Wins");
+        final String rowFormat = "%-" + nameWidth + "s  %d%n" ;
+        System.out.println(header);
+        System.out.println("-".repeat(header.length()));
+
+        scores.entrySet().stream()
+                .sorted((a, b) -> a.getKey().compareToIgnoreCase(b.getKey()))
+                .forEach(e -> System.out.printf(rowFormat, e.getKey(), e.getValue()));
     }
 
     // Internal guard for input
