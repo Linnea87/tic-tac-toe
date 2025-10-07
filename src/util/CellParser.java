@@ -3,6 +3,7 @@ package util;
 import model.Board;
 
 public class CellParser {
+    private CellParser() {}
     /**
      * Parse chess-style input like "A1", "B2", "C3" to 1..9 based on board size.
      * Column first (A..), then row (1..).
