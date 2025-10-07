@@ -26,7 +26,7 @@ public class HumanPlayerTest {
     }
     @Test
     void chooseCell_returnsValidCell() {
-        String input = "5\n";
+        String input = "B2\n";
         Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
         HumanPlayer p = new HumanPlayer("Bob", Mark.X, sc);
         Board board = new Board();
@@ -37,13 +37,13 @@ public class HumanPlayerTest {
 
     @Test
     void chooseCell_repromptsUntilValid() {
-        String input = "hej\n3\n";
+        String input = "hej\nC3\n";
         Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
         HumanPlayer p = new HumanPlayer("Eve", Mark.X, sc);
         Board board = new Board();
 
         int cell = p.chooseCell(board);
-        assertEquals(3, cell);
+        assertEquals(9, cell);
 
     }
 }
