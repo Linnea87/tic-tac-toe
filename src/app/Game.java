@@ -16,6 +16,10 @@ import util.Messages;
 
 import java.util.Scanner;
 
+/**
+ * Game - Orchestrates the game flow:
+ * setup -> play rounds -> show results -> post-game options.
+ */
 public class Game {
     private final Scanner scanner;
     private Board board;
@@ -25,20 +29,22 @@ public class Game {
     private final boolean thinkingDelay;
     private final Menu menu;
 
+    // === Constructors =========================================================
+
     public Game() {
         this(true);
     }
-    // Constructor: initialize scanner, players, and board
+
     public Game(boolean thinkingDelay) {
         this.scanner = new Scanner(System.in);
         this.board = new Board();
         this.scoreboard = new Scoreboard();
         this.thinkingDelay = thinkingDelay;
         this.menu = new Menu(this.scanner);
-
     }
 
-    // Outer game loop: allows multiple rounds until the user quits
+    // === Main game loop =======================================================
+
     public void play() {
         printWelcome();
         setupPlayers();
@@ -49,30 +55,32 @@ public class Game {
             board = new Board();
             playOneRound();
 
-            // print scores after the round
             System.out.println("\nRound finished!\n");
             scoreboard.printScores();
 
             PostGameChoice choice = menu.askPostGameChoice();
             switch (choice) {
-                case REMATCH ->  {
-
+                case REMATCH -> {
+                    /* start a new round same players */
                 }
-                case CHANGE_OPPONENT ->  {
+
+                case CHANGE_OPPONENT -> {
                     scoreboard.reset();
                     setupOpponentOnly();
                 }
+
                 case CHANGE_BOTH -> {
                     scoreboard.reset();
                     setupPlayers();
                 }
-                case QUIT -> {
-                    running = false;
-                }
+
+                case QUIT -> running = false;
             }
         }
         System.out.println("Thanks for playing!");
     }
+
+    // === Intro screen =========================================================
 
     private void printWelcome() {
         ConsoleUI.heading("Welcome to Tic-Tac-Toe!");
@@ -83,7 +91,7 @@ public class Game {
         System.out.println();
     }
 
-    // ----- Player setup -----
+    // === Player setup =========================================================
 
     private void setupPlayers() {
         String nameX = menu.askPlayerName(Messages.PROMPT_PLAYER_NAME.formatted(ConsoleColors.PURPLE + "Player X" + ConsoleColors.RESET));
@@ -93,9 +101,11 @@ public class Game {
         scoreboard.ensurePlayer(p1.getName(), p1.getMark());
         scoreboard.ensurePlayer(p2.getName(), p2.getMark());
     }
+
     private void setupOpponentOnly() {
         this.p2 = createPlayerO();
-        scoreboard.ensurePlayer(p2.getName(), p2.getMark());    }
+        scoreboard.ensurePlayer(p2.getName(), p2.getMark());
+    }
 
     private Player createPlayerO() {
         Mode mode = menu.askMode();
@@ -116,22 +126,25 @@ public class Game {
         }
     }
 
-    // ----- One round -----
+    // === One round ============================================================
 
-    // Play a single round: handle turns, input validation, win/draw conditions
+    /**
+     * Plays a single round:
+     * draw board → ask current player for a move → place/check validity →
+     * check win/draw → switch player.
+     */
     private void playOneRound() {
         Player current = p1;
         while (true) {
-            board.printBoard(); // assumes Board has print() method
+            board.printBoard();
             System.out.println();
 
             int cell = current.chooseCell(board);
             if (!board.placeMarkByCell(cell, current.getMark())) {
                 ConsoleUI.printCellTaken();
-                continue;
+                continue; // invalid move, same player tries again
             }
 
-            // Check if current player has won
             if (board.checkWin(current.getMark())) {
                 board.printBoard();
                 String winnerName = ConsoleUI.coloredByMark(current.getName(), current.getMark());
@@ -142,14 +155,12 @@ public class Game {
                 break;
             }
 
-            // Check if the board is full (draw)
             if (board.isFull()) {
                 board.printBoard();
                 System.out.println("\nIt's a draw!");
                 break;
             }
 
-            // Switch player turn
             current =(current == p1) ? p2 : p1;
         }
     }

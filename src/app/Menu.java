@@ -1,43 +1,40 @@
 package app;
 
 import ai.Difficulty;
-import util.ConsoleColors;
 import util.ConsoleUI;
 import util.Messages;
 import util.NameValidator;
 
-import java.io.Console;
 import java.util.Scanner;
 
+/**
+ * Menu - Handles all pre-/post-game user interactions:
+ * mode selection, difficulty, player names, and post-game options.
+ */
 public class Menu {
     private final Scanner scanner;
+
+    // === Constructors =========================================================
 
     public Menu(Scanner scanner) {
         this.scanner = scanner;
     }
 
+    // === Utilities ============================================================
+
     public void clearScreen() {
         ConsoleUI.clearScreen();
     }
 
-    public Mode askMode() {
-        while (true) {
-            System.out.println(Messages.PROMPT_MODE_TITLE);
-            Mode[] modes = Mode.values();
-            for (int i = 0; i < modes.length; i++) {
-                System.out.println("  " + (i + 1) + ") " + modes[i].getLabel());
-            }
-            System.out.printf(Messages.PROMPT_RANGE + "%n", modes.length);
+    // === Selections before game ==============================================
 
-            String raw = scanner.nextLine().trim();
-            try {
-                int choice = Integer.parseInt(raw);
-                if (choice >= 1 && choice <= modes.length) {
-                    return modes[choice - 1];
-                }
-            } catch (NumberFormatException ignored) {}
-            ConsoleUI.printInvalidChoice(modes.length);
-        }
+    public Mode askMode() {
+       Mode[] modes = Mode.values();
+       String[] labels = new String[modes.length];
+       for (int i = 0; i < modes.length; i++) {
+           labels[i] = modes[i].getLabel();
+       }
+       return ConsoleUI.askChoice(scanner, Messages.PROMPT_MODE_TITLE, modes, labels);
     }
 
     public Difficulty askDifficulty() {
@@ -49,7 +46,6 @@ public class Menu {
             }
             catch (IllegalArgumentException ex) {
                 ConsoleUI.printDifficultyError();
-
             }
         }
     }
@@ -67,25 +63,14 @@ public class Menu {
         }
     }
 
-    public PostGameChoice askPostGameChoice() {
-        while (true) {
-            System.out.println();
-            System.out.println(Messages.PROMPT_POSTGAME_TITLE);
-            PostGameChoice[] options = PostGameChoice.values();
-            for (int i = 0; i < options.length; i++) {
-                System.out.println("  " + (i + 1) + ") " + options[i].getLabel());
-            }
-            System.out.printf(Messages.PROMPT_RANGE + "%n", options.length);
+    // === Post-game selection ==================================================
 
-            String raw = scanner.nextLine().trim();
-            try {
-               int choice = Integer.parseInt(raw);
-               if (choice >= 1 && choice <= options.length) {
-                   return options[choice - 1];
-               }
-            }
-            catch (NumberFormatException ignored) {}
-           ConsoleUI.printInvalidChoice(options.length);
+    public PostGameChoice askPostGameChoice() {
+        PostGameChoice[] options = PostGameChoice.values();
+        String[] labels = new String[options.length];
+        for (int i = 0; i < options.length; i++) {
+            labels[i] = options[i].getLabel();
         }
+        return ConsoleUI.askChoice(scanner, Messages.PROMPT_POSTGAME_TITLE, options, labels);
     }
 }
