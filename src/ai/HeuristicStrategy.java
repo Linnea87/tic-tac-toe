@@ -8,21 +8,20 @@ public class HeuristicStrategy implements AiStrategy{
 
     @Override
     public int chooseCell(Board board, Mark aiMark) {
-        int cells = board.getSize() * board.getSize();
         Mark opponent = (aiMark == Mark.X) ? Mark.O : Mark.X;
 
-      Integer winMove = findWinningMove(board, aiMark);
-        if (winMove!= null) {
+      int winMove = findWinningMove(board, aiMark);
+        if (winMove!= -1) {
             return winMove;
         }
 
-        Integer blockMove = findWinningMove(board, opponent);
-        if (blockMove != null) {
+        int blockMove = findWinningMove(board, opponent);
+        if (blockMove != -1) {
             return blockMove;
         }
         return fallback.chooseCell(board, aiMark);
     }
-    private Integer findWinningMove(Board board, Mark mark) {
+    private int findWinningMove(Board board, Mark mark) {
         int cells = board.getSize() * board.getSize();
         for (int c = 1; c <= cells; c++) {
             if (board.isCellEmpty(c)) {
@@ -33,7 +32,7 @@ public class HeuristicStrategy implements AiStrategy{
                 }
             }
         }
-        return null;
+        return -1;
     }
 
     private Board copyBoard(Board original) {
