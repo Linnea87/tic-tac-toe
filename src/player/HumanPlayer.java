@@ -2,10 +2,7 @@ package player;
 
 import model.Board;
 import model.Mark;
-import util.CellParser;
-import util.ConsoleUI;
-import util.Messages;
-import util.NameValidator;
+import util.*;
 
 import java.io.Console;
 import java.util.Scanner;
@@ -56,7 +53,9 @@ public class HumanPlayer implements Player {
     @Override
     public int chooseCell(Board board) {
         while (true) {
-            System.out.println(name + " (" + mark + "), choose a cell (e.g., A1, B2, C3): ");
+            String nameColored = ConsoleUI.coloredByMark(name, mark);
+            String markColored = ConsoleUI.coloredMark(mark);
+            System.out.println(nameColored + " " + markColored + ConsoleColors.GRAY + " choose a cell (e.g., A1, B2, C3):" + ConsoleColors.RESET);
             String raw = scanner.nextLine().trim();
             try {
                 return CellParser.parse(raw, board);
