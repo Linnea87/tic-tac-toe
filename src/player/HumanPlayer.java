@@ -22,10 +22,10 @@ public class HumanPlayer implements Player {
     public HumanPlayer(String name, Mark mark, Scanner scanner) {
         NameValidator.validateLettersOnly(name);
         if (mark == null) {
-            throw new IllegalArgumentException("Mark cannot be null");
+            throw new IllegalArgumentException(Messages.ERR_MARK_REQUIRED);
         }
         if (scanner == null) {
-            throw new IllegalArgumentException("Scanner cannot be null");
+            throw new IllegalArgumentException(Messages.ERR_SCANNER_REQUIRED);
         }
         this.name = NameValidator.formatName(name);
         this.mark = mark;
