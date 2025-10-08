@@ -61,7 +61,8 @@ public class Scoreboard {
                 .sorted((a, b) -> a.getKey().compareToIgnoreCase(b.getKey()))
                 .forEach(e -> {
                     String rawName = e.getKey();
-                    String coloredName = colorizeNameByMark(rawName);
+                    Mark mark = marksByName.get(rawName);
+                    String coloredName = ConsoleUI.coloredByMark(rawName, mark);
                     String paddedColoredName = coloredName + " ".repeat(Math.max(0, nameWidth - rawName.length()));
                     System.out.println(paddedColoredName + "   " + e.getValue());
                 });
@@ -75,14 +76,5 @@ public class Scoreboard {
 
     }
 
-    private String colorizeNameByMark(String name) {
-        Mark m = marksByName.get(name);
-       if (m == Mark.X) {
-           return ConsoleColors.PURPLE + name + ConsoleColors.RESET;
-       }
-       if (m == Mark.O) {
-           return ConsoleColors.YELLOW + name + ConsoleColors.RESET;
-       }
-       return name;
-    }
+
 }
