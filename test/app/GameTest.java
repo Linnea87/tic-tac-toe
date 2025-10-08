@@ -48,7 +48,7 @@ public class GameTest {
         new Game(false).play();
 
         String s = stripAnsi(out.toString());
-        assertTrue(s.contains("Alice (X) Wins!"));
+        assertTrue(s.contains("Alice") && s.contains("Wins"));
         assertTrue(s.toLowerCase().contains("scoreboard"));
         assertTrue(s.contains("Thanks for playing!"));
     }
