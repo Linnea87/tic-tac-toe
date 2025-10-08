@@ -1,7 +1,7 @@
 package app;
 
 /**
- * Game mode selection
+ * Mode – defines available game modes.
  */
 public enum Mode {
     HUMAN_VS_HUMAN("Human vs Human"),
@@ -13,7 +13,7 @@ public enum Mode {
     }
 
     /**
-     * @return human-friendly label for menus/logging
+     * return human-friendly label for menus and logging
      */
     public String getLabel() {
         return label;

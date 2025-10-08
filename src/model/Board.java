@@ -2,11 +2,15 @@ package model;
 
 import static util.ConsoleColors.*;
 
+/**
+ * Board – 3x3 grid that stores marks and evaluates wins/draws.
+ */
 public class Board {
-    private final int SIZE = 3; // Board size (3x3)
-    private final Mark[][] grid; // 2D array representing the board
+    private final int SIZE = 3;
+    private final Mark[][] grid;
 
-    // Constructor: initialize all cells as EMPTY
+    // === Constructors =========================================================
+
     public Board() {
         grid = new Mark[SIZE][SIZE];
         for (int row = 0; row < SIZE; row++) {
@@ -16,23 +20,25 @@ public class Board {
         }
     }
 
-    // --- Helpers: convert cell number to row/col ---
+    // === Coordinate helpers ===================================================
+
     private int toRow(int cell) {
-            return (cell -1) / SIZE;
+        return (cell -1) / SIZE;
     }
 
     private int toCol(int cell) {
         return (cell - 1) % SIZE;
     }
 
-    // Print the board in a user-friendly way
-    public void printBoard() {
+    // === Rendering ============================================================
 
-        // Header
+    /**
+     * Prints the board with A–C headers, 1–3 rows, and colored X/O.
+     */
+    public void printBoard() {
         System.out.println("    " + CYAN + "A" + RESET + "   " + CYAN + "B" + RESET + "   " + CYAN + "C" + RESET);
 
         for (int row = 0; row < SIZE; row++) {
-            // Row content
             StringBuilder line = new StringBuilder();
             line.append(row + 1).append("  ");
 
@@ -54,14 +60,14 @@ public class Board {
             }
             System.out.println(line);
 
-            // Separator line
             if (row < SIZE - 1) {
                 System.out.println("   " + GRAY + "---+---+---" + RESET);
             }
         }
     }
 
-    // Try to place a mark at a given position
+    // === Mutators =============================================================
+
     public boolean placeMark(int row, int col, Mark mark) {
         if (row < 0 || row >= SIZE || col < 0 || col >= SIZE) {
             return false; // out of bounds
@@ -73,10 +79,6 @@ public class Board {
         return true;
     }
 
-    /**
-     * Place a mark using a single cell number (1..SIZE*SIZE).
-     * Converts to (row,col) and delegates to placeMark(row, col, mark).
-     */
     public boolean placeMarkByCell(int cell, Mark mark) {
         if (cell < 1 || cell > SIZE * SIZE) {
             return false;
@@ -84,9 +86,8 @@ public class Board {
         return placeMark(toRow(cell), toCol(cell), mark);
     }
 
-    /**
-     * Check if a cell is empty (contains Mark.EMPTY)
-     */
+    // === Queries ==============================================================
+
     public boolean isCellEmpty(int cell) {
         if (cell < 1 || cell > SIZE * SIZE) {
             return false;
@@ -94,7 +95,6 @@ public class Board {
         return grid[toRow(cell)][toCol(cell)] == Mark.EMPTY;
     }
 
-    // Check if the board is full (for draw condition)
     public boolean isFull() {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++ ) {
@@ -106,7 +106,6 @@ public class Board {
         return true;
     }
 
-    // Check if player has won
     public boolean checkWin(Mark mark) {
         // Check rows
         for (int row = 0; row < SIZE; row++) {
@@ -115,14 +114,12 @@ public class Board {
             }
         }
 
-        // Check columns
         for (int col = 0; col < SIZE; col++) {
             if (grid[0][col] == mark && grid[1][col] == mark && grid[2][col] == mark) {
                 return true;
             }
         }
 
-        // Check diagonals
         if (grid[0][0] == mark && grid[1][1] == mark && grid[2][2] == mark) {
             return true;
         }
@@ -132,14 +129,12 @@ public class Board {
         return false;
     }
 
-    // Getter for the board size
+    // === Accessors ============================================================
+
     public int getSize() {
         return SIZE;
     }
 
-    /**
-     * Get the mark at a specific cell (1..SIZE*SIZE).
-     */
     public Mark getMarkAtCell(int cell) {
         if (cell < 1 || cell > SIZE * SIZE) {
             throw new IllegalArgumentException("Invalid cell: " + cell);

@@ -1,11 +1,13 @@
 package util;
 
 /**
- * Small utility fo validating player names.
- * Current rule: non-null, non-blank, letters only (A-Ö).
+ * NameValidator – utility for validating and formatting player names.
+ * Rule: non-null, non-blank, letters only (A–Ö).
  */
 public class NameValidator {
     private NameValidator() {}
+
+    // === Validation ===========================================================
 
     public static void validateLettersOnly(String name) {
         if (name == null) {
@@ -20,6 +22,9 @@ public class NameValidator {
             throw new IllegalArgumentException(Messages.ERR_NAME_LETTERS);
         }
     }
+
+    // === Formatting ===========================================================
+
     public static String formatName(String rawName) {
         if (rawName == null || rawName.isBlank()) {
             return rawName;
@@ -27,6 +32,4 @@ public class NameValidator {
         rawName = rawName.trim();
         return rawName.substring(0, 1).toUpperCase() + rawName.substring(1).toLowerCase();
     }
-
-
 }

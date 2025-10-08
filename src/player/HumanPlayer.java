@@ -4,17 +4,22 @@ import model.Board;
 import model.Mark;
 import util.*;
 
-import java.io.Console;
 import java.util.Scanner;
 
+/**
+ * HumanPlayer – represents a player controlled by user input.
+ */
 public class HumanPlayer implements Player {
     private final String name;
     private final Mark mark;
     private final Scanner scanner;
 
+    // === Constructors =========================================================
+
     /**
-     * Creates a HumanPlayer with name, mark (X or O), and a scanner for input.
-     * Validate that name is letters-only, and that mark/scanner are non-null.
+     * @param name    player's name (letters only, will be validated)
+     * @param mark    player's mark (X or O)
+     * @param scanner input source for moves
      */
     public HumanPlayer(String name, Mark mark, Scanner scanner) {
         NameValidator.validateLettersOnly(name);
@@ -29,26 +34,23 @@ public class HumanPlayer implements Player {
         this.scanner = scanner;
     }
 
-    /** @return the player's name */
+    // === Accessors ============================================================
+
     @Override
     public String getName() {
         return name;
     }
-    /** @return the player's mark (X or O) */
+
     @Override
     public Mark getMark() {
         return mark;
     }
 
+    // === Turn logic ===========================================================
+
     /**
-     * Ask the human player to choose a cell.
-     * Input is validated as chess-style coordinates:
-     *  - must be exactly 2 chars
-     *  - column letter A..C, then row digit 1..3 (e.g., A1, B2, C3)
-     * Keeps looping until valid input is given.
-     *
-     * @param board the current game board (for size/range)
-     * @return a valid cell number in 1..SIZE*SIZE
+     * Prompts the human player for a move in chess-style coordinates (e.g. A1, B2, C3).
+     * Keeps looping until valid input is provided and converted to a cell number.
      */
     @Override
     public int chooseCell(Board board) {

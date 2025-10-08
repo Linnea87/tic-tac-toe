@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * ConsoleColors – ANSI escape codes for colored console output.
+ */
 public class ConsoleColors {
     private ConsoleColors() {}
 

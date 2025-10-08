@@ -1,7 +1,7 @@
 package app;
 
 /**
- * What to do after a finished round
+ * PostGameChoice – defines options after a finished round.
  */
 public enum PostGameChoice {
     REMATCH ("Rematch (same players & settings)"),
@@ -13,6 +13,10 @@ public enum PostGameChoice {
     PostGameChoice(String label) {
         this.label = label;
     }
+
+    /**
+     * Returns a human-friendly label for use in menus and logging.
+     */
     public String getLabel() {
         return label;
     }

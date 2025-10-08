@@ -8,8 +8,7 @@ import util.ConsoleUI;
 import util.Messages;
 
 /**
- * ComputerPlayer:
- * A player controlled by an AI strategy. The strategy decides which cell to choose
+ * ComputerPlayer – a player controlled by an AI strategy.
  */
 public class ComputerPlayer implements Player {
     private final String name;
@@ -17,16 +16,17 @@ public class ComputerPlayer implements Player {
     private final AiStrategy strategy;
     private final boolean thinkingDelay;
 
+    // === Constructors =========================================================
+
     public ComputerPlayer(String name, Mark mark, AiStrategy strategy) {
         this(name, mark, strategy, true);
     }
+
     /**
-     * Create a computer-controlled player
-     *
-     * @param name     display name, e.g., "CPU-EASY"
-     * @param mark     the player's mark (X or O)
-     * @param strategy the AI strategy used to pick moves
-     * @throws IllegalArgumentException if any argument is invalid
+     * @param name      display name (e.g., "Computer (Easy)")
+     * @param mark      player's mark (X or O)
+     * @param strategy  AI strategy used to pick moves
+     * @param thinkingDelay simulate a short "thinking" pause
      */
     public ComputerPlayer(String name, Mark mark, AiStrategy strategy, boolean thinkingDelay) {
         if (name == null || name.isBlank()) {
@@ -45,6 +45,8 @@ public class ComputerPlayer implements Player {
         this.thinkingDelay = thinkingDelay;
     }
 
+    // === Accessors ============================================================
+
     @Override
     public String getName() {
 
@@ -56,9 +58,10 @@ public class ComputerPlayer implements Player {
         return mark;
     }
 
+    // === Turn logic ===========================================================
+
     /**
-     * Delegate the move decision to the AI strategy
-     * @param board current game board
+     * Asks the AI strategy for a move, with optional thinking delay and UI output.
      * @return a valid cell number (1..size^2)
      */
     @Override
@@ -85,9 +88,6 @@ public class ComputerPlayer implements Player {
             }
             catch (InterruptedException ignored) {}
         }
-
-        // Delegates to the chosen AI strategy
         return cell;
     }
-
 }
