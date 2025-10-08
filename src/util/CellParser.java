@@ -10,7 +10,7 @@ public class CellParser {
      */
     public static int parse(String input, Board board) {
         if (input == null || input.length() != 2) {
-            throw new IllegalArgumentException("Invalid format. Use A1..C3");
+            throw new IllegalArgumentException(Messages.ERR_CELL_FORMAT);
         }
 
         char colChar = Character.toUpperCase(input.charAt(0));
@@ -20,10 +20,10 @@ public class CellParser {
             case 'A' -> 0;
             case 'B' -> 1;
             case 'C' -> 2;
-            default -> throw new IllegalArgumentException("Invalid column. Use A, B, C.");
+            default -> throw new IllegalArgumentException(Messages.ERR_CELL_COLUMN);
         };
         if (rowChar < '1' || rowChar > '3') {
-            throw new IllegalArgumentException("Invalid row. Use 1, 2 or 3.");
+            throw new IllegalArgumentException(Messages.ERR_CELL_ROW);
         }
         int row = rowChar - '1';
         return row * board.getSize() + col + 1;
