@@ -6,11 +6,15 @@ import util.Messages;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Scoreboard – tracks wins per player and prints a small table.
+ */
 public class Scoreboard {
     private final Map<String, Integer> scores = new HashMap<>();
     private final Map<String, Mark> marksByName = new HashMap<>();
 
-    // Add one win for the given player (name must be non-empty)
+    // === Mutators =============================================================
+
     public void addWin(String playerName) {
         validateName(playerName);
         scores.put(playerName, scores.getOrDefault(playerName, 0) + 1);
@@ -24,29 +28,32 @@ public class Scoreboard {
         }
     }
 
-    // Read current wins for a player (0 if unknown)
-    public int getWins(String playerName) {
-        validateName(playerName);
-        return scores.getOrDefault(playerName, 0);
-    }
-
-    // Clear all scores
     public void reset() {
         scores.clear();
         marksByName.clear();
     }
 
-    // Print all scores
+    // === Accessors ==============================================================
+
+    public int getWins(String playerName) {
+        validateName(playerName);
+        return scores.getOrDefault(playerName, 0);
+    }
+
+    // === Rendering ============================================================
+
     public void printScores() {
-        ConsoleUI.heading(ConsoleColors.CYAN + "ScoreBoard" + ConsoleColors.RESET);
+        ConsoleUI.heading(ConsoleColors.CYAN + "Scoreboard" + ConsoleColors.RESET);
         if (scores.isEmpty()) {
             System.out.println("No results yet");
             return;
         }
+
         int tmpWidth = 6;
         for (String n : scores.keySet()) {
             if (n != null) tmpWidth = Math.max(tmpWidth, n.length());
         }
+
         final int nameWidth = tmpWidth;
 
         final String header =
@@ -68,13 +75,11 @@ public class Scoreboard {
                 });
     }
 
-    // Internal guard for input
+    // === Validation ===========================================================
+
     private void validateName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException(Messages.ERR_NAME_EMPTY);
         }
-
     }
-
-
 }
