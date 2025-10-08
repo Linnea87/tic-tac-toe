@@ -32,10 +32,10 @@ public class ComputerPlayer implements Player {
             throw new IllegalArgumentException(Messages.ERR_NAME_EMPTY);
         }
         if (mark == null){
-            throw new IllegalArgumentException("Mark required");
+            throw new IllegalArgumentException(Messages.ERR_MARK_REQUIRED);
         }
         if (strategy == null){
-            throw new IllegalArgumentException("Strategy required");
+            throw new IllegalArgumentException(Messages.ERR_STRATEGY_REQUIRED);
         }
 
         this.name = name.trim();
