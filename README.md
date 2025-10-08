@@ -1,9 +1,13 @@
 # Tic-Tac-Toe (Text-based, Java)
 
 A two-player Tic-Tac-Toe game in the terminal, with optional computer opponent and difficulty levels.
-
+This project was developed as part of a school assignment in Java programming.
 ## UML Diagram
 ![UML Diagram](docs/treirad-uml.png)
+
+*Note: This UML represents the basic structure and planning of the project.  
+The final implementation may differ slightly as the project evolved.*
+
 
 ### Legend
 \+ public  
@@ -18,6 +22,12 @@ The project is divided into packages for clarity and scalability:
 - **app** → Entry point and game loop (Main, Game).
 - **model** → Core classes (Board, Scoreboard, Mark enum).
 - **player** → Player interface + implementations (HumanPlayer, ComputerPlayer).
+- **util** → Console helpers and shared utilities:
+    - `ConsoleUI` (headings, colored messages, helpers)
+    - `ConsoleColors` (ANSI color codes)
+    - `Messages` (centralized prompts/errors)
+    - `NameValidator` (validates and formats player names)
+    - `CellParser` (parses inputs like `A1` → cell index)
 
 ### Why this structure?
 - **Separation of concerns** → Each package has its own responsibility.
@@ -40,15 +50,37 @@ src/
 │   ├── Board.java
 │   ├── Mark.java
 │   └── Scoreboard.java
-└── player/
-    ├── ComputerPlayer.java
-    ├── HumanPlayer.java
-    └── Player.java
+├── player/
+│   ├── ComputerPlayer.java
+│   ├── HumanPlayer.java
+│   └── Player.java
+└── util/
+    ├── CellParser.java
+    ├── ConsoleColors.java
+    ├── ConsoleUI.java
+    ├── Messages.java
+    └── NameValidator.java
 ```
 ## Tests
 Unit tests are written with **JUnit 5**.  
 The test sources live under `test/` with the same package structure as `src/`.
 
+### Directory tree (tests)
+```
+test/
+├── ai/
+│   ├── RandomStrategyTest.java
+├── app/
+│   ├── GameTest.java
+├── model/
+│   ├── BoardTest.java
+│   ├── ScoreboardTest.java
+├── player/
+│   ├── ComputerPlayerTest.java
+│   ├── HumanPlayerTest.java
+└── util/
+    ├── NameValidatorTest.java
+```
 ### Run tests
 - In IntelliJ: right-click on `test/` ➜ **Run 'All Tests'**
 - Or via Maven/Gradle if you add a build tool later (e.g., `mvn test`)
@@ -66,29 +98,45 @@ The test sources live under `test/` with the same package structure as `src/`.
     - Playing against the computer (**ComputerPlayer + RandomStrategy**)
     - Scoreboard and restart flow
 
+
 ## Build & Run
 Standard Java project (no external deps). Code lives under `src/`.
 
 ### How to play (input)
-Cells are numbered 1–9 left-to-right, top-to-bottom:
+Enter moves in the format **Column + Row**, e.g. `A1`, `B2`, `C3`.
+
+#### Empty board
 ```
-1 | 2 | 3
----+---+---
-4 | 5 | 6
----+---+---
-7 | 8 | 9
+    A   B   C
+1     |   |  
+   ---+---+---
+2     |   |  
+   ---+---+---
+3     |   |  
+```
+#### Example mid-game
+```
+    A   B   C
+1   X | O |  
+   ---+---+---
+2     | X |  
+   ---+---+---
+3   O |   | X
 ```
 
-## Roadmap (MVP → VG)
+## Roadmap
 * ✅ Two human players (terminal)
 * ✅ Win/draw detection, input validation
 * ✅ Restart after game ends
 * ✅ OOP structure (Board, Game, Player, Scoreboard)
 * ✅ JUnit tests for Board and Scoreboard
 * ✅ Names & turn prompts
-* ⭐ Scoreboard (wins per player)
-* ⭐ Input error handling (robust)
-* ⭐ Computer player (Random / Heuristic / Minimax)
-* ⭐ Difficulty selection (EASY / MEDIUM / HARD)
+* ✅ Input error handling (robust)
+* ✅ Computer player (Random / Heuristic / Minimax)
+* ✅ Difficulty selection (EASY / MEDIUM / HARD)
 
+
+## Credits
+* AI tools (e.g. ChatGPT) were used occasionally for debugging assistance, code reviews, and documentation improvements.  
+* All final design decisions and implementations were made by me.  
 
