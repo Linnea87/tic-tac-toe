@@ -1,5 +1,5 @@
 # Tic-Tac-Toe (Text-based, Java)
-
+![Tic-Tac-Toe Mockup](docs/tictactoe-mockup.png)
 A two-player Tic-Tac-Toe game in the terminal, with optional computer opponent and difficulty levels.
 This project was developed as part of a school assignment in Java programming.
 ## UML Diagram
@@ -137,6 +137,18 @@ Enter moves in the format **Column + Row**, e.g. `A1`, `B2`, `C3`.
 
 
 ## Credits
-* AI tools (e.g. ChatGPT) were used occasionally for debugging assistance, code reviews, and documentation improvements.  
-* All final design decisions and implementations were made by me.  
+
+### Content
+- All code in this project was written by me.
+
+### Code Support
+- AI tools (e.g. ChatGPT) were used occasionally for debugging assistance, code reviews, and documentation improvements.
+
+### Media
+- [Carbon](https://carbon.now.sh) was used to create the terminal mockup image included in this README.
+- [Lucidchart](https://www.lucidchart.com) was used to create the UML diagram.
+
+- Best wishes and happy coding!
+
+Linnéa Ternevik  
 
