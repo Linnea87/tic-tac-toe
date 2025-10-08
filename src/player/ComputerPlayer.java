@@ -3,6 +3,7 @@ package player;
 import ai.AiStrategy;
 import model.Board;
 import model.Mark;
+import util.ConsoleColors;
 import util.ConsoleUI;
 import util.Messages;
 
@@ -62,7 +63,9 @@ public class ComputerPlayer implements Player {
      */
     @Override
     public int chooseCell(Board board) {
-        System.out.println(name + " (" + mark + ") is thinking....");
+        String nameC = ConsoleUI.coloredByMark(name, mark);
+        String markC = ConsoleUI.coloredMark(mark);
+        System.out.println(nameC + " " + markC + ConsoleColors.GRAY + " is thinking...." + ConsoleColors.RESET);
         if (thinkingDelay) {
             try {
                 Thread.sleep(350);
@@ -73,7 +76,7 @@ public class ComputerPlayer implements Player {
         int cell = strategy.chooseCell(board, mark);
 
         String move = board.formatCell(cell);
-        System.out.println(name + " (" + mark + ") played " + move);
+        System.out.println(nameC + " " + markC + ConsoleColors.CYAN + " played " + move + ConsoleColors.RESET);
         System.out.println();
 
         if (thinkingDelay) {
