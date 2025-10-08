@@ -10,6 +10,7 @@ import model.Scoreboard;
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
+import util.ConsoleColors;
 import util.ConsoleUI;
 import util.Messages;
 
@@ -75,17 +76,17 @@ public class Game {
 
     private void printWelcome() {
         ConsoleUI.heading("Welcome to Tic-Tac-Toe!");
-        System.out.println(" Two players take turns to play.");
-        System.out.println(" Get three in a row to win!");
+        ConsoleUI.printInfo(" Two players take turns to play.");
+        ConsoleUI.printInfo(" Get three in a row to win!");
         System.out.println();
-        System.out.println(" Enter moves as column+row, e.g. A1, B2, C3.");
+        ConsoleUI.printInfo(" Enter moves as column+row, e.g. A1, B2, C3.");
         System.out.println();
     }
 
     // ----- Player setup -----
 
     private void setupPlayers() {
-        String nameX = menu.askPlayerName(Messages.PROMPT_PLAYER_NAME.formatted("Player X"));
+        String nameX = menu.askPlayerName(Messages.PROMPT_PLAYER_NAME.formatted(ConsoleColors.PURPLE + "Player X" + ConsoleColors.RESET));
         this.p1 = new HumanPlayer(nameX, Mark.X, scanner);
         this.p2 = createPlayerO();
 
@@ -106,11 +107,11 @@ public class Game {
                 case MEDIUM -> new ComputerPlayer("Computer (Medium)", Mark.O, new HeuristicStrategy(), thinkingDelay);
                 case HARD -> new ComputerPlayer("Computer (Hard)", Mark.O, new MinimaxStrategy(), thinkingDelay);
             };
-           System.out.println("Player O is the Computer (" + diff + ").");
+           System.out.println(ConsoleUI.coloredByMark("Player O", Mark.O) + ConsoleColors.GRAY + " is the Computer (" + diff + ")." + ConsoleColors.RESET);
            return cpu;
         }
         else {
-          String nameO = menu.askPlayerName(Messages.PROMPT_PLAYER_NAME.formatted("Player O"));
+          String nameO = menu.askPlayerName(Messages.PROMPT_PLAYER_NAME.formatted(ConsoleColors.YELLOW + "Player O" + ConsoleColors.RESET));
           return new HumanPlayer(nameO, Mark.O, scanner);
         }
     }
@@ -133,7 +134,10 @@ public class Game {
             // Check if current player has won
             if (board.checkWin(current.getMark())) {
                 board.printBoard();
-                System.out.println("\n" + current.getName() + " (" + current.getMark() + ") Wins!");
+                String winnerName = ConsoleUI.coloredByMark(current.getName(), current.getMark());
+                String winnerMark = ConsoleUI.coloredMark(current.getMark());
+                System.out.println("\n" + winnerName  + " " + winnerMark +  " Wins!");
+
                 scoreboard.addWin(current.getName());
                 break;
             }
