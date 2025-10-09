@@ -13,11 +13,11 @@ public class Messages {
     public static final String PROMPT_DIFFICULTY = "Select difficulty (EASY / MEDIUM / HARD): ";
     public static final String PROMPT_PLAYER_NAME = "Enter name for %s ";
     public static final String PROMPT_POSTGAME_TITLE = "What would you like to do?:";
-    public static final String PROMPT_BOARD_SIZE = "Choose board size (3–10): ";
+    public static final String PROMPT_BOARD_SIZE = "Choose board size (3–10)";
     // === Errors ==============================================================
 
     public static final String ERR_INVALID_INPUT = "Invalid input.";
-    public static final String ERR_TRY_AGAIN = "Try again.";
+    public static final String ERR_TRY_AGAIN = "Try again!";
     public static final String ERR_RANGE         = "Please enter a number 1-%d.";
     public static final String ERR_DIFFICULTY    = "Please type EASY, MEDIUM, HARD.";
     public static final String ERR_CELL_TAKEN    = "That cell is not available.";
