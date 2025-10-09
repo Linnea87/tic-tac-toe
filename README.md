@@ -278,6 +278,8 @@ code reviews, and documentation improvements.
 ### Media
 - [Carbon](https://carbon.now.sh) was used to create the terminal mockup image included in this README.
 - [Lucidchart](https://www.lucidchart.com) was used to create the UML diagram.
+  
+[⬆ Back to top](#-table-of-contents)
 
 ---
 
@@ -285,5 +287,5 @@ code reviews, and documentation improvements.
 
 **Linnéa Ternevik**
 
-[⬆ Back to top](#-table-of-contents)
+
 
