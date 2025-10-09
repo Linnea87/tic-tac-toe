@@ -91,8 +91,7 @@ src/
 
 ## 🤖 AI Overview
 
-The AI opponent uses different strategies depending on the selected difficulty level.  
-Each strategy implements the same `AiStrategy` interface, but they vary in complexity, decision-making depth, and gameplay behavior:
+The AI opponent uses different strategies depending on the selected difficulty level. Each strategy implements the same `AiStrategy` interface, but they vary in complexity, decision-making depth, and gameplay behavior:
 
 | Difficulty | Strategy Class | Description |
 |------------|----------------|--------------|
