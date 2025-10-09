@@ -28,8 +28,8 @@ public class Messages {
     // === Cell input / parsing ================================================
 
     public static final String ERR_CELL_FORMAT = "Format must be A1...C3";
-    public static final String ERR_CELL_COLUMN = "Column must be A, B or C.";
-    public static final String ERR_CELL_ROW = "Row must be 1, 2 or 3.";
+    public static final String ERR_CELL_COLUMN = "Column must be A–%s.";
+    public static final String ERR_CELL_ROW = "Row must be 1–%d.";
     public static final String ERR_MARK_REQUIRED = "Mark is required.";
     public static final String ERR_STRATEGY_REQUIRED = "Strategy is required.";
     public static final String ERR_SCANNER_REQUIRED = "Scanner is required.";

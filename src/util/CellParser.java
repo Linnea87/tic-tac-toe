@@ -26,20 +26,21 @@ public class CellParser {
 
         int size = board.getSize();
 
-        if (colChar < 'A' || colChar > (char) ('A' + size -1)) {
-            throw new IllegalArgumentException(Messages.ERR_CELL_COLUMN);
+        if (colChar < 'A' || colChar > (char) ('A' + size - 1)) {
+            char lastCol = (char) ('A' + size - 1);
+            throw new IllegalArgumentException(Messages.ERR_CELL_COLUMN.formatted(lastCol));
         }
         int col = colChar - 'A';
 
         int row;
         try {
-            row = Integer.parseInt(rowPart) -1;
+            row = Integer.parseInt(rowPart) - 1;
         }
         catch (NumberFormatException e) {
-            throw new IllegalArgumentException(Messages.ERR_CELL_ROW);
+            throw new IllegalArgumentException(Messages.ERR_CELL_ROW.formatted(size));
         }
         if (row < 0 || row >= size) {
-            throw new IllegalArgumentException(Messages.ERR_CELL_ROW);
+            throw new IllegalArgumentException(Messages.ERR_CELL_ROW.formatted(size));
         }
        return row * size + col + 1;
     }
