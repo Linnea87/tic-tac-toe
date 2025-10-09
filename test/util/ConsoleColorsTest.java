@@ -1,5 +1,6 @@
+package util;
+
 import org.junit.jupiter.api.Test;
-import util.ConsoleColors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
