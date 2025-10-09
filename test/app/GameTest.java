@@ -46,6 +46,7 @@ public class GameTest {
         final String input = String.join("\n",
                 "Alice",
                 "1",
+                "3",
                 "Bob",
                 "A1", "A2", "B1", "B2", "C1",
                 "4"
@@ -65,6 +66,7 @@ public class GameTest {
         final String input = String.join("\n",
                 "A",
                 "1",
+                "3",
                 "B",
                 "A1", "B1", "C1", "B2","C2", "A2", "A3", "C3", "B3",
                 "4"
