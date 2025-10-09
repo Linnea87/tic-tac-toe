@@ -108,8 +108,7 @@ Currently, AI mode always runs on a **3×3 board**, ensuring quick and consisten
 
 ## ⚙️ Design Decisions
 
-Throughout the project, I focused on writing clean, modular, and testable code.  
-Here are some of the key architectural and design decisions I made:
+Throughout the project, I focused on writing clean, modular, and testable code. Here are some of the key architectural and design decisions I made:
 
 ### 1. Clear Separation of Concerns
 Each package (ai, app, model, player, util) has one well-defined purpose:
