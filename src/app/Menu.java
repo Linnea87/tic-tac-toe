@@ -20,12 +20,6 @@ public class Menu {
         this.scanner = scanner;
     }
 
-    // === Utilities ============================================================
-
-    public void clearScreen() {
-        ConsoleUI.clearScreen();
-    }
-
     // === Selections before game ==============================================
 
     public Mode askMode() {
