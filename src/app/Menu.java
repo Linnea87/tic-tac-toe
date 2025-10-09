@@ -50,6 +50,23 @@ public class Menu {
         }
     }
 
+    public int askBoardSize() {
+        while (true) {
+            System.out.println(Messages.PROMPT_BOARD_SIZE);
+            String line = this.scanner.nextLine().trim();
+            try {
+                int size = Integer.parseInt(line);
+                if (size >= 3 && size <= 10) {
+                    return size;
+                }
+            }
+            catch (NumberFormatException ignored) {
+                // fall through to error message
+            }
+            System.out.println(Messages.PROMPT_BOARD_SIZE + " " + Messages.ERR_TRY_AGAIN);
+        }
+    }
+
     public String askPlayerName(String prompt) {
         while (true) {
             System.out.println(prompt);

@@ -1,18 +1,28 @@
 package model;
 
+import util.Messages;
+
 import static util.ConsoleColors.*;
 
 /**
- * Board – 3x3 grid that stores marks and evaluates wins/draws.
+ * Board – square grid that stores marks and evaluates wins/draws.
+ * Supports dynamic sizes from 3×3 up to 10×10.
  */
 public class Board {
-    private final int SIZE = 3;
+    private final int SIZE;
     private final Mark[][] grid;
 
     // === Constructors =========================================================
 
     public Board() {
-        grid = new Mark[SIZE][SIZE];
+        this(3); // default 3x3 (keeps AI/back-compat behavior)
+    }
+    public Board(int size) {
+        if (size < 3 || size > 10) {
+            throw new IllegalArgumentException(Messages.ERR_BOARD_SIZE);
+        }
+        this.SIZE = size;
+        this.grid = new Mark[SIZE][SIZE];
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 grid[row][col] = Mark.EMPTY;
@@ -23,7 +33,7 @@ public class Board {
     // === Coordinate helpers ===================================================
 
     private int toRow(int cell) {
-        return (cell -1) / SIZE;
+        return (cell - 1) / SIZE;
     }
 
     private int toCol(int cell) {
@@ -33,14 +43,28 @@ public class Board {
     // === Rendering ============================================================
 
     /**
-     * Prints the board with A–C headers, 1–3 rows, and colored X/O.
+     * Prints the board with lettered columns (A...) and numbered rows (1...), using colored X/O.
      */
     public void printBoard() {
-        System.out.println("    " + CYAN + "A" + RESET + "   " + CYAN + "B" + RESET + "   " + CYAN + "C" + RESET);
+        StringBuilder header = new StringBuilder();
+        header.append("   ");
+        for (int c = 0; c < SIZE; c++) {
+            char colChar = (char) ('A' + c);
+            header.append(CYAN).append(colChar).append(RESET);
+            if (c < SIZE - 1) header.append("   ");
+        }
+        System.out.println(header);
 
         for (int row = 0; row < SIZE; row++) {
             StringBuilder line = new StringBuilder();
-            line.append(row + 1).append("  ");
+
+            String rowLabel = String.valueOf(row + 1);
+            if (SIZE >= 10 && rowLabel.length() == 1) {
+                line.append(" ").append(rowLabel).append("  ");
+            }
+            else {
+                line.append(rowLabel).append("  ");
+            }
 
             for (int col = 0; col < SIZE; col++) {
                 Mark m = grid[row][col];
@@ -61,7 +85,14 @@ public class Board {
             System.out.println(line);
 
             if (row < SIZE - 1) {
-                System.out.println("   " + GRAY + "---+---+---" + RESET);
+                StringBuilder sep = new StringBuilder();
+                sep.append("   ").append(GRAY);
+                for (int c = 0; c < SIZE; c++) {
+                    sep.append("---");
+                    if (c < SIZE - 1) sep.append("+");
+                }
+                sep.append(RESET);
+                System.out.println(sep);
             }
         }
     }
@@ -97,7 +128,7 @@ public class Board {
 
     public boolean isFull() {
         for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++ ) {
+            for (int col = 0; col < SIZE; col++) {
                 if (grid[row][col] == Mark.EMPTY) {
                     return false;
                 }
@@ -107,26 +138,27 @@ public class Board {
     }
 
     public boolean checkWin(Mark mark) {
-        // Check rows
-        for (int row = 0; row < SIZE; row++) {
-            if (grid[row][0] == mark && grid[row][1] == mark && grid[row][2] == mark) {
-                return true;
-            }
-        }
+        boolean diag1 = true;
+        boolean diag2 = true;
 
-        for (int col = 0; col < SIZE; col++) {
-            if (grid[0][col] == mark && grid[1][col] == mark && grid[2][col] == mark) {
-                return true;
-            }
-        }
+        for (int i = 0; i < SIZE; i++) {
+            boolean rowAll = true;
+            boolean colAll = true;
 
-        if (grid[0][0] == mark && grid[1][1] == mark && grid[2][2] == mark) {
-            return true;
+            for (int j = 0; j < SIZE; j++) {
+                if (grid[i][j] != mark) {
+                    rowAll = false;
+                }
+                if (grid[j][i] != mark) {
+                    colAll = false;
+                }
+            }
+            if (rowAll || colAll) return true;
+
+            if (grid[i][i] != mark) diag1 = false;
+            if (grid[i][SIZE - 1 - i] != mark)  diag2 = false;
         }
-        if (grid[0][2] == mark && grid[1][1] == mark && grid[2][0] == mark) {
-            return true;
-        }
-        return false;
+        return diag1 || diag2;
     }
 
     // === Accessors ============================================================
@@ -137,19 +169,19 @@ public class Board {
 
     public Mark getMarkAtCell(int cell) {
         if (cell < 1 || cell > SIZE * SIZE) {
-            throw new IllegalArgumentException("Invalid cell: " + cell);
+            throw new IllegalArgumentException(Messages.ERR_CELL_FORMAT + " " + cell);
         }
         return grid[toRow(cell)][toCol(cell)];
     }
 
     public String formatCell(int cell) {
         if (cell < 1 || cell > SIZE * SIZE) {
-            throw new IllegalArgumentException("Invalid cell: " + cell);
+            throw new IllegalArgumentException(Messages.ERR_CELL_FORMAT + " " + cell);
         }
         int row = (cell - 1) / SIZE;
         int col = (cell - 1) % SIZE;
         char colChar = (char) ('A' + col);
-        char rowChar = (char) ('1' + row);
-        return "" + colChar + rowChar;
+        String rowStr = String.valueOf(row + 1);
+        return colChar + rowStr;
     }
 }

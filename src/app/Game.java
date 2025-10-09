@@ -28,6 +28,7 @@ public class Game {
     private final Scoreboard scoreboard;
     private final boolean thinkingDelay;
     private final Menu menu;
+    private int boardSize = 3; // default 3x3 (AI stays on 3x3)
 
     // === Constructors =========================================================
 
@@ -51,8 +52,8 @@ public class Game {
 
         boolean running = true;
         while (running) {
-            ConsoleUI.clearScreen();
-            board = new Board();
+            menu.clearScreen();
+            board = new Board(boardSize);
             playOneRound();
 
             System.out.println("\nRound finished!\n");
@@ -111,6 +112,7 @@ public class Game {
     private Player createPlayerO() {
         Mode mode = menu.askMode();
         if (mode == Mode.HUMAN_VS_CPU) {
+            boardSize = 3;
             Difficulty diff = menu.askDifficulty();
 
             Player cpu = switch (diff) {
@@ -122,6 +124,7 @@ public class Game {
            return cpu;
         }
         else {
+            boardSize = menu.askBoardSize();
           String nameO = menu.askPlayerName(Messages.PROMPT_PLAYER_NAME.formatted(ConsoleColors.YELLOW + "Player O" + ConsoleColors.RESET));
           return new HumanPlayer(nameO, Mark.O, scanner);
         }
