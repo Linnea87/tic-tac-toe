@@ -22,10 +22,7 @@ and support for dynamic board sizes (3×3 up to 10×10 in Human vs Human mode).
 ---
 
 ## 🧩 UML Diagram
-The UML diagram below illustrates the initial architecture of the project — showing how the main components such as the game logic, AI strategies, and player classes were planned to interact.  
-It represents the foundation of the system design, created early in development to guide implementation.  
-As the project evolved, new supporting classes were added to improve structure, readability, and to better align with clean coding principles.  
-The diagram below captures that original design intent:
+The UML diagram below illustrates the initial architecture of the project — showing how the main components such as the game logic, AI strategies, and player classes were planned to interact. It represents the foundation of the system design, created early in development to guide implementation. As the project evolved, new supporting classes were added to improve structure, readability, and to better align with clean coding principles.The diagram below captures that original design intent:
 
 ![UML Diagram](docs/treirad-uml.png)
 
@@ -99,8 +96,7 @@ The AI opponent uses different strategies depending on the selected difficulty l
 | **Medium** | `HeuristicStrategy` | Blocks or extends potential winning lines — more defensive. |
 | **Hard** | `MinimaxStrategy` | Evaluates all possible future states to find the most optimal move. |
 
-This system follows the **Strategy** design pattern, allowing each difficulty level to use its own logic while the game loop remains unchanged.  
-Currently, AI mode always runs on a **3×3 board**, ensuring quick and consistent decision-making.
+This system follows the **Strategy** design pattern, allowing each difficulty level to use its own logic while the game loop remains unchanged. Currently, AI mode always runs on a **3×3 board**, ensuring quick and consistent decision-making.
 
 [⬆ Back to top](#-table-of-contents)
 
@@ -119,8 +115,7 @@ Each package (ai, app, model, player, util) has one well-defined purpose:
 - `util` centralizes helpers and shared logic.
 
 ### 2. Strategy Pattern for AI
-The AI uses the **Strategy Pattern**, allowing multiple difficulty levels to share the same interface (`AiStrategy`).  
-This made it easy to plug in `Random`, `Heuristic`, or `Minimax` behavior without changing the game loop.
+The AI uses the **Strategy Pattern**, allowing multiple difficulty levels to share the same interface (`AiStrategy`). This made it easy to plug in `Random`, `Heuristic`, or `Minimax` behavior without changing the game loop.
 
 ### 3. Single Responsibility Principle (SRP)
 Each class has one clear responsibility:
@@ -130,12 +125,10 @@ Each class has one clear responsibility:
 - `ConsoleUI` → Displays formatted messages.
 
 ### 4. Centralized Validation & Error Messages
-All user-facing text (prompts and errors) are defined in `Messages.java`.  
-This reduces duplication and makes future localization easy.
+All user-facing text (prompts and errors) are defined in `Messages.java`. This reduces duplication and makes future localization easy.
 
 ### 5. Testability by Design
-Objects such as `Scanner` and `AiStrategy` are injected, not hardcoded.  
-This makes classes modular and easy to test in isolation with JUnit.
+Objects such as `Scanner` and `AiStrategy` are injected, not hardcoded. This makes classes modular and easy to test in isolation with JUnit.
 
 ### 6. Extensibility in Mind
 The `Board` class supports dynamic sizes (3–10), which lays the foundation for larger board modes or “4-in-a-row” expansions.
@@ -146,8 +139,7 @@ The `Board` class supports dynamic sizes (3–10), which lays the foundation for
 
 ## 🧪 Testing Philosophy
 
-Unit tests are written with **JUnit 5**.  
-The test sources live under `test/` with the same package structure as `src/`.
+Unit tests are written with **JUnit 5**. The test sources live under `test/` with the same package structure as `src/`.
 
 ### Directory tree (tests)
 ```
@@ -218,8 +210,7 @@ java -cp out app.Main
 ### How to play (input)
 Enter moves in the format **Column + Row**, e.g. `A1`, `B2`, `C3`.
 
-In Human vs Human mode, you can now choose the board size (3–10).
-The computer opponent always plays on a standard 3×3 board.
+In Human vs Human mode, you can choose the board size (3–10). The computer opponent always plays on a standard 3×3 board.
 
 #### Empty board
 ```
@@ -282,8 +273,7 @@ The computer opponent always plays on a standard 3×3 board.
 All code in this project was written by Linnéa Ternevik (2025).
 
 ### Code Support
-- AI tools (e.g. ChatGPT) were used occasionally for debugging assistance,
-code reviews, and documentation improvements.
+- AI tools (e.g. ChatGPT) were used occasionally for debugging assistance, code reviews, and documentation improvements.
 
 ### Media
 - [Carbon](https://carbon.now.sh) was used to create the terminal mockup image included in this README.
