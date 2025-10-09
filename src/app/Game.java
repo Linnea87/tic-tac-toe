@@ -49,14 +49,16 @@ public class Game {
     public void play() {
         printWelcome();
         setupPlayers();
+        ConsoleUI.clearScreen();
+        ConsoleUI.printStartBanner(p1, p2);
 
         boolean running = true;
         while (running) {
-            menu.clearScreen();
+            ConsoleUI.clearScreen();
             board = new Board(boardSize);
             playOneRound();
 
-            System.out.println("\nRound finished!\n");
+            System.out.println();
             scoreboard.printScores();
             System.out.println();
 
@@ -64,16 +66,22 @@ public class Game {
             switch (choice) {
                 case REMATCH -> {
                     /* start a new round same players */
+                    ConsoleUI.clearScreen();
+                    ConsoleUI.printStartBanner(p1, p2);
                 }
 
                 case CHANGE_OPPONENT -> {
                     scoreboard.reset();
                     setupOpponentOnly();
+                    ConsoleUI.clearScreen();
+                    ConsoleUI.printStartBanner(p1, p2);
                 }
 
                 case CHANGE_BOTH -> {
                     scoreboard.reset();
                     setupPlayers();
+                    ConsoleUI.clearScreen();
+                    ConsoleUI.printStartBanner(p1, p2);
                 }
 
                 case QUIT -> running = false;
@@ -115,13 +123,11 @@ public class Game {
             boardSize = 3;
             Difficulty diff = menu.askDifficulty();
 
-            Player cpu = switch (diff) {
+            return switch (diff) {
                 case EASY -> new ComputerPlayer("Computer (Easy)", Mark.O, new RandomStrategy(), thinkingDelay);
                 case MEDIUM -> new ComputerPlayer("Computer (Medium)", Mark.O, new HeuristicStrategy(), thinkingDelay);
                 case HARD -> new ComputerPlayer("Computer (Hard)", Mark.O, new MinimaxStrategy(), thinkingDelay);
             };
-           System.out.println(ConsoleUI.coloredByMark("Player O", Mark.O) + ConsoleColors.GRAY + " is the Computer (" + diff + ")." + ConsoleColors.RESET);
-           return cpu;
         }
         else {
             boardSize = menu.askBoardSize();
@@ -151,9 +157,16 @@ public class Game {
 
             if (board.checkWin(current.getMark())) {
                 board.printBoard();
-                String winnerName = ConsoleUI.coloredByMark(current.getName(), current.getMark());
-                String winnerMark = ConsoleUI.coloredMark(current.getMark());
-                System.out.println("\n" + winnerName  + " " + winnerMark +  " Wins!");
+
+                System.out.println();
+                System.out.println("Round finished!");
+                System.out.println();
+
+                ConsoleUI.printSeparator();
+                System.out.println(
+                        ConsoleUI.coloredByMark(current.getName() + " " + current.getMark() + " Wins!", current.getMark())
+                );
+                ConsoleUI.printSeparator();
 
                 scoreboard.addWin(current.getName());
                 break;
@@ -161,7 +174,14 @@ public class Game {
 
             if (board.isFull()) {
                 board.printBoard();
-                System.out.println("\nIt's a draw!");
+
+                System.out.println();
+                System.out.println("Round finished!");
+                System.out.println();
+
+                ConsoleUI.printSeparator();
+                ConsoleUI.printInfo("It's a draw!");
+                ConsoleUI.printSeparator();
                 break;
             }
 
