@@ -57,6 +57,7 @@ public class Game {
 
             System.out.println("\nRound finished!\n");
             scoreboard.printScores();
+            System.out.println();
 
             PostGameChoice choice = menu.askPostGameChoice();
             switch (choice) {
