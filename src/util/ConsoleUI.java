@@ -135,7 +135,6 @@ public class ConsoleUI {
         System.out.println();
         printSeparator();
 
-        // Färga hela raden i respektive marks färg
         System.out.println(" " + coloredByMark("Player X: " + p1.getName(), Mark.X));
         System.out.println(" " + coloredByMark("Player O: " + p2.getName(), Mark.O));
 
