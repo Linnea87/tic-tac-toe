@@ -1,5 +1,6 @@
 package util;
 import model.Mark;
+import player.Player;
 
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class ConsoleUI {
     // === Basics ===============================================================
 
     public static void clearScreen() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             System.out.println();
         }
     }
@@ -122,5 +123,24 @@ public class ConsoleUI {
             }
             printInvalidChoice(options.length);
         }
+    }
+
+    // === Banners & separators =====================================================
+
+    public static void printSeparator() {
+        System.out.println(ConsoleColors.GRAY + "================================================" + ConsoleColors.RESET);
+    }
+
+    public static void printStartBanner(Player p1, Player p2) {
+        System.out.println();
+        printSeparator();
+
+        // Färga hela raden i respektive marks färg
+        System.out.println(" " + coloredByMark("Player X: " + p1.getName(), Mark.X));
+        System.out.println(" " + coloredByMark("Player O: " + p2.getName(), Mark.O));
+
+        printSeparator();
+        System.out.println("                 LET'S PLAY! 🎮");
+        printSeparator();
     }
 }
