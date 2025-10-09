@@ -2,6 +2,7 @@
 _Developed as a school assignment at Folkuniversitetet._
 
 ![Tic-Tac-Toe Mockup](docs/tictactoe-mockup.png)
+
 Tic-Tac-Toe is a two-player game for the terminal, featuring an optional computer opponent with multiple difficulty levels,  
 and support for dynamic board sizes (3×3 up to 10×10 in Human vs Human mode).
 
