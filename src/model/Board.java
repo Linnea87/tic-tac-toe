@@ -47,7 +47,7 @@ public class Board {
      */
     public void printBoard() {
         StringBuilder header = new StringBuilder();
-        header.append("   ");
+        header.append("    ");
         for (int c = 0; c < SIZE; c++) {
             char colChar = (char) ('A' + c);
             header.append(CYAN).append(colChar).append(RESET);
