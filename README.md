@@ -91,13 +91,16 @@ src/
 
 ## 🤖 AI Overview
 
-| Difficulty | Strategy Class | Description |
-|-------------|----------------|--------------|
-| **Easy** | `RandomStrategy` | Picks a random empty cell. Simple and unpredictable. |
-| **Medium** | `HeuristicStrategy` | Blocks or extends potential winning lines — more defensive. |
-| **Hard** | `MinimaxStrategy` | Evaluates all possible future states to find the best outcome. |
+The AI opponent uses different strategies depending on the selected difficulty level.  
+Each strategy implements the same `AiStrategy` interface, but they vary in complexity, decision-making depth, and gameplay behavior:
 
-The AI system follows the **Strategy pattern**, allowing each difficulty level to use its own logic while the game loop stays the same.  
+| Difficulty | Strategy Class | Description |
+|------------|----------------|--------------|
+| **Easy** | `RandomStrategy` | Picks a random empty cell — simple and unpredictable. |
+| **Medium** | `HeuristicStrategy` | Blocks or extends potential winning lines — more defensive. |
+| **Hard** | `MinimaxStrategy` | Evaluates all possible future states to find the most optimal move. |
+
+This system follows the **Strategy** design pattern, allowing each difficulty level to use its own logic while the game loop remains unchanged.  
 Currently, AI mode always runs on a **3×3 board**, ensuring quick and consistent decision-making.
 
 [⬆ Back to top](#-table-of-contents)
@@ -166,6 +169,7 @@ test/
 │   ├── HumanPlayerTest.java
 └── util/
     ├── CellParserTest.java
+    ├── ConsoleColorsTest.java 
     ├── ConsoleUITest.java
     ├── MessagesTest.java
     ├── NameValidatorTest.java
@@ -179,9 +183,16 @@ test/
 - **BoardTest** → placing marks, win conditions (row, column, diagonals), full board, invalid moves.
 - **ScoreboardTest** → tracking wins per player and multiple players.
 - **NameValidatorTest** → ensures valid/invalid names behave correctly.
-- **HumanPlayerTest** → tests player input and constructor validation.
+- **CellParserTest** → validates and parses user input like `A1` into correct board positions and throws appropriate exceptions for invalid input.
+- **MessagesTest** → ensures all user-facing messages are displayed correctly and consistently.
+- **ConsoleUITest** → verifies formatted console output, colors, and layout helpers.
+- **ConsoleColorsTest** → checks that ANSI color codes are correctly applied and rendered.
+- **HumanPlayerTest** → tests player input handling and constructor validation.
 - **ComputerPlayerTest** → ensures AI moves only in valid, empty cells.
 - **RandomStrategyTest** → verifies AI always returns valid empty cells.
+- **HeuristicStrategyTest** → ensures AI correctly blocks or extends winning lines.
+- **MinimaxStrategyTest** → tests minimax decision-making logic and ensures optimal moves are chosen.
+- **MenuTest** → validates menu navigation, option selection, and user flow.
 - **GameTest** → full end-to-end simulation:
     - Player X winning a game (includes board size selection)
     - Draw scenario
@@ -256,11 +267,12 @@ The computer opponent always plays on a standard 3×3 board.
 ---
 
 ## 💬 Lessons Learned
--	Deepened understanding of object-oriented design and encapsulation.
--	Practiced test-driven development principles through iterative testing.
--	Learned to apply design patterns like Strategy and SRP effectively.
--	Improved ability to debug and refactor safely using unit tests.
--	Realized how structure and readability are key for long-term maintainability.
+
+- Deepened my understanding of how classes can interact, inherit from each other, and work together to form a clean, maintainable object-oriented architecture.
+- Strengthened my skills in designing and organizing larger projects, making deliberate design choices based on established OOP principles.
+- Expanded my knowledge of Java’s capabilities, realizing that while its fundamentals are similar to Python, tools like enums and interfaces provide additional structure, flexibility, and expressiveness.
+- Advanced my understanding of design patterns by applying concepts like Strategy and SRP more deliberately and strategically in a real-world project context.
+- Improved my ability to debug, refactor, and maintain code quality, leveraging unit tests to ensure reliability and support safe iterative development.
 
 [⬆ Back to top](#-table-of-contents)
 
