@@ -1,67 +1,100 @@
 package model;
 
-
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Tests for Board – verifies placement, win conditions, and formatting.
+ */
 public class BoardTest {
+
+    // === Basic State ==========================================================
+
     @Test
-    void testNewBoardIsNotFull() {
-        Board board = new Board();
+    void newBoard_isNotFull() {
+        final Board board = new Board();
         assertFalse(board.isFull(), "A new board should not be full");
     }
 
+    // === Mark Placement =======================================================
+
     @Test
-    void testPlaceMarkOnEmptyCell() {
-        Board board = new Board();
-        boolean result = board.placeMark(0, 0, Mark.X);
+    void placeMark_onEmptyCell_succeeds() {
+        final Board board = new Board();
+        final boolean result = board.placeMark(0, 0, Mark.X);
         assertTrue(result, "Should be able to place mark on an empty cell");
     }
+
     @Test
-    void testPlaceMarkOnOccupiedCell() {
-        Board board = new Board();
+    void placeMark_onOccupiedCell_fails() {
+        final Board board = new Board();
         board.placeMark(0, 0, Mark.X);
-        boolean result = board.placeMark(0, 0, Mark.O);
+        final boolean result = board.placeMark(0, 0, Mark.O);
         assertFalse(result, "Should not be able to place mark on occupied cell");
     }
 
     @Test
-    void testWinInRow() {
-        Board board = new Board();
+    void placeMark_outOfBounds_fails() {
+        final Board board = new Board();
+        assertFalse(board.placeMark(-1, 0, Mark.X), "Row -1 is invalid");
+        assertFalse(board.placeMark(0, -1, Mark.X), "Col -1 is invalid");
+        assertFalse(board.placeMark(board.getSize(), 0, Mark.X), "Row SIZE is invalid");
+        assertFalse(board.placeMark(0, board.getSize(), Mark.X), "Col SIZE is invalid");
+    }
+
+    // === Win Conditions =======================================================
+
+    @Test
+    void win_inRow_detected() {
+        final Board board = new Board();
         board.placeMark(0, 0, Mark.X);
         board.placeMark(0, 1, Mark.X);
         board.placeMark(0, 2, Mark.X);
         assertTrue(board.checkWin(Mark.X), "X should win with a row");
     }
+
     @Test
-    void testWinInColumn() {
-        Board board = new Board();
+    void win_inColumn_detected() {
+        final Board board = new Board();
         board.placeMark(0, 1, Mark.O);
         board.placeMark(1, 1, Mark.O);
         board.placeMark(2, 1, Mark.O);
         assertTrue(board.checkWin(Mark.O), "O should win with a column");
     }
+
     @Test
-    void testWinInMainDiagonal() {
-        Board board = new Board();
+    void win_inMainDiagonal_detected() {
+        final Board board = new Board();
         board.placeMark(0, 0, Mark.X);
         board.placeMark(1, 1, Mark.X);
         board.placeMark(2, 2, Mark.X);
         assertTrue(board.checkWin(Mark.X), "X should win on the main diagonal");
     }
+
     @Test
-    void testWinAntiDiagonal() {
-        Board board = new Board();
+    void win_inAntiDiagonal_detected() {
+        final Board board = new Board();
         board.placeMark(0, 2, Mark.O);
         board.placeMark(1, 1, Mark.O);
         board.placeMark(2, 0, Mark.O);
-        assertTrue(board.checkWin(Mark.O), "O should win on the anti diagonal");
+        assertTrue(board.checkWin(Mark.O), "O should win on the anti-diagonal");
     }
+
     @Test
-    void testBoardIsFull() {
-        Board board = new Board();
+    void noWin_detected_whenIncomplete() {
+        final Board board = new Board();
+        board.placeMark(0, 0, Mark.X);
+        board.placeMark(0, 1, Mark.O);
+        board.placeMark(1, 1, Mark.X);
+        assertFalse(board.checkWin(Mark.X), "X should not have a win yet");
+        assertFalse(board.checkWin(Mark.O), "O should not have a win yet");
+    }
+
+    // === Board State ==========================================================
+
+    @Test
+    void board_becomesFull_afterAllCellsFilled() {
+        final Board board = new Board();
         for (int r = 0; r < board.getSize(); r++) {
             for (int c = 0; c < board.getSize(); c++) {
                 board.placeMark(r, c, Mark.X);
@@ -70,28 +103,11 @@ public class BoardTest {
         assertTrue(board.isFull(), "Board should be full after " + (board.getSize() * board.getSize()) + " moves");
     }
 
-    @Test
-    void testPlaceMarkOutOfBounds() {
-        Board board = new Board();
-        assertFalse(board.placeMark(-1, 0, Mark.X), "Row -1 is invalid");
-        assertFalse(board.placeMark(0, -1, Mark.X), "Col -1 is invalid");
-        assertFalse(board.placeMark( board.getSize(), 0, Mark.X), "Row SIZE is invalid");
-        assertFalse(board.placeMark(0, board.getSize(), Mark.X), "Col SIZE is invalid");
-    }
-
-    @Test
-    void testNoWinYet() {
-        Board board = new Board();
-        board.placeMark(0, 0, Mark.X);
-        board.placeMark(0, 1, Mark.O);
-        board.placeMark(1, 1, Mark.X);
-        assertFalse(board.checkWin(Mark.X), "X should not have a win yet");
-        assertFalse(board.checkWin(Mark.O), "O should not have a win yet");
-    }
+    // === Cell Formatting ======================================================
 
     @Test
     void formatCell_returnCorrectNotation() {
-        Board board = new Board();
+        final Board board = new Board();
         assertEquals("A1", board.formatCell(1));
         assertEquals("B1", board.formatCell(2));
         assertEquals("C1", board.formatCell(3));
@@ -105,12 +121,10 @@ public class BoardTest {
 
     @Test
     void formatCell_invalidCell_throwsException() {
-        Board board = new Board();
+        final Board board = new Board();
         assertThrows(IllegalArgumentException.class, () -> board.formatCell(0));
         assertThrows(IllegalArgumentException.class, () -> board.formatCell(10));
     }
-
-
 }
 
 

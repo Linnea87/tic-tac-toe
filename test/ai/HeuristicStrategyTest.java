@@ -3,52 +3,57 @@ package ai;
 import model.Board;
 import model.Mark;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests for HeuristicStrategy – verifies win, block, and fallback logic.
+ */
 public class HeuristicStrategyTest {
+
+    // === Winning Move Logic ===================================================
+
     @Test
-    void chooseWinningMove() {
-        Board board = new Board();
-        HeuristicStrategy strat = new HeuristicStrategy();
+    void chooseWinningMove_detected() {
+        final Board board = new Board();
+        final HeuristicStrategy strat = new HeuristicStrategy();
 
-        // Setup: X is about to win on cell 3
-        board.placeMarkByCell(1, Mark.X);
-        board.placeMarkByCell(2, Mark.X);
+        // AI can win with the cell 3
+        board.placeMarkByCell(1, Mark.O);
+        board.placeMarkByCell(2, Mark.O);
 
-        // Expect AI to pick the winning cell
-        int move = strat.chooseCell(board, Mark.O);
+        final int move = strat.chooseCell(board, Mark.O);
         assertEquals(3, move, "AI should choose winning move (cell 3)");
     }
 
-    @Test
-    void blocksOpponentWin() {
-        Board board = new Board();
-        HeuristicStrategy strat = new HeuristicStrategy();
+    // === Blocking Logic =======================================================
 
-        // Setup: X is about to win on cell 9
+    @Test
+    void blocksOpponentWin_detected() {
+       final Board board = new Board();
+        final HeuristicStrategy strat = new HeuristicStrategy();
+
+        // X threatens to win with cell 9 → AI should block
         board.placeMarkByCell(7, Mark.X);
         board.placeMarkByCell(8, Mark.X);
 
-        // Expect AI to block the opponent
-        int move = strat.chooseCell(board, Mark.O);
+        final int move = strat.chooseCell(board, Mark.O);
         assertEquals(9, move, "AI should block opponent's win (cell 9)");
     }
 
-    @Test
-    void fallsBackToRandom() {
-        Board board = new Board();
-        HeuristicStrategy strat = new HeuristicStrategy();
+    // === Fallback Logic =======================================================
 
-        // Setup: No immediate win or block available
+    @Test
+    void fallsBackToRandom_moveIsValid() {
+       final Board board = new Board();
+       final HeuristicStrategy strat = new HeuristicStrategy();
+
+        // No immediate win or block available
         board.placeMarkByCell(1, Mark.X);
         board.placeMarkByCell(2, Mark.O);
 
-        // Expect AI to pick a valid empty cell as fallback
-        int move = strat.chooseCell(board, Mark.O);
-
-        assertTrue(move >= 1 && move <= 9, "Move should be within board range");
+        final int move = strat.chooseCell(board, Mark.O);
+        assertTrue(move >= 1 && move <= board.getSize() * board.getSize(), "Move should be within board range");
         assertTrue(board.isCellEmpty(move), "Move should be an empty cell");
     }
 }

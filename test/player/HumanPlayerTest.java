@@ -10,40 +10,50 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Tests for HumanPlayer – verifies input handling, validation, and cell selection.
+ */
 public class HumanPlayerTest {
+
+    // === Constructor =========================================================
+
     @Test
     void constructor_acceptsValidArgs() {
-        Scanner sc = new Scanner(new ByteArrayInputStream("".getBytes()));
-        HumanPlayer p = new HumanPlayer("Alice", Mark.X, sc);
+        final Scanner sc = new Scanner(new ByteArrayInputStream("".getBytes()));
+        final HumanPlayer p = new HumanPlayer("Alice", Mark.X, sc);
 
-        assertEquals("Alice", p.getName());
-        assertEquals(Mark.X, p.getMark());
+        assertEquals("Alice", p.getName(), "Name should be stored correctly");
+        assertEquals(Mark.X, p.getMark(), "Mark should be stored correctly");
     }
     @Test
     void constructor_rejectsInvalidName() {
-        Scanner sc = new Scanner(new ByteArrayInputStream("".getBytes()));
-        assertThrows(IllegalArgumentException.class, () -> new HumanPlayer("123", Mark.X, sc));
+        final Scanner sc = new Scanner(new ByteArrayInputStream("".getBytes()));
+        assertThrows(IllegalArgumentException.class,
+                () -> new HumanPlayer("123", Mark.X, sc),
+                "Invalid player names should throw an exception");
     }
+
+    // === chooseCell ==========================================================
+
     @Test
     void chooseCell_returnsValidCell() {
-        String input = "B2\n";
-        Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        HumanPlayer p = new HumanPlayer("Bob", Mark.X, sc);
-        Board board = new Board();
+        final String input = "B2\n";
+        final Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
+        final HumanPlayer p = new HumanPlayer("Bob", Mark.X, sc);
+        final Board board = new Board();
 
-        int cell = p.chooseCell(board);
-        assertEquals(5, cell);
+        final int cell = p.chooseCell(board);
+        assertEquals(5, cell, "B2 should correspond to cell number 5");
     }
 
     @Test
     void chooseCell_repromptsUntilValid() {
-        String input = "hej\nC3\n";
-        Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        HumanPlayer p = new HumanPlayer("Eve", Mark.X, sc);
-        Board board = new Board();
+        final String input = "hej\nC3\n";
+        final Scanner sc = new Scanner(new ByteArrayInputStream(input.getBytes()));
+        final HumanPlayer p = new HumanPlayer("Eve", Mark.X, sc);
+        final Board board = new Board();
 
-        int cell = p.chooseCell(board);
-        assertEquals(9, cell);
-
+        final int cell = p.chooseCell(board);
+        assertEquals(9, cell, "After invalid input, player should choose C3 (cell 9)");
     }
 }

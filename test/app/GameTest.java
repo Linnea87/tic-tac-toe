@@ -3,18 +3,21 @@ package app;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Integration-style tests for the Game class – simulates full game sessions.
+ */
 public class GameTest {
     private InputStream origIn;
     private PrintStream origOut;
     private ByteArrayOutputStream out;
+
+    // === Setup / Teardown =====================================================
 
     @BeforeEach
     void setup() {
@@ -30,13 +33,17 @@ public class GameTest {
         System.setOut(origOut);
     }
 
+    // === Helpers ==============================================================
+
     private static String stripAnsi(String s) {
         return s.replaceAll("\u001B\\[[;\\d]*m", "");
     }
 
+    // === Tests ================================================================
+
     @Test
     void play_xWins_once_then_quit() {
-        String input = String.join("\n",
+        final String input = String.join("\n",
                 "Alice",
                 "1",
                 "Bob",
@@ -47,7 +54,7 @@ public class GameTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game(false).play();
 
-        String s = stripAnsi(out.toString());
+        final String s = stripAnsi(out.toString());
         assertTrue(s.contains("Alice") && s.contains("Wins"));
         assertTrue(s.toLowerCase().contains("scoreboard"));
         assertTrue(s.contains("Thanks for playing!"));
@@ -55,7 +62,7 @@ public class GameTest {
 
     @Test
     void play_draw_then_quit() {
-        String input = String.join("\n",
+        final String input = String.join("\n",
                 "A",
                 "1",
                 "B",
@@ -65,14 +72,14 @@ public class GameTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game(false).play();
 
-        String s = stripAnsi(out.toString());
+       final String s = stripAnsi(out.toString());
         assertTrue(s.contains("It's a draw!"));
         assertTrue(s.contains("Thanks for playing!"));
     }
 
     @Test
-    void play_vs_computer__easy_completes_round() {
-        String input = String.join("\n",
+    void play_vs_computer_easy_completes_round() {
+       final String input = String.join("\n",
                 "Alice",
                 "2",
                 "EASY",
@@ -83,7 +90,7 @@ public class GameTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game(false).play();
 
-        String s = stripAnsi(out.toString());
+        final String s = stripAnsi(out.toString());
         assertTrue(s.contains("Player O is the Computer (EASY)."));
         assertTrue(s.contains("Thanks for playing!"));
 
@@ -91,7 +98,7 @@ public class GameTest {
 
     @Test
     void play_vs_computer_medium_quit_immediately() {
-        String input = String.join("\n",
+        final String input = String.join("\n",
                 "Alice",
                 "2",
                 "MEDIUM",
@@ -102,14 +109,14 @@ public class GameTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game(false).play();
 
-        String s = stripAnsi(out.toString());
+        final String s = stripAnsi(out.toString());
         assertTrue(s.contains("Player O is the Computer (MEDIUM)."));
         assertTrue(s.contains("Thanks for playing!"));
     }
 
     @Test
-    void play_vs_computer_Hard_quit_immediately() {
-        String input = String.join("\n",
+    void play_vs_computer_hard_quit_immediately() {
+        final String input = String.join("\n",
                 "Alice",
                 "2",
                 "Hard",
@@ -120,7 +127,7 @@ public class GameTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game(false).play();
 
-        String s = stripAnsi(out.toString());
+        final String s = stripAnsi(out.toString());
         assertTrue(s.contains("Player O is the Computer (HARD)."));
         assertTrue(s.contains("Thanks for playing!"));
     }
