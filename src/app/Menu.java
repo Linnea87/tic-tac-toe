@@ -63,7 +63,7 @@ public class Menu {
             catch (NumberFormatException ignored) {
                 // fall through to error message
             }
-            System.out.println(Messages.PROMPT_BOARD_SIZE + " " + Messages.ERR_TRY_AGAIN);
+           ConsoleUI.printError(Messages.ERR_INVALID_INPUT, Messages.PROMPT_BOARD_SIZE, Messages.ERR_TRY_AGAIN);
         }
     }
 
