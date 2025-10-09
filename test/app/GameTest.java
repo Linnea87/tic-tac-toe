@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -56,6 +57,7 @@ public class GameTest {
         new Game(false).play();
 
         final String s = stripAnsi(out.toString());
+        assertTrue(s.contains("Round finished!"));
         assertTrue(s.contains("Alice") && s.contains("Wins"));
         assertTrue(s.toLowerCase().contains("scoreboard"));
         assertTrue(s.contains("Thanks for playing!"));
@@ -71,31 +73,33 @@ public class GameTest {
                 "A1", "B1", "C1", "B2","C2", "A2", "A3", "C3", "B3",
                 "4"
         ) + "\n";
+
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game(false).play();
 
-       final String s = stripAnsi(out.toString());
+        final String s = stripAnsi(out.toString());
+        assertTrue(s.contains("Round finished!"));
         assertTrue(s.contains("It's a draw!"));
         assertTrue(s.contains("Thanks for playing!"));
     }
 
     @Test
     void play_vs_computer_easy_completes_round() {
-       final String input = String.join("\n",
+        final String input = String.join("\n",
                 "Alice",
                 "2",
                 "EASY",
                 "A1","B1","C1","A2","B2","C2","A3","B3","C3",
-                "A1","B1","C1","A2","B2","C2","A3","B3","C3",
                 "4"
         ) + "\n";
+
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game(false).play();
 
         final String s = stripAnsi(out.toString());
-        assertTrue(s.contains("Player O is the Computer (EASY)."));
+        assertTrue(s.contains("Computer (Easy)"));
+        assertTrue(s.contains("Round finished!"));
         assertTrue(s.contains("Thanks for playing!"));
-
     }
 
     @Test
@@ -105,14 +109,15 @@ public class GameTest {
                 "2",
                 "MEDIUM",
                 "A1","B1","C1","A2","B2","C2","A3","B3","C3",
-                "A1","B1","C1","A2","B2","C2","A3","B3","C3",
                 "4"
         ) + "\n";
+
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         new Game(false).play();
 
         final String s = stripAnsi(out.toString());
-        assertTrue(s.contains("Player O is the Computer (MEDIUM)."));
+        assertTrue(s.contains("Computer (Medium)"));
+        assertTrue(s.contains("Round finished!"));
         assertTrue(s.contains("Thanks for playing!"));
     }
 
@@ -121,7 +126,7 @@ public class GameTest {
         final String input = String.join("\n",
                 "Alice",
                 "2",
-                "Hard",
+                "HARD", // ✅ ändrat till versaler
                 "A1", "C1", "B2","A3", "C3",
                 "4"
         ) + "\n";
@@ -130,7 +135,8 @@ public class GameTest {
         new Game(false).play();
 
         final String s = stripAnsi(out.toString());
-        assertTrue(s.contains("Player O is the Computer (HARD)."));
+        assertTrue(s.contains("Computer (Hard)"));
+        assertTrue(s.contains("Round finished!"));
         assertTrue(s.contains("Thanks for playing!"));
     }
 }

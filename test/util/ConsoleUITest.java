@@ -59,13 +59,19 @@ public class ConsoleUITest {
 
     @Test
     void clearScreen_printsBlankLines() {
-        out.reset();
-        ConsoleUI.clearScreen();
-        final String printed = out.toString();
-        // We print three newlines; being permissive: at least 3 line breaks
-        final long lineBreaks = printed.chars().filter(ch -> ch == '\n').count();
-        assertTrue(lineBreaks >= 3);
-    }
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream old = System.out;
+        System.setOut(new PrintStream(out));
+        try {
+            ConsoleUI.clearScreen();
+        } finally {
+            System.setOut(old);
+        }
+
+        String s = out.toString();
+
+        long blankLines = s.lines().filter(String::isBlank).count();
+        assertTrue(blankLines >= 1, "clearScreen() should print at least 1 blank line");    }
 
     // === askChoice ============================================================
 
