@@ -1,9 +1,8 @@
 # 🎮 Tic-Tac-Toe (Text-based, Java)
+_Developed as a school assignment at Folkuniversitetet._
+
 ![Tic-Tac-Toe Mockup](docs/tictactoe-mockup.png)
-
-_A terminal-based Tic-Tac-Toe game developed in Java as part of a programming course at Folkuniversitetet._
-
-A two-player Tic-Tac-Toe game in the terminal, with optional computer opponent and difficulty levels,  
+Tic-Tac-Toe is a two-player game for the terminal, featuring an optional computer opponent with multiple difficulty levels,  
 and support for dynamic board sizes (3×3 up to 10×10 in Human vs Human mode).
 
 ---
@@ -12,7 +11,7 @@ and support for dynamic board sizes (3×3 up to 10×10 in Human vs Human mode).
 - [🧩 UML Diagram](#-uml-diagram)
 - [🧱 Project Structure](#-project-structure)
 - [🤖 AI Overview](#-ai-overview)
-- [⚙️ Design Decisions](#️-design-decisions)
+- [⚙️ Design Decisions](#-design-decisions)
 - [🧪 Testing Philosophy](#-testing-philosophy)
 - [🏗 Build & Run](#-build--run)
 - [🚀 Roadmap](#-roadmap)
