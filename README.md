@@ -32,6 +32,7 @@
 ## 📖 Introduction
 
 This is a text-based version of the classic Tic-Tac-Toe game. It is a fully interactive, terminal-based project designed with a focus on user experience, clean code architecture, and scalability. Players can compete in human vs. human or human vs. AI modes, with three different AI difficulty levels.
+
 ### Project goals
 
 - Write clean, maintainable, and well-structured Java code.
@@ -40,14 +41,14 @@ This is a text-based version of the classic Tic-Tac-Toe game. It is a fully inte
 - Implement robust input validation and helpful user feedback.
 - Create a visually engaging and intuitive experience — even in a text-based environment.
 
-
 [⬆ Back to top](#table-of-contents)
 
 ## 🧩 Data Model
 
 ### 🗺️ UML Diagram
 
-The UML diagram below was created in Lucidchart to outline the initial structure and relationships between the main components of the game. It illustrates how the core parts — including game logic, AI strategies, and player classes — were originally designed to interact.
+The UML diagram below was created in Lucidchart to outline the initial structure and relationships between the main components of the game. It illustrates how the core parts 
+— including game logic, AI strategies, and player classes — were originally designed to interact.
 
 While the diagram provided a solid foundation during early development, the final implementation evolved as new features and supporting classes were introduced.
 
@@ -229,7 +230,7 @@ git commit -m "commit message"
 git push
 ```
 
-### 🍴Cloning and Forking:
+### 🍴 Cloning and Forking:
 
 If you want to clone or fork this project, you can do so from my [GitHub](https://github.com/Linnea87/tic-tac-toe) repository.
 
@@ -257,7 +258,7 @@ javac -d out src/**/*.java
 java -cp out app.Main
 ```
 
-### 🕹️Gameplay Instructions
+### 🕹️ Gameplay Instructions
 
 Moves are entered as Column + Row, e.g. A1, B2, C3.
 
