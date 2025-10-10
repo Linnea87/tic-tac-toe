@@ -71,20 +71,16 @@ public class ComputerPlayer implements Player {
         String nameC = ConsoleUI.coloredByMark(name, mark);
         String markC = ConsoleUI.coloredMark(mark);
 
-        System.out.println(nameC + " " + markC + ConsoleColors.GRAY + " is thinking...." + ConsoleColors.RESET);
-        if (thinkingDelay) {
-            try { Thread.sleep(350); } catch (InterruptedException ignored) {}
-        }
+        System.out.println(nameC + " " + markC + ConsoleColors.GRAY + " "+ Messages.MSG_IS_THINKING + ConsoleColors.RESET);
+        if (thinkingDelay) { try { Thread.sleep(350); } catch (InterruptedException ignored) {} }
 
         int cell = strategy.chooseCell(board, mark);
 
         String move = board.formatCell(cell);
-        System.out.println(nameC + " " + markC + ConsoleColors.CYAN + " played " + move + ConsoleColors.RESET);
+        System.out.println(nameC + " " + markC + ConsoleColors.CYAN + " " + Messages.MSG_PLAYED_MOVE.formatted(move) + ConsoleColors.RESET);
         System.out.println();
 
-        if (thinkingDelay) {
-            try { Thread.sleep(200); } catch (InterruptedException ignored) {}
-        }
+        if (thinkingDelay) { try { Thread.sleep(200); } catch (InterruptedException ignored) {} }
         return cell;
     }
 }

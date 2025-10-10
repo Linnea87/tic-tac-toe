@@ -27,9 +27,9 @@ public class ConsoleUI {
     }
 
     public static void heading(String title) {
-        System.out.println("===================================");
-        System.out.println(" " + title);
-        System.out.println("===================================");
+        printSeparator();
+        System.out.println(" " + ConsoleColors.CYAN + title + ConsoleColors.RESET);
+        printSeparator();
     }
 
     // === Error & info messages ===============================================
@@ -130,18 +130,18 @@ public class ConsoleUI {
     // === Banners & separators ===============================================
 
     public static void printSeparator() {
-        System.out.println(ConsoleColors.GRAY + "================================================" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GRAY + Messages.SEPARATOR_LINE + ConsoleColors.RESET);
     }
 
     public static void printStartBanner(Player p1, Player p2) {
         System.out.println();
         printSeparator();
 
-        System.out.println(" " + coloredByMark("Player X: " + p1.getName(), Mark.X));
-        System.out.println(" " + coloredByMark("Player O: " + p2.getName(), Mark.O));
+        System.out.println(" " + coloredByMark(Messages.LABEL_PLAYER_X.formatted(p1.getName()), Mark.X));
+        System.out.println(" " + coloredByMark(Messages.LABEL_PLAYER_O.formatted(p2.getName()), Mark.O));
 
         printSeparator();
-        System.out.println("                 LET'S PLAY! 🎮");
+        System.out.println("                 " + Messages.BANNER_LETS_PLAY);
         printSeparator();
     }
 }

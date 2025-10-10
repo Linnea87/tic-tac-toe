@@ -15,35 +15,42 @@ public class CellParser {
 
     // === Core logic ===========================================================
 
-    /**
-     * Parses chess-style input like "A1" or "J10" into a cell number.
-     */
     public static int parse(String input, Board board) {
-        if (input == null || input.length() < 2) {
-            throw new IllegalArgumentException(Messages.ERR_CELL_FORMAT);
+        final int size = board.getSize();
+        final char lastCol = Grid.getLastColumn(size);
+
+        if (input == null || input.trim().length() < 2) {
+            throw new IllegalArgumentException(
+                    Messages.ERR_CELL_FORMAT.formatted(Grid.getCoordinateRange(size))
+            );
         }
-        input = input.trim().toUpperCase();
-        char colChar = input.charAt(0);
-        String rowPart = input.substring(1);
 
-        int size = board.getSize();
+        String normalized = input.trim().toUpperCase();
+        char colChar = normalized.charAt(0);
+        String rowPart = normalized.substring(1);
 
-        if (colChar < 'A' || colChar > (char) ('A' + size - 1)) {
-            char lastCol = (char) ('A' + size - 1);
-            throw new IllegalArgumentException(Messages.ERR_CELL_COLUMN.formatted(lastCol));
+        if (colChar < 'A' || colChar > lastCol) {
+            throw new IllegalArgumentException(
+                    Messages.ERR_CELL_COLUMN.formatted(String.valueOf(lastCol))
+            );
         }
         int col = colChar - 'A';
 
         int row;
         try {
             row = Integer.parseInt(rowPart) - 1;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(
+                    Messages.ERR_CELL_ROW.formatted(size)
+            );
         }
-        catch (NumberFormatException e) {
-            throw new IllegalArgumentException(Messages.ERR_CELL_ROW.formatted(size));
-        }
+
         if (row < 0 || row >= size) {
-            throw new IllegalArgumentException(Messages.ERR_CELL_ROW.formatted(size));
+            throw new IllegalArgumentException(
+                    Messages.ERR_CELL_ROW.formatted(size)
+            );
         }
-       return row * size + col + 1;
+
+        return row * size + col + 1;
     }
 }

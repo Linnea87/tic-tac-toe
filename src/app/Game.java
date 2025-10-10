@@ -12,6 +12,7 @@ import player.HumanPlayer;
 import player.Player;
 import util.ConsoleColors;
 import util.ConsoleUI;
+import util.Grid;
 import util.Messages;
 
 import java.util.Scanner;
@@ -54,6 +55,7 @@ public class Game {
         setupPlayers();
         ConsoleUI.clearScreen();
         ConsoleUI.printStartBanner(p1, p2);
+        printMoveHint();
 
         boolean running = true;
         while (running) {
@@ -68,9 +70,9 @@ public class Game {
             PostGameChoice choice = menu.askPostGameChoice();
             switch (choice) {
                 case REMATCH -> {
-                    /* start a new round same players */
                     ConsoleUI.clearScreen();
                     ConsoleUI.printStartBanner(p1, p2);
+                    printMoveHint();
                 }
 
                 case CHANGE_OPPONENT -> {
@@ -78,6 +80,7 @@ public class Game {
                     setupOpponentOnly();
                     ConsoleUI.clearScreen();
                     ConsoleUI.printStartBanner(p1, p2);
+                    printMoveHint();
                 }
 
                 case CHANGE_BOTH -> {
@@ -85,22 +88,27 @@ public class Game {
                     setupPlayers();
                     ConsoleUI.clearScreen();
                     ConsoleUI.printStartBanner(p1, p2);
+                    printMoveHint();
                 }
 
                 case QUIT -> running = false;
             }
         }
-        System.out.println("Thanks for playing!");
+        ConsoleUI.printInfo(" " + Messages.MSG_THANKS_FOR_PLAYING);
     }
 
     // === Intro screen =========================================================
 
     private void printWelcome() {
-        ConsoleUI.heading("Welcome to Tic-Tac-Toe!");
-        ConsoleUI.printInfo(" Two players take turns to play.");
-        ConsoleUI.printInfo(" Get three in a row to win!");
+        ConsoleUI.heading(Messages.WELCOME_TITLE);
+        ConsoleUI.printInfo(" " + Messages.WELCOME_LINE1);
+        ConsoleUI.printInfo(" " + Messages.WELCOME_LINE2);
         System.out.println();
-        ConsoleUI.printInfo(" Enter moves as column+row, e.g. A1, B2, C3.");
+    }
+
+    private void printMoveHint() {
+        String range = Grid.getCoordinateRange(boardSize);
+        ConsoleUI.printInfo(" " + Messages.MOVE_HINT.formatted(range));
         System.out.println();
     }
 
@@ -162,12 +170,15 @@ public class Game {
                 board.printBoard();
 
                 System.out.println();
-                System.out.println("Round finished!");
+                ConsoleUI.printInfo(" " + Messages.MSG_ROUND_FINISHED);
                 System.out.println();
 
                 ConsoleUI.printSeparator();
                 System.out.println(
-                        ConsoleUI.coloredByMark(current.getName() + " " + current.getMark() + " Wins!", current.getMark())
+                        ConsoleUI.coloredByMark(
+                                current.getName() + " " + current.getMark() + " " + Messages.MSG_WINS,
+                                current.getMark()
+                        )
                 );
                 ConsoleUI.printSeparator();
 
@@ -179,12 +190,11 @@ public class Game {
                 board.printBoard();
 
                 System.out.println();
-                System.out.println("Round finished!");
+                ConsoleUI.printInfo(" " + Messages.MSG_ROUND_FINISHED);
                 System.out.println();
 
                 ConsoleUI.printSeparator();
-                ConsoleUI.printInfo("It's a draw!");
-                ConsoleUI.printSeparator();
+                ConsoleUI.printInfo(" " + Messages.MSG_DRAW);                ConsoleUI.printSeparator();
                 break;
             }
 

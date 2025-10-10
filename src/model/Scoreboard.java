@@ -47,23 +47,22 @@ public class Scoreboard {
     // === Rendering ============================================================
 
     public void printScores() {
-        ConsoleUI.heading(ConsoleColors.CYAN + "Scoreboard" + ConsoleColors.RESET);
+        ConsoleUI.heading(Messages.SCOREBOARD_TITLE);
         if (scores.isEmpty()) {
-            System.out.println("No results yet");
+            ConsoleUI.printInfo(" " + Messages.SCOREBOARD_EMPTY);
             return;
         }
 
-        int tmpWidth = 6;
+        int tmpWidth = Messages.COL_PLAYER.length();
         for (String n : scores.keySet()) {
             if (n != null) tmpWidth = Math.max(tmpWidth, n.length());
         }
-
         final int nameWidth = tmpWidth;
 
         final String header =
-                ConsoleColors.CYAN + String.format("%-" + nameWidth + "s", "Player") + ConsoleColors.RESET
+                ConsoleColors.CYAN + String.format("%-" + nameWidth + "s", Messages.COL_PLAYER) + ConsoleColors.RESET
                         + "  "
-                        + ConsoleColors.CYAN + "Wins" + ConsoleColors.RESET;
+                        + ConsoleColors.CYAN + Messages.COL_WINS + ConsoleColors.RESET;
 
         System.out.println(header);
         System.out.println(ConsoleColors.GRAY + "-".repeat(header.length()) + ConsoleColors.RESET);

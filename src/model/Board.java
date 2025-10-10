@@ -1,6 +1,7 @@
 package model;
 
 import util.Messages;
+import util.Grid;
 
 import static util.ConsoleColors.*;
 
@@ -46,9 +47,6 @@ public class Board {
 
     // === Rendering ============================================================
 
-    /**
-     * Prints the board with lettered columns (A...) and numbered rows (1...), using colored X/O.
-     */
     public void printBoard() {
         StringBuilder header = new StringBuilder();
         header.append("    ");
@@ -89,7 +87,7 @@ public class Board {
 
             if (row < SIZE - 1) {
                 StringBuilder sep = new StringBuilder();
-                sep.append("    ").append(GRAY); // ← ändrad till 4 mellanslag
+                sep.append("    ").append(GRAY);
                 for (int c = 0; c < SIZE; c++) {
                     sep.append("---");
                     if (c < SIZE - 1) sep.append("+");
@@ -168,14 +166,18 @@ public class Board {
 
     public Mark getMarkAtCell(int cell) {
         if (cell < 1 || cell > SIZE * SIZE) {
-            throw new IllegalArgumentException(Messages.ERR_CELL_FORMAT + " " + cell);
+            throw new IllegalArgumentException(
+                    Messages.ERR_CELL_FORMAT.formatted(Grid.getCoordinateRange(SIZE))
+            );
         }
         return grid[toRow(cell)][toCol(cell)];
     }
 
     public String formatCell(int cell) {
         if (cell < 1 || cell > SIZE * SIZE) {
-            throw new IllegalArgumentException(Messages.ERR_CELL_FORMAT + " " + cell);
+            throw new IllegalArgumentException(
+                    Messages.ERR_CELL_FORMAT.formatted(Grid.getCoordinateRange(SIZE))
+            );
         }
         int row = (cell - 1) / SIZE;
         int col = (cell - 1) % SIZE;

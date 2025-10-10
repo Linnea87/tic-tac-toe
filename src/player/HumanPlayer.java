@@ -60,7 +60,7 @@ public class HumanPlayer implements Player {
             String nameColored = ConsoleUI.coloredByMark(name, mark);
             String markColored = ConsoleUI.coloredMark(mark);
 
-            String hint = buildRangeHint(board);
+            String hint = Grid.getCoordinateRange(board.getSize());
             System.out.println(
                     nameColored + " " + markColored + " " +
                             ConsoleColors.GRAY + Messages.PROMPT_CHOOSE_CELL.formatted(hint) + ConsoleColors.RESET
@@ -75,15 +75,4 @@ public class HumanPlayer implements Player {
         }
     }
 
-    // === Helpers ==============================================================
-
-    /**
-     * Builds a coordinate range hint for the current board size.
-     * Example: "A1–C3" on a 3×3 board, "A1–J10" on a 10×10 board.
-     */
-    private String buildRangeHint(Board board) {
-        int size = board.getSize();
-        char lastCol = (char) ('A' + size - 1);
-        return "A1–" + lastCol + size;
-    }
 }

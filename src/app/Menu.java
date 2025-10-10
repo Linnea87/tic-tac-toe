@@ -60,8 +60,7 @@ public class Menu {
             catch (NumberFormatException ignored) {
                 // fall through to error message
             }
-           ConsoleUI.printError(Messages.ERR_INVALID_INPUT, Messages.PROMPT_BOARD_SIZE, Messages.ERR_TRY_AGAIN);
-        }
+            ConsoleUI.printError(Messages.ERR_INVALID_INPUT, Messages.ERR_BOARD_SIZE, Messages.ERR_TRY_AGAIN);        }
     }
 
     public String askPlayerName(String prompt) {
