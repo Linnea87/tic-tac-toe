@@ -150,7 +150,7 @@ Some key design decisions:
 
 Testing was performed continuously throughout the project using JUnit 5, with both manual and automated methods. This ensured correct behavior, robust edge-case handling, and system stability during refactoring.
 
-### ✅ Input Validation
+### 🛡️ Input Validation
 
 All critical inputs (player names, board size, move coordinates) are validated before processing. Invalid input triggers clear, colored error messages and prompts for retry.
 
