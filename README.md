@@ -154,7 +154,7 @@ All critical inputs (player names, board size, move coordinates) are validated b
 
 ### 🧰 Code Validation
 
-- All classes and methods follow SRP (Single Responsibility Principle).- All classes and methods follow SRP (Single Responsibility Principle).
+- All classes and methods follow SRP (Single Responsibility Principle).
 - The project passes all JUnit tests without errors.
 - Code follows OOP and clean-code best practices.
 
