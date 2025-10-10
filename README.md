@@ -41,7 +41,7 @@ This is a text-based version of the classic Tic-Tac-Toe game. It is a fully inte
 - Implement robust input validation and helpful user feedback.
 - Create a visually engaging and intuitive experience — even in a text-based environment.
 
-[⬆ Back to top](#table-of-contents)
+[Back to top](#table-of-contents)
 
 ## 🧩 Data Model
 
@@ -106,7 +106,7 @@ Some key design decisions:
 - Clear formatting – Output uses headings, spacing, and labels for readability.
 - Helpful feedback – Input errors are highlighted immediately with instructions.
 
-[⬆ Back to top](#table-of-contents)
+[Back to top](#table-of-contents)
 
 ## ✨ Features
 
@@ -135,7 +135,7 @@ Some key design decisions:
 - Enhanced AI logic for larger board sizes.
 - Support for multiple game variants (e.g., “4-in-a-row”).
 
-[⬆ Back to top](#table-of-contents)
+[Back to top](#table-of-contents)
 
 ## 🛠️ Technologies
 
@@ -145,7 +145,7 @@ Some key design decisions:
 - GitHub – Repository hosting and collaboration.
 - IntelliJ IDEA – Development environment.
 
-[⬆ Back to top](#table-of-contents)
+[Back to top](#table-of-contents)
 
 ## 🧪 Testing
 
@@ -205,7 +205,7 @@ The table below provides a detailed overview of the unit tests implemented for t
 | **MenuTest** | Validates menu navigation, option selection, and user flow. | ✅ |
 | **GameTest** | Full end-to-end simulation: verifies player X winning a game (including board size selection), draw scenarios, AI matches at all difficulty levels, and scoreboard + restart flow. | ✅ |
 
-[⬆ Back to top](#table-of-contents)
+[Back to top](#table-of-contents)
 
 ## 🐛 Bugs
 
@@ -218,7 +218,7 @@ The table below provides a detailed overview of the unit tests implemented for t
 
 - None known.
 
-[⬆ Back to top](#table-of-contents)
+[Back to top](#table-of-contents)
 
 ## 🚀 Deployment
 
@@ -283,15 +283,13 @@ Moves are entered as Column + Row, e.g. A1, B2, C3.
 3   O |   | X
 ```
 
-[⬆ Back to top](#table-of-contents)
+[Back to top](#table-of-contents)
 
 ## 🙌 Credits
 - Occasional debugging, code reviews, and documentation support by AI tools.
 - [Carbon](https://carbon.now.sh) was used to create the terminal mockup image included in this README.
 - [Lucidchart](https://www.lucidchart.com) was used to create the UML diagram.
   
-[⬆ Back to top](#table-of-contents)
-
 ---
 
 ✨ _Best wishes and happy coding!_
