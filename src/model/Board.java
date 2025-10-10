@@ -9,6 +9,9 @@ import static util.ConsoleColors.*;
  * Supports dynamic sizes from 3×3 up to 10×10.
  */
 public class Board {
+
+    // === Fields ===============================================================
+
     private final int SIZE;
     private final Mark[][] grid;
 
@@ -17,6 +20,7 @@ public class Board {
     public Board() {
         this(3); // default 3x3 (keeps AI/back-compat behavior)
     }
+
     public Board(int size) {
         if (size < 3 || size > 10) {
             throw new IllegalArgumentException(Messages.ERR_BOARD_SIZE);
@@ -61,8 +65,7 @@ public class Board {
             String rowLabel = String.valueOf(row + 1);
             if (SIZE >= 10 && rowLabel.length() == 1) {
                 line.append(" ").append(rowLabel).append("  ");
-            }
-            else {
+            } else {
                 line.append(rowLabel).append("  ");
             }
 
@@ -86,7 +89,7 @@ public class Board {
 
             if (row < SIZE - 1) {
                 StringBuilder sep = new StringBuilder();
-                sep.append("   ").append(GRAY);
+                sep.append("    ").append(GRAY); // ← ändrad till 4 mellanslag
                 for (int c = 0; c < SIZE; c++) {
                     sep.append("---");
                     if (c < SIZE - 1) sep.append("+");
@@ -101,10 +104,10 @@ public class Board {
 
     public boolean placeMark(int row, int col, Mark mark) {
         if (row < 0 || row >= SIZE || col < 0 || col >= SIZE) {
-            return false; // out of bounds
+            return false;
         }
         if (grid[row][col] != Mark.EMPTY) {
-            return false; // cell already taken
+            return false;
         }
         grid[row][col] = mark;
         return true;
@@ -146,17 +149,13 @@ public class Board {
             boolean colAll = true;
 
             for (int j = 0; j < SIZE; j++) {
-                if (grid[i][j] != mark) {
-                    rowAll = false;
-                }
-                if (grid[j][i] != mark) {
-                    colAll = false;
-                }
+                if (grid[i][j] != mark) rowAll = false;
+                if (grid[j][i] != mark) colAll = false;
             }
             if (rowAll || colAll) return true;
 
             if (grid[i][i] != mark) diag1 = false;
-            if (grid[i][SIZE - 1 - i] != mark)  diag2 = false;
+            if (grid[i][SIZE - 1 - i] != mark) diag2 = false;
         }
         return diag1 || diag2;
     }

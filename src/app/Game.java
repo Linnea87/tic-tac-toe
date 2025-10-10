@@ -21,6 +21,9 @@ import java.util.Scanner;
  * setup -> play rounds -> show results -> post-game options.
  */
 public class Game {
+
+    // === Fields ==============================================================
+
     private final Scanner scanner;
     private Board board;
     private Player p1;
@@ -185,7 +188,7 @@ public class Game {
                 break;
             }
 
-            current =(current == p1) ? p2 : p1;
+            current = (current == p1) ? p2 : p1;
         }
     }
 }

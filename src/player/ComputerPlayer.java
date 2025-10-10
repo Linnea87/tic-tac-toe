@@ -11,6 +11,9 @@ import util.Messages;
  * ComputerPlayer – a player controlled by an AI strategy.
  */
 public class ComputerPlayer implements Player {
+
+    // === Fields ===============================================================
+
     private final String name;
     private final Mark mark;
     private final AiStrategy strategy;
@@ -23,19 +26,19 @@ public class ComputerPlayer implements Player {
     }
 
     /**
-     * @param name      display name (e.g., "Computer (Easy)")
-     * @param mark      player's mark (X or O)
-     * @param strategy  AI strategy used to pick moves
+     * @param name          display name (e.g., "Computer (Easy)")
+     * @param mark          player's mark (X or O)
+     * @param strategy      AI strategy used to pick moves
      * @param thinkingDelay simulate a short "thinking" pause
      */
     public ComputerPlayer(String name, Mark mark, AiStrategy strategy, boolean thinkingDelay) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException(Messages.ERR_NAME_EMPTY);
         }
-        if (mark == null){
+        if (mark == null) {
             throw new IllegalArgumentException(Messages.ERR_MARK_REQUIRED);
         }
-        if (strategy == null){
+        if (strategy == null) {
             throw new IllegalArgumentException(Messages.ERR_STRATEGY_REQUIRED);
         }
 
@@ -49,12 +52,11 @@ public class ComputerPlayer implements Player {
 
     @Override
     public String getName() {
-
         return name;
     }
+
     @Override
     public Mark getMark() {
-
         return mark;
     }
 
@@ -68,12 +70,10 @@ public class ComputerPlayer implements Player {
     public int chooseCell(Board board) {
         String nameC = ConsoleUI.coloredByMark(name, mark);
         String markC = ConsoleUI.coloredMark(mark);
+
         System.out.println(nameC + " " + markC + ConsoleColors.GRAY + " is thinking...." + ConsoleColors.RESET);
         if (thinkingDelay) {
-            try {
-                Thread.sleep(350);
-            }
-            catch (InterruptedException ignored) {}
+            try { Thread.sleep(350); } catch (InterruptedException ignored) {}
         }
 
         int cell = strategy.chooseCell(board, mark);
@@ -83,10 +83,7 @@ public class ComputerPlayer implements Player {
         System.out.println();
 
         if (thinkingDelay) {
-            try {
-                Thread.sleep(200);
-            }
-            catch (InterruptedException ignored) {}
+            try { Thread.sleep(200); } catch (InterruptedException ignored) {}
         }
         return cell;
     }

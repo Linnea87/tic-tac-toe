@@ -3,15 +3,23 @@ package ai;
 import model.Board;
 import model.Mark;
 
-public class HeuristicStrategy implements AiStrategy{
+/**
+ * HeuristicStrategy – try to win, otherwise block the opponent; fallback to random.
+ */
+public class HeuristicStrategy implements AiStrategy {
+
+    // === Fields ==============================================================
+
     private final RandomStrategy fallback = new RandomStrategy();
+
+    // === Core logic ==========================================================
 
     @Override
     public int chooseCell(Board board, Mark aiMark) {
         Mark opponent = (aiMark == Mark.X) ? Mark.O : Mark.X;
 
-      int winMove = findWinningMove(board, aiMark);
-        if (winMove!= -1) {
+        int winMove = findWinningMove(board, aiMark);
+        if (winMove != -1) {
             return winMove;
         }
 
@@ -19,8 +27,12 @@ public class HeuristicStrategy implements AiStrategy{
         if (blockMove != -1) {
             return blockMove;
         }
+
         return fallback.chooseCell(board, aiMark);
     }
+
+    // === Helpers =============================================================
+
     private int findWinningMove(Board board, Mark mark) {
         int cells = board.getSize() * board.getSize();
         for (int c = 1; c <= cells; c++) {
@@ -36,12 +48,11 @@ public class HeuristicStrategy implements AiStrategy{
     }
 
     private Board copyBoard(Board original) {
-        Board copy = new Board();
+        Board copy = new Board(original.getSize());
         int cells = original.getSize() * original.getSize();
         for (int c = 1; c <= cells; c++) {
             if (!original.isCellEmpty(c)) {
-                Mark m = original.getMarkAtCell(c);
-                copy.placeMarkByCell(c, m);
+                copy.placeMarkByCell(c, original.getMarkAtCell(c));
             }
         }
         return copy;

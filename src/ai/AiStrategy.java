@@ -5,7 +5,7 @@ import model.Mark;
 
 /**
  * Interface for AI strategies.
- * Implementations decide wich cell to choose for the computer player.
+ * Implementations decide which cell to choose for the computer player.
  */
 public interface AiStrategy {
     /**

@@ -1,4 +1,5 @@
 package model;
+
 import util.ConsoleColors;
 import util.ConsoleUI;
 import util.Messages;
@@ -10,6 +11,9 @@ import java.util.Map;
  * Scoreboard – tracks wins per player and prints a small table.
  */
 public class Scoreboard {
+
+    // === Fields ===============================================================
+
     private final Map<String, Integer> scores = new HashMap<>();
     private final Map<String, Mark> marksByName = new HashMap<>();
 
@@ -33,7 +37,7 @@ public class Scoreboard {
         marksByName.clear();
     }
 
-    // === Accessors ==============================================================
+    // === Accessors ============================================================
 
     public int getWins(String playerName) {
         validateName(playerName);
@@ -58,8 +62,8 @@ public class Scoreboard {
 
         final String header =
                 ConsoleColors.CYAN + String.format("%-" + nameWidth + "s", "Player") + ConsoleColors.RESET
-               + "  "
-                + ConsoleColors.CYAN + "Wins" + ConsoleColors.RESET;
+                        + "  "
+                        + ConsoleColors.CYAN + "Wins" + ConsoleColors.RESET;
 
         System.out.println(header);
         System.out.println(ConsoleColors.GRAY + "-".repeat(header.length()) + ConsoleColors.RESET);

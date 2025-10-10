@@ -5,7 +5,12 @@ package util;
  * Rule: non-null, non-blank, letters only (A–Ö).
  */
 public class NameValidator {
-    private NameValidator() {}
+
+    // === Constructors =========================================================
+
+    private NameValidator() {
+        // no instances
+    }
 
     // === Validation ===========================================================
 

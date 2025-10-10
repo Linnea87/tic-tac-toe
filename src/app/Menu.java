@@ -12,6 +12,9 @@ import java.util.Scanner;
  * mode selection, difficulty, player names, and post-game options.
  */
 public class Menu {
+
+    // === Fields ===============================================================
+
     private final Scanner scanner;
 
     // === Constructors =========================================================

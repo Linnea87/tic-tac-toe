@@ -1,4 +1,5 @@
 package util;
+
 import model.Mark;
 import player.Player;
 
@@ -10,9 +11,14 @@ import java.util.Scanner;
  * and a generic choice-prompt used by Menu.
  */
 public class ConsoleUI {
-    private ConsoleUI() {}
 
-    // === Basics ===============================================================
+    // === Constructors =========================================================
+
+    private ConsoleUI() {
+        // no instances
+    }
+
+    // === Basic output =========================================================
 
     public static void clearScreen() {
         for (int i = 0; i < 1; i++) {
@@ -25,6 +31,8 @@ public class ConsoleUI {
         System.out.println(" " + title);
         System.out.println("===================================");
     }
+
+    // === Error & info messages ===============================================
 
     public static void printError(String... parts) {
         StringBuilder msg = new StringBuilder();
@@ -55,10 +63,11 @@ public class ConsoleUI {
                 Messages.ERR_TRY_AGAIN
         );
     }
+
     public static void printDifficultyError() {
         printError(Messages.ERR_INVALID_INPUT, Messages.ERR_DIFFICULTY, Messages.ERR_TRY_AGAIN);
-
     }
+
     public static void printCellTaken() {
         printError(Messages.ERR_CELL_TAKEN, Messages.ERR_TRY_AGAIN);
     }
@@ -67,7 +76,7 @@ public class ConsoleUI {
         printError(validatorMessage, Messages.ERR_TRY_AGAIN);
     }
 
-    // === Coloring helpers =====================================================
+    // === Coloring helpers ====================================================
 
     public static String coloredMark(Mark mark) {
         if (mark == null) return "";
@@ -89,16 +98,10 @@ public class ConsoleUI {
         return color + text + ConsoleColors.RESET;
     }
 
-    // === Generic choice helper ===============================================
+    // === Generic choice prompt ==============================================
 
     /**
      * Prints a numbered list of options and reads a 1-based selection.
-     *
-     * @param scanner input source
-     * @param title   heading shown above options
-     * @param options values to choose from (returned object)
-     * @param labels  optional labels matching options; if null uses toString()
-     * @return the selected option
      */
     public static <T> T askChoice(Scanner scanner, String title, T[] options, String[] labels) {
         while (true) {
@@ -117,15 +120,14 @@ public class ConsoleUI {
                 if (choice >= 1 && choice <= options.length) {
                     return options[choice - 1];
                 }
-            }
-            catch (NumberFormatException ignored) {
+            } catch (NumberFormatException ignored) {
                 // fall through to error printing
             }
             printInvalidChoice(options.length);
         }
     }
 
-    // === Banners & separators =====================================================
+    // === Banners & separators ===============================================
 
     public static void printSeparator() {
         System.out.println(ConsoleColors.GRAY + "================================================" + ConsoleColors.RESET);

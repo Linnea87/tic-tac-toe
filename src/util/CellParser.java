@@ -9,7 +9,9 @@ public class CellParser {
 
     // === Constructors =========================================================
 
-    private CellParser() {}
+    private CellParser() {
+        // no instances
+    }
 
     // === Core logic ===========================================================
 
