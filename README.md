@@ -7,16 +7,16 @@
 - [Introduction](#-introduction)
     - [Project goals](#-project-goals)
 - [Data Model](#-data-model)
-    - [UML Diagram](#-uml-diagram)
-    - [Project Structure](#-project-structure)
+    - [UML Diagram](#%EF%B8%8F-uml-diagram)
+    - [Project Structure](#%EF%B8%8F-project-structure)
     - [Design](#-design)
 - [Features](#-features)
     - [Existing features](#-existing-features)
-    - [AI Behavior & Strategy](#-ai-behavior-strategy)
+    - [AI Behavior & Strategy](#-ai-behavior--strategy)
     - [Future features](#-future-features)
-- [Technologies](#-technologies)
+- [Technologies](#%EF%B8%8F-technologies)
 - [Testing](#-testing)
-    - [Input Validation](#-input-validation)
+    - [Input Validation](#%EF%B8%8F-input-validation)
     - [Code Validation](#-code-validation)
     - [Tests result](#-tests-result)
 - [Bugs](#-bugs)
@@ -26,14 +26,14 @@
     - [Adding, committing and pushing code](#-adding-committing-and-pushing-code)
     - [Cloning and Forking](#-cloning-and-forking)
     - [Running the project locally](#-running-the-project-locally)
-    - [Gameplay Instructions](#-gameplay-instructions)
+    - [Gameplay Instructions](#%EF%B8%8F-gameplay-instructions)
 - [Credits](#-credits)
 
 ## 📖 Introduction
 
 This is a text-based version of the classic Tic-Tac-Toe game. It is a fully interactive, terminal-based project designed with a focus on user experience, clean code architecture, and scalability. Players can compete in human vs. human or human vs. AI modes, with three different AI difficulty levels.
 
-### Project goals
+### 🎯 Project goals
 
 - Write clean, maintainable, and well-structured Java code.
 - Design a user-friendly, readable, and engaging terminal game.
