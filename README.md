@@ -2,10 +2,11 @@
 
 ![Tic-Tac-Toe Mockup](docs/tictactoe-mockup.png)
 
+This is a text-based version of the classic Tic-Tac-Toe game. It is a fully interactive, terminal-based project designed with a focus on user experience, clean code architecture, and scalability. Players can compete in human vs. human or human vs. AI modes, with three different AI difficulty levels.
+
 ## Table of Contents
 
-- [Introduction](#-introduction)
-    - [Project goals](#-project-goals)
+- [Project goals](#-project-goals)
 - [Data Model](#-data-model)
     - [UML Diagram](#%EF%B8%8F-uml-diagram)
     - [Project Structure](#%EF%B8%8F-project-structure)
@@ -29,11 +30,7 @@
     - [Gameplay Instructions](#%EF%B8%8F-gameplay-instructions)
 - [Credits](#-credits)
 
-## 📖 Introduction
-
-This is a text-based version of the classic Tic-Tac-Toe game. It is a fully interactive, terminal-based project designed with a focus on user experience, clean code architecture, and scalability. Players can compete in human vs. human or human vs. AI modes, with three different AI difficulty levels.
-
-### 🎯 Project goals
+## 🎯 Project goals
 
 - Write clean, maintainable, and well-structured Java code.
 - Design a user-friendly, readable, and engaging terminal game.
