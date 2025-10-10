@@ -1,61 +1,73 @@
-# 🎮 Tic-Tac-Toe (Text-based, Java)
-_Developed as a school assignment at Folkuniversitetet._
+# 🎮 Tic-Tac-Toe
 
 ![Tic-Tac-Toe Mockup](docs/tictactoe-mockup.png)
 
-Tic-Tac-Toe is a two-player game for the terminal, featuring an optional computer opponent with multiple difficulty levels,  
-and support for dynamic board sizes (3×3 up to 10×10 in Human vs Human mode).
+## Table of Contents
 
----
+- [Introduction](#introduction)
+    - [Project goals](#project-goals)
+- [Data Model](#data-model)
+    - [UML Diagram](#uml-diagram)
+    - [Project Structure](#project-structure)
+    - [Design](#design)
+- [Features](#features)
+    - [Existing features](#existing-features)
+    - [AI Behavior & Strategy](#ai-behavior--strategy)
+    - [Future features](#future-features)
+- [Technologies](#technologies)
+- [Testing](#testing)
+    - [Input Validation](#input-validation)
+    - [Code Validation](#code-validation)
+    - [Tests result](#tests-result)
+- [Bugs](#bugs)
+    - [Solved Bugs](#solved-bugs)
+    - [Unresolved Bugs](#unresolved-bugs)
+- [Deployment](#deployment)
+    - [Adding, committing and pushing code](#adding-committing-and-pushing-code)
+    - [Cloning and Forking](#cloning-and-forking)
+    - [Running the project locally](#running-the-project-locally)
+    - [Gameplay Instructions](#gameplay-instructions)
+- [Credits](#-credits)
 
-## 🧭 Table of Contents
-- [🧩 UML Diagram](#-uml-diagram)
-- [🧱 Project Structure](#-project-structure)
-- [🤖 AI Overview](#-ai-overview)
-- [⚙️ Design Decisions](#-design-decisions)
-- [🧪 Testing Philosophy](#-testing-philosophy)
-- [🏗 Build & Run](#-build--run)
-- [🚀 Roadmap](#-roadmap)
-- [💬 Lessons Learned](#-lessons-learned)
-- [✨ Credits](#-credits)
+## Introduction
 
----
+This is a text-based version of the classic Tic-Tac-Toe game. It is a fully interactive, terminal-based project designed with a focus on user experience, clean code architecture, and scalability. Players can compete in human vs. human or human vs. AI modes, with three different AI difficulty levels.
+### Project goals
 
-## 🧩 UML Diagram
-The UML diagram below illustrates the initial architecture of the project — showing how the main components such as the game logic, AI strategies, and player classes were planned to interact. It represents the foundation of the system design, created early in development to guide implementation. As the project evolved, new supporting classes were added to improve structure, readability, and to better align with clean coding principles.The diagram below captures that original design intent:
+- Write clean, maintainable, and well-structured Java code.
+- Design a user-friendly, readable, and engaging terminal game.
+- Explore object-oriented programming principles in a practical context.
+- Implement robust input validation and helpful user feedback.
+- Create a visually engaging and intuitive experience — even in a text-based environment.
+
+
+[⬆ Back to top](#table-of-contents)
+
+## Data Model
+
+### UML Diagram
+
+The UML diagram below was created in Lucidchart to outline the initial structure and relationships between the main components of the game. It illustrates how the core parts — including game logic, AI strategies, and player classes — were originally designed to interact.
+
+While the diagram provided a solid foundation during early development, the final implementation evolved as new features and supporting classes were introduced.
 
 ![UML Diagram](docs/treirad-uml.png)
 
-### Legend
+**Legend:**  
 \+ public  
 \- private  
 → Association  
 -▷ Implementation (interface)
 
-[⬆ Back to top](#-table-of-contents)
+### Project Structure
 
----
+The project is organized into packages based on functionality, improving readability, maintainability, and scalability:
+- app → Handles game flow and user interaction.
+- model → Defines core data and rules.
+- player → Abstracts human and AI behavior.
+- ai → Provides interchangeable AI strategy implementations.
+- util → Centralizes helpers and shared logic.
 
-## 🧱 Project Structure
-The project is divided into packages for clarity and scalability:
-
-- **ai** → AI strategies (Random, Heuristic, Minimax). Also contains Difficulty enum.
-- **app** → Entry point and game loop (Main, Game).
-- **model** → Core classes (Board, Scoreboard, Mark enum).
-- **player** → Player interface + implementations (HumanPlayer, ComputerPlayer).
-- **util** → Console helpers and shared utilities:
-    - `ConsoleUI` (headings, colored messages, helpers)
-    - `ConsoleColors` (ANSI color codes)
-    - `Messages` (centralized prompts/errors)
-    - `NameValidator` (validates and formats player names)
-    - `CellParser` (parses inputs like `A1` → cell index)
-
-### Why this structure?
-- **Separation of concerns** → Each package has its own responsibility.
-- **Scalability** → Easier to add new features, like new AI strategies.
-- **Readability** → Other developers can quickly understand the flow.
-
-###  Directory tree
 ```
 src/
 ├── ai/
@@ -79,140 +91,174 @@ src/
     ├── CellParser.java
     ├── ConsoleColors.java
     ├── ConsoleUI.java
+    ├── Grid.java
     ├── Messages.java
     └── NameValidator.java
 ```
-[⬆ Back to top](#-table-of-contents)
 
----
+### Design
 
-## 🤖 AI Overview
+A key design goal was to make the game as engaging and user-friendly as possible, even within a terminal environment.
+Some key design decisions:
+- Color usage – ANSI colors highlight errors, prompts, input, and narration.
+- Consistency – Each player keeps the same color to clearly show turns.
+- Clear formatting – Output uses headings, spacing, and labels for readability.
+- Helpful feedback – Input errors are highlighted immediately with instructions.
 
-The AI opponent uses different strategies depending on the selected difficulty level. Each strategy implements the same `AiStrategy` interface, but they vary in complexity, decision-making depth, and gameplay behavior:
+[⬆ Back to top](#table-of-contents)
+
+## Features
+
+### Existing features
+
+- Human vs Human and Human vs AI gameplay modes.
+- Adjustable board size (3×3 up to 10×10) in Human vs Human mode.
+- Three AI difficulty levels: Random, Heuristic, and Minimax.
+- Robust input validation with clear error messages.
+- Comprehensive scoreboard tracking wins and draws.
+- Centralized message management in Messages.java for easy localization.
+- ANSI-colored console output for enhanced readability and engagement.
+
+#### AI Behavior & Strategy
 
 | Difficulty | Strategy Class | Description |
-|------------|----------------|--------------|
-| **Easy** | `RandomStrategy` | Picks a random empty cell — simple and unpredictable. |
+|------------|------------------|--------------|
+| **Easy** | `RandomStrategy` | Selects a random empty cell — simple and unpredictable. |
 | **Medium** | `HeuristicStrategy` | Blocks or extends potential winning lines — more defensive. |
-| **Hard** | `MinimaxStrategy` | Evaluates all possible future states to find the most optimal move. |
+| **Hard** | `MinimaxStrategy` | Evaluates all possible future states to choose the optimal move. |
 
-This system follows the **Strategy** design pattern, allowing each difficulty level to use its own logic while the game loop remains unchanged. Currently, AI mode always runs on a **3×3 board**, ensuring quick and consistent decision-making.
+### Future features
 
-[⬆ Back to top](#-table-of-contents)
+- Persistent player statistics across sessions.
+- Monthly challenges or mini-tournaments.
+- Enhanced AI logic for larger board sizes.
+- Support for multiple game variants (e.g., “4-in-a-row”).
 
----
+[⬆ Back to top](#table-of-contents)
 
-## ⚙️ Design Decisions
+## Technologies
+- Java 21 – Core language and standard libraries.
+- JUnit 5 – Unit testing framework.
+- Git – Version control.
+- GitHub – Repository hosting and collaboration.
+- IntelliJ IDEA – Development environment.
 
-Throughout the project, I focused on writing clean, modular, and testable code. Here are some of the key architectural and design decisions I made:
+[⬆ Back to top](#table-of-contents)
 
-### 1. Clear Separation of Concerns
-Each package (ai, app, model, player, util) has one well-defined purpose:
-- `app` handles game flow and user interaction.
-- `model` defines core data and rules.
-- `player` abstracts human and AI behavior.
-- `ai` provides interchangeable strategy implementations.
-- `util` centralizes helpers and shared logic.
+## Testing
 
-### 2. Strategy Pattern for AI
-The AI uses the **Strategy Pattern**, allowing multiple difficulty levels to share the same interface (`AiStrategy`). This made it easy to plug in `Random`, `Heuristic`, or `Minimax` behavior without changing the game loop.
+Testing was performed continuously throughout the project using JUnit 5, with both manual and automated methods. This ensured correct behavior, robust edge-case handling, and system stability during refactoring.
 
-### 3. Single Responsibility Principle (SRP)
-Each class has one clear responsibility:
-- `Board` → Manages game state and win logic.
-- `Game` → Controls the main loop.
-- `Menu` → Handles user input before and after a game.
-- `ConsoleUI` → Displays formatted messages.
+### Input Validation
 
-### 4. Centralized Validation & Error Messages
-All user-facing text (prompts and errors) are defined in `Messages.java`. This reduces duplication and makes future localization easy.
+All critical inputs (player names, board size, move coordinates) are validated before processing. Invalid input triggers clear, colored error messages and prompts for retry.
 
-### 5. Testability by Design
-Objects such as `Scanner` and `AiStrategy` are injected, not hardcoded. This makes classes modular and easy to test in isolation with JUnit.
+### Code Validation
 
-### 6. Extensibility in Mind
-The `Board` class supports dynamic sizes (3–10), which lays the foundation for larger board modes or “4-in-a-row” expansions.
+- All classes and methods follow SRP (Single Responsibility Principle).- All classes and methods follow SRP (Single Responsibility Principle).
+- The project passes all JUnit tests without errors.
+- Code follows OOP and clean-code best practices.
 
-[⬆ Back to top](#-table-of-contents)
+### Tests result:
+[View all test files here](https://github.com/Linnea87/tic-tac-toe/tree/main/test)
 
----
+The table below provides a detailed overview of the unit tests implemented for this project. Each test verifies key functionality to ensure that the system behaves as expected, remains stable under different scenarios, and meets quality and reliability standards.
+#### `model` Package Tests
 
-## 🧪 Testing Philosophy
+| Test Class | Description | Status |
+|------------|------------|--------|
+| **BoardTest** | Validates placing marks, win conditions (rows, columns, diagonals), full board detection, and invalid moves. | ✅ |
+| **ScoreboardTest** | Ensures correct tracking of wins per player and handling of multiple players. | ✅ |
 
-Unit tests are written with **JUnit 5**. The test sources live under `test/` with the same package structure as `src/`.
+#### `util` Package Tests
 
-### Directory tree (tests)
+| Test Class | Description | Status |
+|------------|------------|--------|
+| **NameValidatorTest** | Checks that valid and invalid names are handled correctly. | ✅ |
+| **CellParserTest** | Validates and parses user input like `A1` into board positions and throws correct exceptions for invalid input. | ✅ |
+| **MessagesTest** | Ensures all user-facing messages are displayed correctly and consistently. | ✅ |
+| **ConsoleUITest** | Verifies formatted console output, colors, and layout helpers. | ✅ |
+| **ConsoleColorsTest** | Ensures ANSI color codes are applied and rendered correctly. | ✅ |
+
+#### `player` Package Tests
+
+| Test Class | Description | Status |
+|------------|------------|--------|
+| **HumanPlayerTest** | Tests player input handling and constructor validation. | ✅ |
+| **ComputerPlayerTest** | Ensures AI moves are only made in valid, empty cells. | ✅ |
+
+#### `ai` Package Tests
+
+| Test Class | Description | Status |
+|------------|------------|--------|
+| **RandomStrategyTest** | Verifies AI always selects valid empty cells. | ✅ |
+| **HeuristicStrategyTest** | Ensures AI correctly blocks or extends winning lines. | ✅ |
+| **MinimaxStrategyTest** | Tests minimax decision-making logic and ensures optimal moves. | ✅ |
+
+#### `app` Package Tests
+
+| Test Class | Description | Status |
+|------------|------------|--------|
+| **MenuTest** | Validates menu navigation, option selection, and user flow. | ✅ |
+| **GameTest** | Full end-to-end simulation: verifies player X winning a game (including board size selection), draw scenarios, AI matches at all difficulty levels, and scoreboard + restart flow. | ✅ |
+
+[⬆ Back to top](#table-of-contents)
+
+## Bugs
+
+### Solved Bugs
+
+- Fixed crash caused by invalid user input.
+- Corrected cell parsing to handle out-of-range inputs.
+### Unresolved Bugs
+
+- None known.
+
+[⬆ Back to top](#table-of-contents)
+
+## Deployment
+
+### Adding, committing and pushing code
+
 ```
-test/
-├── ai/
-│   ├── RandomStrategyTest.java
-│   ├── HeuristicStrategyTest.java
-│   ├── MinimaxStrategyTest.java
-├── app/
-│   ├── GameTest.java
-│   ├── MenuTest.java
-├── model/
-│   ├── BoardTest.java
-│   ├── ScoreboardTest.java
-├── player/
-│   ├── ComputerPlayerTest.java
-│   ├── HumanPlayerTest.java
-└── util/
-    ├── CellParserTest.java
-    ├── ConsoleColorsTest.java 
-    ├── ConsoleUITest.java
-    ├── MessagesTest.java
-    ├── NameValidatorTest.java
+git add <file>
+git commit -m "commit message"
+git push
 ```
 
-### Run tests
-- In IntelliJ: right-click on `test/` ➜ **Run 'All Tests'**
-- Or via Maven/Gradle if you add a build tool later (e.g., `mvn test`)
+### Cloning and Forking:
 
-### Current coverage
-- **BoardTest** → placing marks, win conditions (row, column, diagonals), full board, invalid moves.
-- **ScoreboardTest** → tracking wins per player and multiple players.
-- **NameValidatorTest** → ensures valid/invalid names behave correctly.
-- **CellParserTest** → validates and parses user input like `A1` into correct board positions and throws appropriate exceptions for invalid input.
-- **MessagesTest** → ensures all user-facing messages are displayed correctly and consistently.
-- **ConsoleUITest** → verifies formatted console output, colors, and layout helpers.
-- **ConsoleColorsTest** → checks that ANSI color codes are correctly applied and rendered.
-- **HumanPlayerTest** → tests player input handling and constructor validation.
-- **ComputerPlayerTest** → ensures AI moves only in valid, empty cells.
-- **RandomStrategyTest** → verifies AI always returns valid empty cells.
-- **HeuristicStrategyTest** → ensures AI correctly blocks or extends winning lines.
-- **MinimaxStrategyTest** → tests minimax decision-making logic and ensures optimal moves are chosen.
-- **MenuTest** → validates menu navigation, option selection, and user flow.
-- **GameTest** → full end-to-end simulation:
-    - Player X winning a game (includes board size selection)
-    - Draw scenario
-    - Playing vs Computer (all difficulty levels)
-    - Scoreboard and restart flow
+If you want to clone or fork this project, you can do so from my [GitHub](https://github.com/Linnea87/tic-tac-toe) repository.
 
-> 💡 *Goal: not just coverage, but confidence — if something breaks, tests immediately reveal where.*
+#### Requirements:
+- Java JDK 21 or later
+- Git
+- IntelliJ IDEA (or another Java IDE)
 
-[⬆ Back to top](#-table-of-contents)
+```
+git clone https://github.com/Linnea87/tic-tac-toe.git
+cd tic-tac-toe
+```
 
----
+### Running the project locally
 
-## 🏗 Build & Run
-Standard Java project (no external dependencies). Code lives under `src/`.
+#### In IntelliJ;
 
-### Run in IntelliJ
-Right-click on `Main.java` → **Run 'Main'**
+```
+Right-click on `Main.java` → Run 'Main'
+```
 
-### Run via terminal
+#### In terminal;
 ```
 javac -d out src/**/*.java
 java -cp out app.Main
 ```
 
-### How to play (input)
-Enter moves in the format **Column + Row**, e.g. `A1`, `B2`, `C3`.
+### Gameplay Instructions
 
-In Human vs Human mode, you can choose the board size (3–10). The computer opponent always plays on a standard 3×3 board.
+Moves are entered as Column + Row, e.g. A1, B2, C3.
 
-#### Empty board
+#### Example empty board
 ```
     A   B   C
 1     |   |  
@@ -221,7 +267,9 @@ In Human vs Human mode, you can choose the board size (3–10). The computer opp
    ---+---+---
 3     |   |  
 ```
+
 #### Example mid-game
+
 ```
     A   B   C
 1   X | O |  
@@ -230,62 +278,22 @@ In Human vs Human mode, you can choose the board size (3–10). The computer opp
    ---+---+---
 3   O |   | X
 ```
-[⬆ Back to top](#-table-of-contents)
 
----
-
-## 🚀 Roadmap
-* ✅ Two human players (terminal)
-* ✅ Win/draw detection, input validation
-* ✅ Restart after game ends
-* ✅ OOP structure (Board, Game, Player, Scoreboard)
-* ✅ JUnit tests for Board and Scoreboard
-* ✅ Names & turn prompts
-* ✅ Input error handling (robust)
-* ✅ Computer player (Random / Heuristic / Minimax)
-* ✅ Difficulty selection (EASY / MEDIUM / HARD)
-* ✅ Dynamic board size selection (3–10) for Human vs Human mode
-
-### Future improvements:
--	Persistent player statistics
--	Monthly challenges or mini-tournaments
--	Enhanced AI logic for larger boards
-
-[⬆ Back to top](#-table-of-contents)
-
----
-
-## 💬 Lessons Learned
-
-- Deepened my understanding of how classes can interact, inherit from each other, and work together to form a clean, maintainable object-oriented architecture.
-- Strengthened my skills in designing and organizing larger projects, making deliberate design choices based on established OOP principles.
-- Expanded my knowledge of Java’s capabilities, realizing that while its fundamentals are similar to Python, tools like enums and interfaces provide additional structure, flexibility, and expressiveness.
-- Advanced my understanding of design patterns by applying concepts like Strategy and SRP more deliberately and strategically in a real-world project context.
-- Improved my ability to debug, refactor, and maintain code quality, leveraging unit tests to ensure reliability and support safe iterative development.
-
-[⬆ Back to top](#-table-of-contents)
-
----
+[⬆ Back to top](#table-of-contents)
 
 ## ✨ Credits
-
-### Content
-All code in this project was written by Linnéa Ternevik (2025).
-
-### Code Support
-- AI tools (e.g. ChatGPT) were used occasionally for debugging assistance, code reviews, and documentation improvements.
-
-### Media
+- Occasional debugging, code reviews, and documentation support by AI tools.
 - [Carbon](https://carbon.now.sh) was used to create the terminal mockup image included in this README.
 - [Lucidchart](https://www.lucidchart.com) was used to create the UML diagram.
   
-[⬆ Back to top](#-table-of-contents)
+[⬆ Back to top](#table-of-contents)
 
 ---
 
 ✨ _Best wishes and happy coding!_
 
 **Linnéa Ternevik**
+
 
 
 
