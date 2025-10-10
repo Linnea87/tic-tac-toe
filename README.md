@@ -245,7 +245,7 @@ cd tic-tac-toe
 #### In IntelliJ;
 
 ```
-Right-click on `Main.java` → Run 'Main'
+Right-click on Main.java → Run 'Main'
 ```
 
 #### In terminal;
