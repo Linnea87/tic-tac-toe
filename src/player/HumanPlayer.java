@@ -10,6 +10,9 @@ import java.util.Scanner;
  * HumanPlayer – represents a player controlled by user input.
  */
 public class HumanPlayer implements Player {
+
+    // === Fields ===============================================================
+
     private final String name;
     private final Mark mark;
     private final Scanner scanner;
@@ -49,22 +52,38 @@ public class HumanPlayer implements Player {
     // === Turn logic ===========================================================
 
     /**
-     * Prompts the human player for a move in chess-style coordinates (e.g. A1, B2, C3).
-     * Keeps looping until valid input is provided and converted to a cell number.
+     * Prompts the player for a move, validates it, and returns the chosen cell.
      */
     @Override
     public int chooseCell(Board board) {
         while (true) {
             String nameColored = ConsoleUI.coloredByMark(name, mark);
             String markColored = ConsoleUI.coloredMark(mark);
-            System.out.println(nameColored + " " + markColored + ConsoleColors.GRAY + " choose a cell (e.g., A1, B2, C3):" + ConsoleColors.RESET);
+
+            String hint = buildRangeHint(board);
+            System.out.println(
+                    nameColored + " " + markColored + " " +
+                            ConsoleColors.GRAY + Messages.PROMPT_CHOOSE_CELL.formatted(hint) + ConsoleColors.RESET
+            );
+
             String raw = scanner.nextLine().trim();
             try {
                 return CellParser.parse(raw, board);
-            }
-            catch (IllegalArgumentException ex) {
+            } catch (IllegalArgumentException ex) {
                 ConsoleUI.printError(Messages.ERR_INVALID_INPUT, ex.getMessage(), Messages.ERR_TRY_AGAIN);
             }
         }
+    }
+
+    // === Helpers ==============================================================
+
+    /**
+     * Builds a coordinate range hint for the current board size.
+     * Example: "A1–C3" on a 3×3 board, "A1–J10" on a 10×10 board.
+     */
+    private String buildRangeHint(Board board) {
+        int size = board.getSize();
+        char lastCol = (char) ('A' + size - 1);
+        return "A1–" + lastCol + size;
     }
 }
