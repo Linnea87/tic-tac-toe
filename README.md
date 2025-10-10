@@ -29,7 +29,7 @@
     - [Gameplay Instructions](#gameplay-instructions)
 - [Credits](#-credits)
 
-## Introduction
+## 📖 Introduction
 
 This is a text-based version of the classic Tic-Tac-Toe game. It is a fully interactive, terminal-based project designed with a focus on user experience, clean code architecture, and scalability. Players can compete in human vs. human or human vs. AI modes, with three different AI difficulty levels.
 ### Project goals
@@ -43,9 +43,9 @@ This is a text-based version of the classic Tic-Tac-Toe game. It is a fully inte
 
 [⬆ Back to top](#table-of-contents)
 
-## Data Model
+## 🧩 Data Model
 
-### UML Diagram
+### 🗺️ UML Diagram
 
 The UML diagram below was created in Lucidchart to outline the initial structure and relationships between the main components of the game. It illustrates how the core parts — including game logic, AI strategies, and player classes — were originally designed to interact.
 
@@ -59,7 +59,7 @@ While the diagram provided a solid foundation during early development, the fina
 → Association  
 -▷ Implementation (interface)
 
-### Project Structure
+### 🗂️ Project Structure
 
 The project is organized into packages based on functionality, improving readability, maintainability, and scalability:
 - app → Handles game flow and user interaction.
@@ -96,7 +96,7 @@ src/
     └── NameValidator.java
 ```
 
-### Design
+### 🎨 Design
 
 A key design goal was to make the game as engaging and user-friendly as possible, even within a terminal environment.
 Some key design decisions:
@@ -107,9 +107,9 @@ Some key design decisions:
 
 [⬆ Back to top](#table-of-contents)
 
-## Features
+## ✨ Features
 
-### Existing features
+### 🔧 Existing features
 
 - Human vs Human and Human vs AI gameplay modes.
 - Adjustable board size (3×3 up to 10×10) in Human vs Human mode.
@@ -119,7 +119,7 @@ Some key design decisions:
 - Centralized message management in Messages.java for easy localization.
 - ANSI-colored console output for enhanced readability and engagement.
 
-#### AI Behavior & Strategy
+#### 🤖 AI Behavior & Strategy
 
 | Difficulty | Strategy Class | Description |
 |------------|------------------|--------------|
@@ -127,7 +127,7 @@ Some key design decisions:
 | **Medium** | `HeuristicStrategy` | Blocks or extends potential winning lines — more defensive. |
 | **Hard** | `MinimaxStrategy` | Evaluates all possible future states to choose the optimal move. |
 
-### Future features
+### 🌟 Future features
 
 - Persistent player statistics across sessions.
 - Monthly challenges or mini-tournaments.
@@ -136,7 +136,8 @@ Some key design decisions:
 
 [⬆ Back to top](#table-of-contents)
 
-## Technologies
+## 🛠️ Technologies
+
 - Java 21 – Core language and standard libraries.
 - JUnit 5 – Unit testing framework.
 - Git – Version control.
@@ -145,24 +146,25 @@ Some key design decisions:
 
 [⬆ Back to top](#table-of-contents)
 
-## Testing
+## 🧪 Testing
 
 Testing was performed continuously throughout the project using JUnit 5, with both manual and automated methods. This ensured correct behavior, robust edge-case handling, and system stability during refactoring.
 
-### Input Validation
+### ✅ Input Validation
 
 All critical inputs (player names, board size, move coordinates) are validated before processing. Invalid input triggers clear, colored error messages and prompts for retry.
 
-### Code Validation
+### 🧰 Code Validation
 
 - All classes and methods follow SRP (Single Responsibility Principle).- All classes and methods follow SRP (Single Responsibility Principle).
 - The project passes all JUnit tests without errors.
 - Code follows OOP and clean-code best practices.
 
-### Tests result:
+### 📊 Tests result:
 [View all test files here](https://github.com/Linnea87/tic-tac-toe/tree/main/test)
 
 The table below provides a detailed overview of the unit tests implemented for this project. Each test verifies key functionality to ensure that the system behaves as expected, remains stable under different scenarios, and meets quality and reliability standards.
+
 #### `model` Package Tests
 
 | Test Class | Description | Status |
@@ -204,21 +206,22 @@ The table below provides a detailed overview of the unit tests implemented for t
 
 [⬆ Back to top](#table-of-contents)
 
-## Bugs
+## 🐛 Bugs
 
-### Solved Bugs
+### 🔨 Solved Bugs
 
 - Fixed crash caused by invalid user input.
 - Corrected cell parsing to handle out-of-range inputs.
-### Unresolved Bugs
+
+### 🐞 Unresolved Bugs
 
 - None known.
 
 [⬆ Back to top](#table-of-contents)
 
-## Deployment
+## 🚀 Deployment
 
-### Adding, committing and pushing code
+### 📤 Adding, committing and pushing code
 
 ```
 git add <file>
@@ -226,7 +229,7 @@ git commit -m "commit message"
 git push
 ```
 
-### Cloning and Forking:
+### 🍴Cloning and Forking:
 
 If you want to clone or fork this project, you can do so from my [GitHub](https://github.com/Linnea87/tic-tac-toe) repository.
 
@@ -240,7 +243,7 @@ git clone https://github.com/Linnea87/tic-tac-toe.git
 cd tic-tac-toe
 ```
 
-### Running the project locally
+### 💻 Running the project locally
 
 #### In IntelliJ;
 
@@ -254,7 +257,7 @@ javac -d out src/**/*.java
 java -cp out app.Main
 ```
 
-### Gameplay Instructions
+### 🕹️Gameplay Instructions
 
 Moves are entered as Column + Row, e.g. A1, B2, C3.
 
@@ -281,7 +284,7 @@ Moves are entered as Column + Row, e.g. A1, B2, C3.
 
 [⬆ Back to top](#table-of-contents)
 
-## ✨ Credits
+## 🙌 Credits
 - Occasional debugging, code reviews, and documentation support by AI tools.
 - [Carbon](https://carbon.now.sh) was used to create the terminal mockup image included in this README.
 - [Lucidchart](https://www.lucidchart.com) was used to create the UML diagram.
@@ -293,7 +296,5 @@ Moves are entered as Column + Row, e.g. A1, B2, C3.
 ✨ _Best wishes and happy coding!_
 
 **Linnéa Ternevik**
-
-
 
 
