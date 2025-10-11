@@ -64,4 +64,5 @@ public class Messages {
     public static final String WELCOME_LINE1           = "Two players take turns to play.";
     public static final String WELCOME_LINE2           = "Get three in a row to win!";
     public static final String MOVE_HINT               = "Enter moves as column+row, e.g. %s.";
+    public static final String MSG_WIN_CONDITION      = "Win condition: %d in a row on a %dx%d board.";
 }

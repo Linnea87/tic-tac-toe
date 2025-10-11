@@ -2,7 +2,6 @@ package util;
 
 import model.Mark;
 import player.Player;
-
 import java.util.Scanner;
 
 /**
@@ -144,4 +143,21 @@ public class ConsoleUI {
         System.out.println("                 " + Messages.BANNER_LETS_PLAY);
         printSeparator();
     }
+
+    // === Condition hint ==================================================
+
+    public static void printMoveHint(int boardSize) {
+        String range = Grid.getCoordinateRange(boardSize);
+        printInfo(" " + Messages.MOVE_HINT.formatted(range));
+    }
+
+    public static void printWinConditionHint(int size) {
+        printInfo(" " + Messages.MSG_WIN_CONDITION.formatted(size, size, size));
+    }
+
+    public static void printPreRoundHints(int boardSize) {
+        printMoveHint(boardSize);
+        printWinConditionHint(boardSize);
+    }
+
 }

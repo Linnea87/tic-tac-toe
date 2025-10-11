@@ -12,9 +12,7 @@ import player.HumanPlayer;
 import player.Player;
 import util.ConsoleColors;
 import util.ConsoleUI;
-import util.Grid;
 import util.Messages;
-
 import java.util.Scanner;
 
 /**
@@ -33,6 +31,7 @@ public class Game {
     private final boolean thinkingDelay;
     private final Menu menu;
     private int boardSize = 3; // default 3x3 (AI stays on 3x3)
+    private boolean moveHintShown = false;
 
     // === Constructors =========================================================
 
@@ -55,7 +54,11 @@ public class Game {
         setupPlayers();
         ConsoleUI.clearScreen();
         ConsoleUI.printStartBanner(p1, p2);
-        printMoveHint();
+
+        if (!moveHintShown) {
+           ConsoleUI.printPreRoundHints(boardSize);
+            moveHintShown = true;
+        }
 
         boolean running = true;
         while (running) {
@@ -72,23 +75,29 @@ public class Game {
                 case REMATCH -> {
                     ConsoleUI.clearScreen();
                     ConsoleUI.printStartBanner(p1, p2);
-                    printMoveHint();
+
                 }
 
                 case CHANGE_OPPONENT -> {
                     scoreboard.reset();
                     setupOpponentOnly();
+                    moveHintShown = false;
+
                     ConsoleUI.clearScreen();
                     ConsoleUI.printStartBanner(p1, p2);
-                    printMoveHint();
+                   ConsoleUI.printPreRoundHints(boardSize);
+                    moveHintShown = true;
                 }
 
                 case CHANGE_BOTH -> {
                     scoreboard.reset();
                     setupPlayers();
+                    moveHintShown = false;
+
                     ConsoleUI.clearScreen();
                     ConsoleUI.printStartBanner(p1, p2);
-                    printMoveHint();
+                   ConsoleUI.printPreRoundHints(boardSize);
+                    moveHintShown = true;
                 }
 
                 case QUIT -> running = false;
@@ -103,12 +112,6 @@ public class Game {
         ConsoleUI.heading(Messages.WELCOME_TITLE);
         ConsoleUI.printInfo(" " + Messages.WELCOME_LINE1);
         ConsoleUI.printInfo(" " + Messages.WELCOME_LINE2);
-        System.out.println();
-    }
-
-    private void printMoveHint() {
-        String range = Grid.getCoordinateRange(boardSize);
-        ConsoleUI.printInfo(" " + Messages.MOVE_HINT.formatted(range));
         System.out.println();
     }
 
