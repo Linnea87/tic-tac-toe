@@ -159,5 +159,4 @@ public class ConsoleUI {
         printWinConditionHint(boardSize);
         printMoveHint(boardSize);
     }
-
 }
