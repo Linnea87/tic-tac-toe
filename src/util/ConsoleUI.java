@@ -156,8 +156,8 @@ public class ConsoleUI {
     }
 
     public static void printPreRoundHints(int boardSize) {
-        printMoveHint(boardSize);
         printWinConditionHint(boardSize);
+        printMoveHint(boardSize);
     }
 
 }
