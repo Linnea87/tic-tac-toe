@@ -111,6 +111,7 @@ Some key design decisions:
 
 - Human vs Human and Human vs AI gameplay modes.
 - Adjustable board size (3×3 up to 10×10) in Human vs Human mode.
+- Dynamic win conditions based on board size — for example, 4-in-a-row on a 4×4 board or 10-in-a-row on a 10×10 board.
 - Three AI difficulty levels: Random, Heuristic, and Minimax.
 - Robust input validation with clear error messages.
 - Comprehensive scoreboard tracking wins and draws.
@@ -119,18 +120,17 @@ Some key design decisions:
 
 #### 🤖 AI Behavior & Strategy
 
-| Difficulty | Strategy Class | Description |
-|------------|------------------|--------------|
-| **Easy** | `RandomStrategy` | Selects a random empty cell — simple and unpredictable. |
-| **Medium** | `HeuristicStrategy` | Blocks or extends potential winning lines — more defensive. |
-| **Hard** | `MinimaxStrategy` | Evaluates all possible future states to choose the optimal move. |
+| Difficulty | Strategy Class      | Description                                                      |
+|------------|---------------------|------------------------------------------------------------------|
+| **Easy**   | `RandomStrategy`    | Selects a random empty cell — simple and unpredictable.          |
+| **Medium** | `HeuristicStrategy` | Blocks or extends potential winning lines — more defensive.      |
+| **Hard**   | `MinimaxStrategy`   | Evaluates all possible future states to choose the optimal move. |
 
 ### 🌟 Future features
 
 - Persistent player statistics across sessions.
 - Monthly challenges or mini-tournaments.
 - Enhanced AI logic for larger board sizes.
-- Support for multiple game variants (e.g., “4-in-a-row”).
 
 [Back to top](#table-of-contents)
 
@@ -172,35 +172,35 @@ The table below provides a detailed overview of the unit tests implemented for t
 
 #### `util` Package Tests
 
-| Test Class | Description | Status |
-|------------|------------|--------|
-| **NameValidatorTest** | Checks that valid and invalid names are handled correctly. | ✅ |
-| **CellParserTest** | Validates and parses user input like `A1` into board positions and throws correct exceptions for invalid input. | ✅ |
-| **MessagesTest** | Ensures all user-facing messages are displayed correctly and consistently. | ✅ |
-| **ConsoleUITest** | Verifies formatted console output, colors, and layout helpers. | ✅ |
-| **ConsoleColorsTest** | Ensures ANSI color codes are applied and rendered correctly. | ✅ |
+| Test Class            | Description                                                                                                     | Status |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------|--------|
+| **NameValidatorTest** | Checks that valid and invalid names are handled correctly.                                                      | ✅      |
+| **CellParserTest**    | Validates and parses user input like `A1` into board positions and throws correct exceptions for invalid input. | ✅      |
+| **MessagesTest**      | Ensures all user-facing messages are displayed correctly and consistently.                                      | ✅      |
+| **ConsoleUITest**     | Verifies formatted console output, colors, and layout helpers.                                                  | ✅      |
+| **ConsoleColorsTest** | Ensures ANSI color codes are applied and rendered correctly.                                                    | ✅      |
 
 #### `player` Package Tests
 
-| Test Class | Description | Status |
-|------------|------------|--------|
-| **HumanPlayerTest** | Tests player input handling and constructor validation. | ✅ |
-| **ComputerPlayerTest** | Ensures AI moves are only made in valid, empty cells. | ✅ |
+| Test Class             | Description                                             | Status |
+|------------------------|---------------------------------------------------------|--------|
+| **HumanPlayerTest**    | Tests player input handling and constructor validation. | ✅      |
+| **ComputerPlayerTest** | Ensures AI moves are only made in valid, empty cells.   | ✅      |
 
 #### `ai` Package Tests
 
-| Test Class | Description | Status |
-|------------|------------|--------|
-| **RandomStrategyTest** | Verifies AI always selects valid empty cells. | ✅ |
-| **HeuristicStrategyTest** | Ensures AI correctly blocks or extends winning lines. | ✅ |
-| **MinimaxStrategyTest** | Tests minimax decision-making logic and ensures optimal moves. | ✅ |
+| Test Class                | Description                                                    | Status |
+|---------------------------|----------------------------------------------------------------|--------|
+| **RandomStrategyTest**    | Verifies AI always selects valid empty cells.                  | ✅      |
+| **HeuristicStrategyTest** | Ensures AI correctly blocks or extends winning lines.          | ✅      |
+| **MinimaxStrategyTest**   | Tests minimax decision-making logic and ensures optimal moves. | ✅      |
 
 #### `app` Package Tests
 
-| Test Class | Description | Status |
-|------------|------------|--------|
-| **MenuTest** | Validates menu navigation, option selection, and user flow. | ✅ |
-| **GameTest** | Full end-to-end simulation: verifies player X winning a game (including board size selection), draw scenarios, AI matches at all difficulty levels, and scoreboard + restart flow. | ✅ |
+| Test Class   | Description                                                                                                                                                                        | Status |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|
+| **MenuTest** | Validates menu navigation, option selection, and user flow.                                                                                                                        | ✅      |
+| **GameTest** | Full end-to-end simulation: verifies player X winning a game (including board size selection), draw scenarios, AI matches at all difficulty levels, and scoreboard + restart flow. | ✅      |
 
 [Back to top](#table-of-contents)
 
