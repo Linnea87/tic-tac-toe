@@ -81,6 +81,7 @@ public class Game {
                 case CHANGE_OPPONENT -> {
                     scoreboard.reset();
                     setupOpponentOnly();
+                    scoreboard.ensurePlayer(p1.getName(), p1.getMark());
                     moveHintShown = false;
 
                     ConsoleUI.clearScreen();
@@ -197,7 +198,8 @@ public class Game {
                 System.out.println();
 
                 ConsoleUI.printSeparator();
-                ConsoleUI.printInfo(" " + Messages.MSG_DRAW);                ConsoleUI.printSeparator();
+                ConsoleUI.printInfo(" " + Messages.MSG_DRAW);
+                ConsoleUI.printSeparator();
                 break;
             }
 
